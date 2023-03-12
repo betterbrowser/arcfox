@@ -1,17 +1,5 @@
-<p align="center">
-  <a href="#">
-  </a>
-  <p align="center">
-   <img width="150" height="150" src="/logo.png" alt="Logo">
-  </p>
-  <h1 align="center"><b>ArcFox</b></h1>
-  <p align="center">
-  Make firefox flow like arc
-    <br />
-    <a href="https://github.com/use-arcfox/arcfox/releases"><strong>Install »</strong></a>
-    <br />
-  </p>
-</p>
+# Arcfox
+Make firefox Flow like arc
 
 # What is ArcFox?
 ArcFox is a pack of firefox improvements that brings the appearance and some of the features of arc browser to firefox. Recently, The Browser Company © (the developers of arc browser) announced a windows version, so this project almost lost the reason to exist. But there still a linux version to be made and some people just like firefox and don't want to change.
@@ -33,7 +21,7 @@ To install arcfox-theme you need to open your firefox configurations and turn st
 - Restart firefox.
 
 ## ArcFox-Core
-> ArcFox extensions and features still under developement
+To download arcfox-core you can find it at firefox addons store in [this link](https://addons.mozilla.org/en-US/firefox/addon/arcfox/) or you can compile the extension by yourself using the code on this repository or the instable and under developement code in [arcfox-core](https://github.com/use-arcfox/arcfox-core) repository.
 
 # Support
 If you have any problems you can open a issue on this repository or contact the developer [here](https://discord.gg/VRBVsjJ7NQ)
