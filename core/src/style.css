@@ -1,0 +1,129 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}
+
+#sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 250;
+  background-color: #3b3f52;
+  box-shadow: 2px 0 4px rgba(0, 0, 0, 0.3);
+  z-index: 9999;
+}
+
+#sidebar-header {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  padding: 10px;
+  background-color: #3b3f52;
+  border-bottom: 1px solid #d0d0d0;
+}
+
+#sidebar-header button {
+  border: none;
+  border-radius: 5px;
+  background: transparent;
+  color: white;
+}
+
+#sidebar-header button:hover {
+  border-radius: 5px;
+  background: #5e5f71;
+  color: white;
+}
+
+#page-control {
+  display: flex;
+  margin: 10px;
+  width: 100%;
+  flex-direction: row;
+  justify-content: flex-end;
+  gap: 3px;
+}
+
+#action-buttons {
+  display: flex;
+  margin-right: auto;
+  gap: 3px;
+}
+
+#sidebar-header input {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  border: none;
+  font-size: 17px;
+  color: white;
+  text-decoration: none;
+  background-color: #323446;
+}
+
+#sidebar-content {
+  height: 100%;
+}
+
+#sidebar-content ul {
+  list-style: none;
+  margin: 0;
+  padding: 10px;
+}
+
+#sidebar-content ul li {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 10px;
+  width: 100%;
+  cursor: pointer;
+  border-radius: 5px;
+  color: white;
+}
+
+#sidebar-content ul li.active {
+  background-color: #5e5f71;
+}
+
+#sidebar-content ul li button {
+  margin-left: auto;
+  background: transparent;
+  color: white;
+}
+
+#sidebar-content ul li button:hover {
+  margin-left: auto;
+  border-radius: 5px;
+  background: #323446;
+}
+
+#sidebar-content button {
+  padding: 10px;
+  border-radius: 5px;
+  border: none;
+  font-size: 14px;
+  background-color: transparent;
+  cursor: pointer;
+  color: white;
+}
+
+#new-tab-button {
+  display: block;
+  margin: 0 auto;
+  width: 93%;
+  text-align: center;
+  padding: 5px;
+  border-radius: 5px;
+  border: none;
+  font-size: 14px;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+#new-tab-button:hover {
+  background-color: #5e5f71;
+  cursor: pointer;
+}
