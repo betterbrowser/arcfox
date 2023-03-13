@@ -4,25 +4,26 @@
     <meta charset="utf-8">
     <title>arcfox-core</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
   </head>
   <body>
     <div id="sidebar">
       <div id="sidebar-header">
         <div id="page-control">
           <div id="action-buttons">
-            <button id="close">exit</button>
-            <button id="size">size</button>
-            <button id="hide">hide</button>
+            <button id="close"><i class="fa-solid fa-circle-xmark"></i></button>
+            <button id="size"><i class="fa-solid fa-circle-stop"></i></button>
+            <button id="hide"><i class="fa-solid fa-circle-minus"></i></button>
           </div>
-          <button id="back">back</button>
-          <button id="front">forward</button>
-          <button id="refresh">refresh</button>
+          <button id="back"><i class="fa-solid fa-arrow-left"></i></button>
+          <button id="front"><i class="fa-solid fa-arrow-right"></i></button>
+          <button id="refresh"><i class="fa-solid fa-rotate-right"></i></button>
         </div>
         <input id="search-input" type="text" placeholder="Search...">
       </div>
       <div id="sidebar-content">
+        <button id="new-tab-button">+  New Tab</button>
         <ul id="tab-list"></ul>
-        <button id="new-tab-button">+</button>
       </div>
     </div>
     <script src="sidebar.js"></script>

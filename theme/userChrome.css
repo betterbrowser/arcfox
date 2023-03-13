@@ -6,11 +6,10 @@
 
 #titlebar {
   -moz-appearance: none !important;
-  height: 30px !important;
+  height: 20px !important;
   margin-top: -5px !important;
   margin-left: -5px !important;
   margin-right: -5px !important;
-  border-radius: 30px 30px 0 0 !important;
   background-color: transparent !important;
   position: fixed !important;
   width: calc(100% + 10px) !important;
@@ -19,8 +18,16 @@
 }
 
 #browser {
-  border: 5px solid #3b3f52 !important;
+  border: 7px solid #3b3f52 !important;
+  browser-radius: 15px;
   box-sizing: border-box;
+  background: #3b3f52;
+}
+
+#appcontent {
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  overflow: hidden;
 }
 
 /* Hide the sidebar title */
@@ -29,8 +36,16 @@
 }
 
 /* Fix the sidebar size */
-#sidebar {
-  width: 300px; /* set the width */
-  height: 100%; /* set the height to 100% to fill the available vertical space */
-  overflow: auto; /* add scrolling if the content overflows */
+#sidebar-box {
+  min-width: 250px !important;
+  max-width: 300px !important;
+  min-height: unset !important;
+  max-height: unset !important;
+  border-right: none !important;
+}
+
+#sidebar-splitter {
+  background-color: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
 }

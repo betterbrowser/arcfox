@@ -87,23 +87,74 @@ document.addEventListener("click", (event) => {
   }
 });
 
-// Search Bar
+// Search
+browser.tabs.onActivated.addListener(async () => {
+  const tab = await browser.tabs.query({ active: true, currentWindow: true });
+  const currentUrl = tab[0].url;
+  searchInput.placeholder = currentUrl;
+});
+
+function updateSearchBar() {
+  browser.tabs.query({active: true, currentWindow: true}).then((tabs) => {
+    const currentUrl = tabs[0].url;
+    searchInput.placeholder = currentUrl;
+  });
+}
+
+setInterval(updateSearchBar, 50);
+
+browser.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
+  if (changeInfo.url) {
+    const newTitle = performSearch(changeInfo.url)
+    browser.tabs.executeScript(tabId, { code: `document.title = '${newTitle}';` });
+    renderTabs(tabs)
+  }
+});
+
+// Function to perform the search and return a new tab title
+function performSearch(url) {
+  // Perform your search logic here...
+  // For example, you could extract keywords from the URL and use them to generate a new title
+  const keywords = extractKeywords(url);
+  const newTitle = `Search results for ${keywords}`;
+
+  return newTitle;
+}
+
+// Function to extract keywords from a URL
+function extractKeywords(url) {
+  // Perform your keyword extraction logic here...
+  // For example, you could extract the query parameter from a search engine URL
+  const queryParam = new URLSearchParams(new URL(url).search).get('q');
+
+  return queryParam;
+}
+
 function searchBar() {
-    const query = searchInput.value.trim().toLowerCase();
-    if (query === "") {
-        renderTabs(tabs);
-        return;
-    }
-    // Check if query ends with .com
-    if (query.endsWith(".com")) {
-        const url = "https://" + query;
-        browser.tabs.create({ url: url });
+  const query = searchInput.value.trim();
+  if (query === "") {
+    return;
+  }
+  browser.tabs.query({active: true, currentWindow: true}).then((tabs) => {
+    const currentTab = tabs[0];
+    let url;
+    if (query.startsWith("http://") || query.startsWith("https://")) {
+      url = query;
+    } else if (query.endsWith(".com")) {
+      url = "https://" + query;
     } else {
-        const url = "https://www.google.com/search?q=" + encodeURIComponent(query);
-        browser.tabs.create({ url: url });
+      url = "https://www.google.com/search?q=" + encodeURIComponent(query);
     }
+    browser.tabs.update(currentTab.id, {url: url});
     // Clear the search input
     searchInput.value = "";
+    // Update the search bar with the current URL
+    updateSearchBar();
+  });
+  // When clicked, clear the search input
+  searchInput.onclick = function() {
+    searchInput.placeholder = "";
+  }
 }
 
 // Render the tabs on sidebar

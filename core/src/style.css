@@ -2,6 +2,7 @@ body {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
+  width: 100%;
 }
 
 #sidebar {
@@ -9,10 +10,15 @@ body {
   top: 0;
   left: 0;
   bottom: 0;
-  width: 250;
+  right: 0;
   background-color: #3b3f52;
   box-shadow: 2px 0 4px rgba(0, 0, 0, 0.3);
   z-index: 9999;
+}
+
+#sidebar::-webkit-scrollbar {
+  width: 0px;
+  height: 0px;
 }
 
 #sidebar-header {
@@ -27,13 +33,17 @@ body {
 #sidebar-header button {
   border: none;
   border-radius: 5px;
+  margin-bottom: 10px;
   background: transparent;
   color: white;
 }
 
-#sidebar-header button:hover {
-  border-radius: 5px;
-  background: #5e5f71;
+#sidebar-header button i {
+  font-size: 15px;
+  color: #aac2d3;
+}
+
+#sidebar-header button i:hover {
   color: white;
 }
 
@@ -54,17 +64,26 @@ body {
 
 #sidebar-header input {
   width: 100%;
-  padding: 10px;
-  border-radius: 5px;
+  padding: 15px;
+  border-radius: 15px;
   border: none;
-  font-size: 17px;
+  font-size: 15px;
   color: white;
   text-decoration: none;
   background-color: #323446;
 }
 
+#sidebar-header input:before {
+  content: "\f002";
+  font-family: "Font Awesome 6 Free";
+  font-weight: 900;
+  margin-right: 0.5em;
+}
+
 #sidebar-content {
   height: 100%;
+  overflow-y: auto;
+  padding-bottom: 50px; /* add padding to avoid content being hidden by the footer */
 }
 
 #sidebar-content ul {
@@ -80,7 +99,7 @@ body {
   padding: 10px;
   width: 100%;
   cursor: pointer;
-  border-radius: 5px;
+  border-radius: 15px;
   color: white;
 }
 
@@ -102,28 +121,29 @@ body {
 
 #sidebar-content button {
   padding: 10px;
-  border-radius: 5px;
+  border-radius: 15px;
   border: none;
   font-size: 14px;
   background-color: transparent;
   cursor: pointer;
-  color: white;
 }
 
 #new-tab-button {
   display: block;
   margin: 0 auto;
+  margin-top: 10px;
   width: 93%;
-  text-align: center;
   padding: 5px;
-  border-radius: 5px;
+  border-radius: 15px;
   border: none;
   font-size: 14px;
+  color: #aac2d3;
   background-color: transparent;
   cursor: pointer;
 }
 
 #new-tab-button:hover {
   background-color: #5e5f71;
+  color: white;
   cursor: pointer;
 }
