@@ -23,8 +23,15 @@ ArcFox is a pack of firefox improvements that brings the appearance and some of 
 I really recomend you to give a try on arc browser if you can. But we gonna do our best to make firefox nice as arc.
 
 # Installation
+To use ArcFox you need to install arcfox-core and arcfox-theme (in this specific order). To proceed with the instalation, use the tutorial below. Using arcfox-core and arcfox-theme together is the best way to use ArcFox!
 
-## ArcFox-Theme
+### ArcFox-core Installation
+To install arcfox-theme you need to download it on your firefox, we recommend you to download from the official addon store. To do that please follow this steps:
+
+- Download arcfox-core from this [link](https://addons.mozilla.org/en-US/firefox/addon/arcfox/)
+- It should start to work just fine :D
+
+### ArcFox-Theme Installation
 To install arcfox-theme you need to open your firefox configurations and turn style modification on. To do that please follow this steps:
 
 - Open <a href="about:config">"about:config"</a> on firefox.
@@ -33,12 +40,6 @@ To install arcfox-theme you need to open your firefox configurations and turn st
 - When the folder opens, search for a folder called "chrome", if you don't find it create one.
 - Inside the "chrome" folder, drop the "userChrome.css" that you find on the <a href="https://github.com/use-arcfox/arcfox/releases">releases.</a>
 - Restart firefox.
-
-## ArcFox-core
-To install arcfox-theme you need to download it on your firefox, we recommend you to download from the official addon store. To do that please follow this steps:
-
-- Download arcfox-core from this [link](https://addons.mozilla.org/en-US/firefox/addon/arcfox/)
-- It should start to work just fine :D
 
 # Support
 If you have any problems you can open a issue on this repository or contact the developer [here](https://discord.gg/VRBVsjJ7NQ)
