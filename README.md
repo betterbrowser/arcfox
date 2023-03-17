@@ -41,6 +41,14 @@ To install arcfox-theme you need to open your firefox configurations and turn st
 - Inside the "chrome" folder, drop the "userChrome.css" that you find on the <a href="https://github.com/use-arcfox/arcfox/releases">releases.</a>
 - Restart firefox.
 
+## Known Problems
+### The sidebar tabs names are not updating.
+- I'm trying to solve it (https://github.com/use-arcfox/ar...)
+### When sidebar close it never open again
+- I'm developing a shortcut for open it! (https://github.com/use-arcfox/ar...)
+### It crashes using linux on low-end computers
+- I don't know why it's happening, and at the moment i can't analyze it. So this problem gonna persist for some time, sorry :(
+
 # Support
 If you have any problems you can open a issue on this repository or contact the developer [here](https://discord.gg/VRBVsjJ7NQ)
 
