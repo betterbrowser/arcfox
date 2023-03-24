@@ -53,9 +53,6 @@ Thanks to the beautiful beta-testers, arcfox is improving everyday! this is some
 ### It crashes using linux on low-end computers
 - I don't know why it's happening, and at the moment i can't analyze it. So this problem gonna persist for some time, sorry :(
 
-## Help Wanted!!
-I'm having a lot of problems on updating the tab names without making the active tab lossing it's css. If you are better with js than me or know how to solve it, please be free to do a pull-request! I'm gonna be so gratefull. Also, if you have any ideas that can improve arcfox pls open a issue with your idea :)
-
 # Support
 If you have any problems you can open a issue on this repository or contact the developer [here](https://discord.gg/VRBVsjJ7NQ)
 
