@@ -6,6 +6,21 @@ const tabList = document.getElementById("tab-list");
 const newTabButton = document.getElementById("new-tab-button");
 const settingsButton = document.getElementById("settings");
 
+// Find the list of TLDs from IANA database
+let tlds = [];
+fetch("https://data.iana.org/TLD/tlds-alpha-by-domain.txt")
+  .then((response) => response.text())
+  .then((text) => {
+    let rawTlds = text.split('\n');
+    rawTlds.forEach((tld) => {
+      if (tld.startsWith('#') || tld === '') {
+        return;
+      }
+
+      tlds.push('.' + tld.toLowerCase());
+    });
+  });
+
 // Add event listeners
 searchInput.addEventListener("keydown", function(event) {
   if (event.keyCode === 13) { // Enter key
@@ -131,7 +146,7 @@ function extractKeywords(url) {
 }
 
 function searchBar() {
-  const query = searchInput.value.trim();
+  const query = searchInput.value.trim().toLowerCase();
   if (query === "") {
     return;
   }
@@ -140,7 +155,7 @@ function searchBar() {
     let url;
     if (query.startsWith("http://") || query.startsWith("https://")) {
       url = query;
-    } else if (query.endsWith(".com")) {
+    } else if (tlds.some((tld) => query.endsWith(tld))) {
       url = "https://" + query;
     } else {
       url = "https://www.google.com/search?q=" + encodeURIComponent(query);
