@@ -44,10 +44,12 @@ To install arcfox-theme you need to open your firefox configurations and turn st
 ## Known Problems
 Thanks to the beautiful beta-testers, arcfox is improving everyday! this is some of the things we are aware of and working hard to solve! Some of they are urgent and are main things to use it and we know that. You can know how the project is going on our discord! (link coming soon)
 
-### The sidebar tabs names are not updating.
+### The sidebar tabs names are not updating. (solved)
 - I'm trying to solve it (https://github.com/use-arcfox/ar...)
+
 ### When sidebar close it never open again
 - I'm developing a shortcut for open it! (https://github.com/use-arcfox/ar...)
+
 ### It crashes using linux on low-end computers
 - I don't know why it's happening, and at the moment i can't analyze it. So this problem gonna persist for some time, sorry :(
 
