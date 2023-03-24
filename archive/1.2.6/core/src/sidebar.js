@@ -6,21 +6,6 @@ const tabList = document.getElementById("tab-list");
 const newTabButton = document.getElementById("new-tab-button");
 const settingsButton = document.getElementById("settings");
 
-// Find the list of TLDs from IANA database
-let tlds = [];
-fetch("https://data.iana.org/TLD/tlds-alpha-by-domain.txt")
-  .then((response) => response.text())
-  .then((text) => {
-    let rawTlds = text.split('\n');
-    rawTlds.forEach((tld) => {
-      if (tld.startsWith('#') || tld === '') {
-        return;
-      }
-
-      tlds.push('.' + tld.toLowerCase());
-    });
-  });
-
 // Add event listeners
 searchInput.addEventListener("keydown", function(event) {
   if (event.keyCode === 13) { // Enter key
@@ -146,7 +131,7 @@ function extractKeywords(url) {
 }
 
 function searchBar() {
-  const query = searchInput.value.trim().toLowerCase();
+  const query = searchInput.value.trim();
   if (query === "") {
     return;
   }
@@ -155,7 +140,7 @@ function searchBar() {
     let url;
     if (query.startsWith("http://") || query.startsWith("https://")) {
       url = query;
-    } else if (tlds.some((tld) => query.endsWith(tld))) {
+    } else if (query.endsWith(".com")) {
       url = "https://" + query;
     } else {
       url = "https://www.google.com/search?q=" + encodeURIComponent(query);
@@ -174,39 +159,27 @@ function searchBar() {
 
 // Render the tabs on sidebar
 function renderTabs(tabsToRender) {
-  // Get the current tabs in the window
-  browser.tabs.query({ currentWindow: true })
-    .then((tabs) => {
-      // Build a map of tab ID -> tab title for fast lookup
-      const tabTitleMap = {};
-      for (const tab of tabs) {
-        tabTitleMap[tab.id] = tab.title;
-      }
-
-      // Render the sidebar tabs
-      tabList.innerHTML = "";
-      for (let i = 0; i < tabsToRender.length; i++) {
-        const tab = tabsToRender[i];
-        const tabItem = document.createElement("li");
-        tabItem.textContent = tabTitleMap[tab.id];
-        tabItem.classList.add("tab-item");
-        if (tab === activeTab) {
-          tabItem.classList.add("active");
-        }
-        const closeButton = document.createElement("button");
-        closeButton.textContent = "x";
-        closeButton.classList.add("close-tab-button");
-        closeButton.addEventListener("click", function(event) {
-          event.stopPropagation();
-          closeTab(tab);
-        });
-        tabItem.appendChild(closeButton);
-        tabItem.addEventListener("click", function() {
-          activateTab(tab);
-        });
-        tabList.appendChild(tabItem);
-      }
+  tabList.innerHTML = "";
+  for (let i = 0; i < tabsToRender.length; i++) {
+    const tab = tabsToRender[i];
+    const tabItem = document.createElement("li");
+    tabItem.textContent = tab.title;
+    tabItem.classList.add("tab-item");
+    if (tab === activeTab) {
+      tabItem.classList.add("active");
+    }
+    const closeButton = document.createElement("button");
+    closeButton.innerHTML = "x";
+    closeButton.addEventListener("click", function(event) {
+      event.stopPropagation();
+      closeTab(tab);
     });
+    tabItem.appendChild(closeButton);
+    tabItem.addEventListener("click", function() {
+      activateTab(tab);
+    });
+    tabList.appendChild(tabItem);
+  }
 }
 
 function activateTab(tab) {
