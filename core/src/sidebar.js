@@ -23,7 +23,7 @@ fetch("https://data.iana.org/TLD/tlds-alpha-by-domain.txt")
 
 // Add event listeners
 searchInput.addEventListener("keydown", function(event) {
-  if (event.keyCode === 13) { // Enter key
+  if (event.key === "Enter") {
     searchBar();
   }
 });
@@ -190,6 +190,7 @@ function renderTabs(tabsToRender) {
         const tabItem = document.createElement("li");
         tabItem.textContent = tabTitleMap[tab.id];
         tabItem.classList.add("tab-item");
+        tabItem.addEventListener("mouseover", closeOnMiddleClick.bind(null, tab) , false);
         if (tab === activeTab) {
           tabItem.classList.add("active");
         }
@@ -219,6 +220,14 @@ function closeTab(tab) {
   browser.tabs.remove(tab.id);
   tabs = tabs.filter(function(t) { return t.id !== tab.id; });
   renderTabs(tabs);
+}
+
+function closeOnMiddleClick(tab){
+  window.onmousedown = (e, currentTab = tab) => {
+    if (e.button === 1) {
+      closeTab(currentTab)
+    }
+  }
 }
 
 // Get tabs on extension startup
