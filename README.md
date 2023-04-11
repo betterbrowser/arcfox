@@ -1,3 +1,9 @@
+# Important Note
+
+Hello, arcfox dev here. i never expected arcfox to get this big, we get active users and a community of people that actually use, and want arcfox updates. So i'm here to say a good and a bad news, the good is that arcfox is not a side-project anymore! i'm gonna work more on it. And the bad news are that my actuall code is trash, i'm gonna re-code the extension from zero which may take some time before a update... i hope everyone keep liking and using arcfox, tysm for helping with this project ❤
+
+#
+
 <p align="center">
   <a href="#">
   </a>
