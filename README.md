@@ -24,8 +24,6 @@ Hello, arcfox dev here. i never expected arcfox to get this big, we get active u
 
 ArcFox is a pack of firefox improvements that brings the appearance and some of the features of arc browser to firefox. Recently, The Browser Company © (the developers of arc browser) announced a windows version, so this project almost lost the reason to exist. But there still a linux version to be made and some people just like firefox and don't want to change.
 
-> NOTE: Arcfox is a side-project under development.
-
 I really recomend you to give a try on arc browser if you can. But we gonna do our best to make firefox nice as arc.
 
 # Installation
