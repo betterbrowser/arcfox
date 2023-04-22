@@ -1,33 +1,117 @@
-#TabsToolbar,
-#navigator-toolbox,
-#toolbar-menubar {
-  visibility: collapse !important;
+#appcontent
+  > #tabbrowser-tabbox
+  > #tabbrowser-tabpanels
+  > .deck-selected
+  > .browserContainer
+  > .browserStack
+  > browser {
+  border-radius: 10px !important;
+}
+
+.browserContainer {
+  background-color: var(
+    --lwt-accent-color-inactive,
+    var(--lwt-accent-color)
+  ) !important;
+  background-image: var(--lwt-header-image), var(--lwt-additional-images) !important;
+  background-repeat: no-repeat, var(--lwt-background-tiling) !important;
+  background-position: right top, var(--lwt-background-alignment) !important;
+}
+
+#navigator-toolbox-background {
+  height: 0 !important;
 }
 
 #titlebar {
-  -moz-appearance: none !important;
-  height: 20px !important;
-  margin-top: -5px !important;
-  margin-left: -5px !important;
-  margin-right: -5px !important;
+  opacity: 0;
+  height: 0 !important;
   background-color: transparent !important;
-  position: fixed !important;
-  width: calc(100% + 10px) !important;
   z-index: 9999 !important;
-  -webkit-app-region: drag !important;
+  position: fixed !important;
+  right: 0;
+  top: 0;
+}
+
+vbox#titlebar {
+  display: none;
+}
+
+#forward-button,
+#back-button,
+#reload-button {
+  display: none !important;
+}
+
+#sidebar-button {
+  margin-left: 10px !important;
+}
+
+#TabsToolbar {
+  visibility: collapse !important;
+}
+
+#nav-bar {
+  position: relative;
+  z-index: 1;
+}
+
+#urlbar-container {
+  position: absolute;
+  top: 50px; /* adjust the top position as needed */
+  width: 100%;
+  z-index: 0;
 }
 
 #browser {
-  border: 7px solid #3b3f52 !important;
-  browser-radius: 15px;
+  border: 10px solid #3b3f52 !important;
   box-sizing: border-box;
   background: #3b3f52;
 }
 
 #appcontent {
-  border-top-left-radius: 10px;
-  border-bottom-left-radius: 10px;
+  border-radius: 10px;
   overflow: hidden;
+}
+
+#navigator-toolbox:not(:hover) {
+  --is-bar-visible: hidden;
+  opacity: 0 !important;
+  height: 20px;
+  transition: height 200ms ease-in-out, opacity 175ms ease-in-out;
+}
+
+#navigator-toolbox {
+  position: fixed;
+  z-index: 1;
+  height: 10px;
+  overflow: var(--is-bar-visible);
+  right: 0;
+  top: 0;
+  width: calc(100% - 320px); /* adjust as needed */
+  margin-top: 10px;
+  margin-right: 10px;
+  background-color: transparent !important;
+}
+
+#nav-bar {
+  background-color: #3b3f52 !important;
+}
+
+#navigator-toolbox:hover {
+  height: 40px;
+  opacity: 1 !important;
+  transition: opacity 175ms ease-in-out;
+}
+
+#navigator-toolbox:focus-within {
+  height: 40px;
+  opacity: 1 !important;
+  transition: opacity 175ms ease-in-out;
+  --is-bar-visible: visible;
+}
+
+toolbarbutton[open="true"] {
+  --is-bar-visible: visible !important;
 }
 
 /* Hide the sidebar title */
@@ -37,7 +121,7 @@
 
 /* Fix the sidebar size */
 #sidebar-box {
-  min-width: 250px !important;
+  min-width: 300px !important;
   max-width: 300px !important;
   min-height: unset !important;
   max-height: unset !important;
