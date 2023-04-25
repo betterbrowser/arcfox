@@ -1,6 +1,12 @@
 // Called when the user presses Alt+Q
 function handleShortcut(command) {
-    browser.sidebarAction.open();
+    var match = window.navigator.userAgent.match(/Firefox\/([0-9]+)\./);
+    var ver = match ? parseInt(match[1]) : 0;
+    if (ver>=73){
+        browser.sidebarAction.toggle();
+    }else {
+        browser.sidebarAction.open();
+    }
 }
 
 browser.commands.onCommand.addListener(handleShortcut);  
