@@ -130,8 +130,20 @@ function searchBar() {
     const currentTab = tabs[0];
     let url;
 
-    if (query.startsWith("http://") || query.startsWith("https://") || query.startsWith("about:")) {
-      url = query;
+    const isValidUrl = urlString => {
+      var urlPattern = new RegExp('^(https?:\\/\\/)?' + 
+        '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' + 
+        '((\\d{1,3}\\.){3}\\d{1,3}))' + 
+        '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' +
+        '(\\?[;&a-z\\d%_.~+=-]*)?' + 
+        '(\\#[-a-z\\d_]*)?$', 'i'); 
+      return !!urlPattern.test(urlString);
+    }
+
+    if (isValidUrl(query)) {
+      if (!(query.startsWith('http'))) {
+        url = "http://" + query;
+      } else { url = query; }
     } else {
       url = "https://www.google.com/search?q=" + encodeURIComponent(query);
     }
