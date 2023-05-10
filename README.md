@@ -40,7 +40,7 @@ To install arcfox-theme you need to open your firefox configurations and turn st
 - Restart firefox.
 
 # Support
-If you have any problems you can open a issue on this repository or contact the developer [here](https://discord.gg/VRBVsjJ7NQ)
+If you have any problems you can open a issue on this repository or contact the developer [here](https://discord.gg/C2aGfAgAHk)
 
 # License
 Arcfox is distributed under [MIT License](/LICENSE).
