@@ -6,6 +6,11 @@
   > .browserStack
   > browser {
   border-radius: 10px !important;
+  margin: 10px !important;
+}
+
+.browserStack {
+	background: #3b3f52;
 }
 
 .browserContainer {
@@ -18,22 +23,12 @@
   background-position: right top, var(--lwt-background-alignment) !important;
 }
 
-#navigator-toolbox-background {
-  height: 0 !important;
-}
-
 #titlebar {
-  opacity: 0;
-  height: 0 !important;
-  background-color: transparent !important;
-  z-index: 9999 !important;
-  position: fixed !important;
-  right: 0;
-  top: 0;
+  display: none !important;
 }
 
-vbox#titlebar {
-  display: none;
+.titlebar-buttonbox-container {
+  display: none !important;
 }
 
 #forward-button,
@@ -46,37 +41,10 @@ vbox#titlebar {
   margin-left: 10px !important;
 }
 
-#TabsToolbar {
-  visibility: collapse !important;
-}
-
-#nav-bar {
-  position: relative;
-  z-index: 1;
-}
-
-#urlbar-container {
-  position: absolute;
-  top: 50px; /* adjust the top position as needed */
-  width: 100%;
-  z-index: 0;
-}
-
-#browser {
-  border: 10px solid #3b3f52 !important;
-  box-sizing: border-box;
-  background: #3b3f52;
-}
-
-#appcontent {
-  border-radius: 10px;
-  overflow: hidden;
-}
-
 #navigator-toolbox:not(:hover) {
   --is-bar-visible: hidden;
   opacity: 0 !important;
-  height: 20px;
+  height: 15px;
   transition: height 200ms ease-in-out, opacity 175ms ease-in-out;
 }
 
@@ -87,14 +55,8 @@ vbox#titlebar {
   overflow: var(--is-bar-visible);
   right: 0;
   top: 0;
-  width: calc(100% - 320px); /* adjust as needed */
-  margin-top: 10px;
-  margin-right: 10px;
+  width: calc(100% - 310px);
   background-color: transparent !important;
-}
-
-#nav-bar {
-  background-color: #3b3f52 !important;
 }
 
 #navigator-toolbox:hover {
@@ -110,16 +72,22 @@ vbox#titlebar {
   --is-bar-visible: visible;
 }
 
+#nav-bar {
+  background-color: #3b3f52 !important;
+}
+
+#urlbar-background {
+  background-color: #323446 !important;
+}
+
 toolbarbutton[open="true"] {
   --is-bar-visible: visible !important;
 }
 
-/* Hide the sidebar title */
 #sidebar-header {
    display: none;
 }
 
-/* Fix the sidebar size */
 #sidebar-box {
   min-width: 300px !important;
   max-width: 300px !important;
