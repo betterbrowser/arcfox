@@ -9,6 +9,17 @@ const searchIcon = document.querySelector('.address-bar i');
 // Add event listeners
 newTabButton.addEventListener("click", function() {
   browser.tabs.create({});
+});
+
+// Update sidebar when a tab changes
+browser.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
+  if (changeInfo.status === "complete") {
+    initTabSidebarControl();
+  }
+});
+
+// Update sidebar when a tab is created
+browser.tabs.onCreated.addListener(function(tab) {
   initTabSidebarControl();
 });
 
@@ -38,6 +49,7 @@ function handleBrowserControl(id) {
       browser.windows.update(window.id, {state: "minimized"});
     }
   });
+  initTabSidebarControl();
 }
 
 document.getElementById("back").addEventListener("click", function() {
@@ -178,21 +190,47 @@ function initTabSidebarControl() {
     data.forEach((tab) => {
       const node = document.createElement('li');
       node.draggable = true;
-      node.title = tab.title;
-      node.innerHTML = `
-        <img src="${tab.favIconUrl}" alt="${tab.title}"/>
-        ${tab.title}
-        <button class="close" title="Close Tab">&times;</button>
-      `;
       node.dataset.tabId = tab.id;
+
+      const titleNode = document.createElement('div');
+      titleNode.classList.add('tab-title');
+      titleNode.textContent = tab.title;
+
+      let iconNode;
+      if (tab.favIconUrl) {
+        iconNode = document.createElement('img');
+        iconNode.src = tab.favIconUrl;
+        iconNode.alt = tab.title;
+      } else {
+        iconNode = document.createElement('i');
+        iconNode.classList.add('fa', 'fa-solid', 'fa-globe');
+        iconNode.setAttribute('aria-hidden', 'true');
+      }
+
+      const closeButton = document.createElement('button');
+      closeButton.classList.add('close');
+      closeButton.title = 'Close Tab';
+      closeButton.innerHTML = '&times;';
+      closeButton.addEventListener('click', closeTab);
+
+      node.appendChild(iconNode);
+      node.appendChild(titleNode);
+      node.appendChild(closeButton);
+
       node.addEventListener('drag', setDragging);
       node.addEventListener('dragover', setDraggedOver);
       node.addEventListener('drop', compare);
-      node.querySelector('.close').addEventListener('click', closeTab);
       node.addEventListener('click', navigateToTab);
+      node.addEventListener('auxclick', (event) => {
+        if (event.button === 1) {
+          closeTabwithMiddleButton(event);
+        }
+      });
+
       if (tab.id === activeTabId) {
         node.classList.add('active');
       }
+
       list.appendChild(node);
     });
   };
@@ -221,6 +259,18 @@ function initTabSidebarControl() {
   const closeTab = (e) => {
     e.stopPropagation();
     const tabId = parseInt(e.target.parentNode.dataset.tabId);
+    browser.tabs.remove(tabId);
+    const index = base.findIndex((tab) => tab.id === tabId);
+    if (index !== -1) {
+      base.splice(index, 1);
+      renderItems(base);
+    }
+    initTabSidebarControl();
+  };
+
+  const closeTabwithMiddleButton = (e) => {
+    e.stopPropagation();
+    const tabId = parseInt(e.currentTarget.dataset.tabId);
     browser.tabs.remove(tabId);
     const index = base.findIndex((tab) => tab.id === tabId);
     if (index !== -1) {
@@ -259,7 +309,6 @@ function initTabSidebarControl() {
   
     button.addEventListener("click", function() {
       browser.tabs.create({});
-      initTabSidebarControl();
     });
 
     const secondbutton = document.createElement("button");
@@ -268,7 +317,6 @@ function initTabSidebarControl() {
   
     secondbutton.addEventListener("click", function() {
       browser.tabs.create({});
-      initTabSidebarControl();
     });
 
     const thirdbutton = document.createElement("button");
@@ -282,7 +330,6 @@ function initTabSidebarControl() {
         active: true
       };
       browser.tabs.create(options);
-      initTabSidebarControl();
     });  
 
     const fourthbutton = document.createElement("button");
@@ -292,16 +339,6 @@ function initTabSidebarControl() {
     fourthbutton.addEventListener("click", function() {
       const newPageUrl = "https://www.notion.so/?newPage";
       browser.tabs.create({ url: newPageUrl });
-      initTabSidebarControl();
-    });    
-
-    const fivebutton = document.createElement("button");
-    fivebutton.innerHTML = '<i class="fa-solid fa-box-archive"></i> New Library (coming soon)';
-    fivebutton.classList.add('floating-button');
-  
-    fivebutton.addEventListener("click", function() {
-      browser.tabs.create({});
-      initTabSidebarControl();
     });
   
     browser.tabs.onActivated.addListener(() => {
@@ -315,7 +352,6 @@ function initTabSidebarControl() {
     floatingDiv.appendChild(secondbutton);
     floatingDiv.appendChild(thirdbutton);
     floatingDiv.appendChild(fourthbutton);
-    floatingDiv.appendChild(fivebutton);
     document.body.appendChild(floatingDiv);
 
     document.addEventListener("mousedown", function(event) {
@@ -340,7 +376,6 @@ function initTabSidebarControl() {
   
     button.addEventListener("click", function() {
       browser.tabs.create({});
-      initTabSidebarControl();
     });
   
     const secondbutton = document.createElement("button");
@@ -349,7 +384,6 @@ function initTabSidebarControl() {
   
     secondbutton.addEventListener("click", function() {
       browser.tabs.create({});
-      initTabSidebarControl();
     });
   
     browser.tabs.onActivated.addListener(() => {

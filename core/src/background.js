@@ -1,4 +1,10 @@
-// Called when the user presses Alt+Q
+
+// Turning extension on and checking for updates
+chrome.runtime.onInstalled.addListener(function() {
+    chrome.storage.sync.set({ isEnabled: true });
+});
+
+// Open Sidebar Shortcut - ALT+Q
 function handleShortcut(command) {
     var match = window.navigator.userAgent.match(/Firefox\/([0-9]+)\./);
     var ver = match ? parseInt(match[1]) : 0;
@@ -9,4 +15,4 @@ function handleShortcut(command) {
     }
 }
 
-browser.commands.onCommand.addListener(handleShortcut);  
+browser.commands.onCommand.addListener(handleShortcut);

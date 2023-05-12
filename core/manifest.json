@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "ArcFox",
-  "version": "2.0.3",
+  "version": "2.4.3",
   "description": "Make firefox flow like arc.",
   "icons": {
     "16": "icon.png",
@@ -11,7 +11,8 @@
   "permissions": [
     "activeTab",
     "bookmarks",
-    "tabs"
+    "tabs",
+    "theme"
   ],
   "background": {
     "scripts": ["src/background.js"]

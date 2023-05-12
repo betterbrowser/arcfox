@@ -13,11 +13,13 @@ body {
 }
 
 #sidebar {
+  width: 100% !important;
   position: fixed;
   top: 0;
   bottom: 0;
   background-color: #3b3f52;
   box-shadow: 2px 0 4px rgba(0, 0, 0, 0.3);
+  padding-left: 10px;
 }
 
 #sidebar::-webkit-scrollbar {
@@ -94,13 +96,15 @@ body {
 #sidebar-content {
   height: 100%;
   overflow-y: auto;
-  max-height: calc(100% - 100px);
+  max-height: calc(100% - 120px);
   padding-bottom: 50px;
 }
 
 #sidebar-content ul {
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
   gap: 7px;
   list-style: none;
   margin: 0;
@@ -109,12 +113,11 @@ body {
 
 #sidebar-content ul li {
   display: flex;
+  position: relative;
   justify-content: flex-start;
   align-items: center;
-  overflow-x: hidden;
-  overflow-y: hidden;
-  min-height: 60px;
-  max-height: 70px;
+  min-height: 30px;
+  max-height: 50px;
   padding: 10px;
   width: 100%;
   cursor: pointer;
@@ -122,9 +125,22 @@ body {
   color: white;
 }
 
+.tab-title {
+  color: #fff;
+  max-width: 90%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 #sidebar-content ul li img {
   margin-right: 10px;
   width: 20px;
+}
+
+.fa-globe {
+  margin-right: 10px;
+  font-size: 20px;
 }
 
 #sidebar-content ul li:hover {
@@ -139,19 +155,19 @@ body {
   background-color: #5e5f71;
 }
 
-#sidebar-content ul li button {
-  margin-left: auto;
-  background: transparent;
-  color: white;
-}
-
 #sidebar-content button {
   padding: 10px;
   border-radius: 15px;
   border: none;
   font-size: 14px;
   background-color: transparent;
-  cursor: pointer;
+  cursor: pointer;  
+}
+
+#sidebar-content ul li button {
+  background: transparent;
+  color: #fff;
+  margin-left: auto;
 }
 
 #new-tab-button {
