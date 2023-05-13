@@ -37,7 +37,7 @@ To install arcfox-core you need to download it on your firefox, we recommend you
 ### ArcFox-Theme Installation
 To install arcfox-theme you need to open your firefox configurations and turn style modification on. To do that please follow this steps:
 
-- Open <a href="about:config">"about:config"</a> on firefox.
+- Digit <a href="about:config">"about:config"</a> on firefox address bar and click enter.
 - On the search bar, search for "toolkit.legacyUserProfileCustomizations.stylesheets" and set the value to "true".
 - Open <a href="about:support">"about:support"</a> and click on the “Open Folder” button on the right of "Profile Folder" to open it.
 - When the folder opens, search for a folder called "chrome", if you don't find it create one.
