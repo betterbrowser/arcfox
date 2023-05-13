@@ -12,6 +12,7 @@
     "activeTab",
     "bookmarks",
     "tabs",
+	"search",
     "theme"
   ],
   "background": {

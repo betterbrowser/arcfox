@@ -139,9 +139,6 @@ function searchBar() {
   }
 
   browser.tabs.query({ active: true, currentWindow: true }).then((tabs) => {
-    const currentTab = tabs[0];
-    let url;
-
     const isValidUrl = urlString => {
       var urlPattern = new RegExp('^(https?:\\/\\/)?' + 
         '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' + 
@@ -153,14 +150,11 @@ function searchBar() {
     }
 
     if (isValidUrl(query)) {
-      if (!(query.startsWith('http'))) {
-        url = "http://" + query;
-      } else { url = query; }
-    } else {
-      url = "https://www.google.com/search?q=" + encodeURIComponent(query);
-    }
+	  browser.tabs.update(null, { url: query.startsWith('http') ? query : `https://${query}` });
+	} else {
+	  browser.search.search({disposition: "CURRENT_TAB", query: query})
+	}  
 
-    browser.tabs.update(currentTab.id, { url: url });
     updateSearchBar();
   });
 }
