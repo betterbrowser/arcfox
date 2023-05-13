@@ -150,10 +150,10 @@ function searchBar() {
     }
 
     if (isValidUrl(query)) {
-	  browser.tabs.update(null, { url: query.startsWith('http') ? query : `https://${query}` });
-	} else {
-	  browser.search.search({disposition: "CURRENT_TAB", query: query})
-	}  
+      browser.tabs.update(null, { url: query.startsWith('http') ? query : `https://${query}` });
+    } else {
+      browser.search.search({disposition: "CURRENT_TAB", query: query})
+    }  
 
     updateSearchBar();
   });
