@@ -41,37 +41,6 @@
   margin-left: 10px !important;
 }
 
-#navigator-toolbox:not(:hover) {
-  --is-bar-visible: hidden;
-  opacity: 0 !important;
-  height: 15px;
-  transition: height 200ms ease-in-out, opacity 175ms ease-in-out;
-}
-
-#navigator-toolbox {
-  position: fixed;
-  z-index: 1;
-  height: 10px;
-  overflow: var(--is-bar-visible);
-  right: 0;
-  top: 0;
-  width: calc(100% - 310px);
-  background-color: transparent !important;
-}
-
-#navigator-toolbox:hover {
-  height: 40px;
-  opacity: 1 !important;
-  transition: opacity 175ms ease-in-out;
-}
-
-#navigator-toolbox:focus-within {
-  height: 40px;
-  opacity: 1 !important;
-  transition: opacity 175ms ease-in-out;
-  --is-bar-visible: visible;
-}
-
 #nav-bar {
   background-color: #3b3f52 !important;
 }
@@ -94,10 +63,66 @@ toolbarbutton[open="true"] {
   min-height: unset !important;
   max-height: unset !important;
   border-right: none !important;
+  overflow: visible;
 }
 
 #sidebar-splitter {
   background-color: transparent !important;
   border: none !important;
   box-shadow: none !important;
+}
+
+/*
+  Since we can't use `browser.urlbar.focus()`, let's force navigator-toolbox
+  to be invisible and over the `#search-input` of the side panel.
+  When it gets focus - it appears in `top-ish center` with a slight animation.
+*/
+
+#navigator-toolbox {
+  position: fixed;
+  z-index: 4000;
+  height: 40px;
+  overflow: var(--is-bar-visible);
+  left: 18px;
+  top: 55px;
+  width: 290px;
+  transition: top 200ms ease-in-out, width 200ms ease-in-out, height 200ms ease-in-out;
+}
+
+/* TODO: help needed - where are docs how the "import bookmarks" bar is called in firefox? */
+#navigator-toolbox > *:nth-child(3) {
+  display: none;
+}
+
+#navigator-toolbox:not(:focus),
+#navigator-toolbox:not(:focus-within) {
+  --is-bar-visible: hidden;
+  opacity: 0;
+}
+
+#navigator-toolbox:focus-within {
+  --is-bar-visible: visible;
+  opacity: 1;
+
+  padding: 20px;
+  border: 0px transparent solid;
+  border-radius: 30px;
+  left: 50%;
+  top: 18%;
+  transform: translate(-50%, -50%);
+  width: initial;
+  height: initial;
+}
+
+#navigator-toolbox:focus-within::before {
+  position: fixed;
+  background-color: #00000020;
+  backdrop-filter: blur(200px);
+  margin: -100vw -100vh;
+  width: 1000vw;
+  height: 1000vh;
+  top: 0;
+  left: 0;
+  content: '';
+  pointer-events: none;
 }
