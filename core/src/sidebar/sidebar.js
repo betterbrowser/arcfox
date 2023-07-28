@@ -205,7 +205,7 @@ function initTabSidebarControl() {
       closeButton.classList.add('close');
       closeButton.title = 'Close Tab';
       closeButton.innerHTML = '&times;';
-      closeButton.addEventListener('click', closeTab);
+      closeButton.addEventListener('click', handleCloseTabButtonClick);
 
       node.appendChild(iconNode);
       node.appendChild(titleNode);
@@ -217,7 +217,7 @@ function initTabSidebarControl() {
       node.addEventListener('click', navigateToTab);
       node.addEventListener('auxclick', (event) => {
         if (event.button === 1) {
-          closeTabwithMiddleButton(event);
+          handleCloseTabWithMiddleButton(event);
         }
       });
 
@@ -250,28 +250,26 @@ function initTabSidebarControl() {
     dragging = parseInt(e.target.dataset.tabId);
   };
 
-  const closeTab = (e) => {
+  const closeTab = (tabId) => {
+    browser.tabs.remove(tabId);
+    const index = base.findIndex((tab) => tab.id === tabId);
+    if (index !== -1) {
+      base.splice(index, 1);
+      renderItems(base);
+    }
+    initTabSidebarControl();
+  }
+
+  const handleCloseTabButtonClick = (e) => {
     e.stopPropagation();
     const tabId = parseInt(e.target.parentNode.dataset.tabId);
-    browser.tabs.remove(tabId);
-    const index = base.findIndex((tab) => tab.id === tabId);
-    if (index !== -1) {
-      base.splice(index, 1);
-      renderItems(base);
-    }
-    initTabSidebarControl();
+    closeTab(tabId);
   };
 
-  const closeTabwithMiddleButton = (e) => {
+  const handleCloseTabWithMiddleButton = (e) => {
     e.stopPropagation();
     const tabId = parseInt(e.currentTarget.dataset.tabId);
-    browser.tabs.remove(tabId);
-    const index = base.findIndex((tab) => tab.id === tabId);
-    if (index !== -1) {
-      base.splice(index, 1);
-      renderItems(base);
-    }
-    initTabSidebarControl();
+    closeTab(tabId);
   };
 
   const navigateToTab = (e) => {
@@ -418,6 +416,10 @@ function initTabSidebarControl() {
       updateSearchBar();
     }
   });
+
+  browser.tabs.onRemoved.addListener(function(tabId, removeInfo) {
+    closeTab(tabId);
+  })  
 }
 
 initTabSidebarControl();
