@@ -1,0 +1,6 @@
+{
+  "scripts": {
+    "link": "sh ./scripts/link.sh",
+    "build": "turbo build"
+  }
+}

@@ -1,0 +1,19 @@
+lockfileVersion: 5.4
+
+specifiers:
+  '@types/firefox': ^0.0.31
+  '@types/firefox-webext-browser': ^111.0.1
+
+dependencies:
+  '@types/firefox': 0.0.31
+  '@types/firefox-webext-browser': 111.0.1
+
+packages:
+
+  /@types/firefox-webext-browser/111.0.1:
+    resolution: {integrity: sha512-mmHWdQTCT68X0hh0URrsIyWhJeFzZHaiprj6nni/CmsAmqYq27T0eZyu1ePeKJ/zuDD3wqtTzm5TwRFAso+oPw==}
+    dev: false
+
+  /@types/firefox/0.0.31:
+    resolution: {integrity: sha512-GFamkvAUHpv41OvKSCbFX8HVqIFr8wIWhrUzD/7weQv4dFAdxoZfTj0mB+DJtxTlnw3oJyp1ZNt69TL4PP7ZMg==}
+    dev: false

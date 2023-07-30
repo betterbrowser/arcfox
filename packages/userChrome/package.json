@@ -1,0 +1,9 @@
+{
+  "name": "@arcfox/userchrome",
+  "scripts": {
+    "build": "sass ./src/main.scss ./dist/userChrome.css"
+  },
+  "dependencies": {
+    "sass": "^1.64.1"
+  }
+}
