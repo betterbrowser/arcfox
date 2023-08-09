@@ -1,5 +1,5 @@
-# Important News!!
-Howdy! i have important news about arcfox. for the last month nothing changed much. arcfox at the moment have some bugs but it's totally usable. But this is not the end i want arcfox to be one of the best ways to use firefox and something that goes to the limit of the possibilities of firefox customization. I'm currently rebuilding my tech stack from zero. so i'm gonna learn everything i know again and then re-code arcfox. it's gonna take some time but i wish you stay with me on that time and be patient while i improve arcfox. thank you so much for liking arcfox for so much time. 
+# We are back!!
+Howdy! after no updates on arcfox i would like to announce that we are back on the developement!! For all the people that have been waiting for updates i'm sorry but no releases for now. but i'm working on a new version. arcfox still a side-project but i'm gonna do the best i can with it. tysm for linking the project and helping me make this became even bigger.
 
 ##
 
