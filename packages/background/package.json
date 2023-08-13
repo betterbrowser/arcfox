@@ -1,0 +1,19 @@
+{
+  "name": "@arcfox/background",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/chrome": "^0.0.243",
+    "@types/firefox": "^0.0.31",
+    "@types/firefox-webext-browser": "^111.0.1",
+    "typescript": "^5.1.6"
+  }
+}

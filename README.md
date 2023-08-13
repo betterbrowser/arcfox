@@ -51,6 +51,13 @@ To install arcfox-theme you need to open your firefox configurations and turn st
 - Inside the "chrome" folder, drop the "userChrome.css" that you find on the <a href="https://github.com/use-arcfox/arcfox/releases">releases.</a>
 - Restart firefox.
 
+# Building
+
+1. Make sure you have node 18 and pnpm installed
+2. In root dir run `pnpm i`
+3. In root dir run `pnpm build`
+4. If building is successful - built extension is in `./apps/mozilla-extension/dist`
+
 # Support
 If you have any problems you can open a issue on this repository or contact the developer on Discord, [here](https://discord.gg/C2aGfAgAHk).
 

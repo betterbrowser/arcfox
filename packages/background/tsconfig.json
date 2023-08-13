@@ -1,0 +1,18 @@
+// Copypaste from https://raw.githubusercontent.com/Lusito/dict.cc-translation/master/tsconfig.json
+
+{
+  "compilerOptions": {
+    "target": "ES2015",
+    "module": "AMD",
+    "lib": ["es2015", "dom", "dom.iterable"],
+    "strict": true,
+    "esModuleInterop": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "noUnusedLocals": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "moduleResolution": "node",
+    "outFile": "./dist/background.js"
+  }
+}

@@ -1,3 +1,5 @@
 packages:
-  - packages/core
+  - apps/mozilla-extension
+  - apps/arcfox
   - packages/userChrome
+  - packages/background
