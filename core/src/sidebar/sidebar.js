@@ -76,18 +76,6 @@ document.getElementById("hide").addEventListener("click", function() {
   handleBrowserControl("hide");
 });
 
-document.getElementById("back").addEventListener("click", function() {
-  handleBrowserControl("back");
-});
-
-document.getElementById("front").addEventListener("click", function() {
-  handleBrowserControl("front");
-});
-
-document.getElementById("refresh").addEventListener("click", function() {
-  handleBrowserControl("refresh");
-});
-
 document.addEventListener("click", (event) => {
   if (event.target.classList.contains("browser-control-button")) {
     handleButtonClick(event);
