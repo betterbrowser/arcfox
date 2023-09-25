@@ -1,5 +1,5 @@
-# We are back!!
-Howdy! after no updates on arcfox i would like to announce that we are back on the developement!! For all the people that have been waiting for updates i'm sorry but no releases for now. but i'm working on a new version. arcfox still a side-project but i'm gonna do the best i can with it. tysm for linking the project and helping me make this became even bigger.
+# Important News!!
+<img src="advice.png"/>
 
 ##
 
