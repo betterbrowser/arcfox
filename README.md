@@ -51,6 +51,17 @@ To install arcfox-theme you need to open your firefox configurations and turn st
 - Inside the "chrome" folder, drop the "userChrome.css" that you find on the <a href="https://github.com/use-arcfox/arcfox/releases">releases.</a>
 - Restart firefox.
 
+# How to remove ArcFox
+If you have a major issue, or just want a different/default look, here is how to remove ArcFox.
+
+1. Remove `(Firefox Profile)/chrome/userchrome.css`
+
+2. Remove the 'ArcFox' extension from Firefox
+
+3. Restart your Firefox session, and it should be fixed! If not, make an issue in the issues tab
+
+4. Be happy with your now boring and unproductive firefox!
+
 # Support
 If you have any problems you can open a issue on this repository or contact the developer on Discord, [here](https://discord.gg/jDASpgt68t).
 
