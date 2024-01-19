@@ -1,5 +1,68 @@
-# ArcFox is back!!
-Hello to all the amazing people that have been liking the project. Today im here to announce arcfox and betterbrowser is officialy back!! arcfox is being recoded to be better and finally do what it should have done from the start. hope y'all keep liking the project and helping it to grow. love y'all.
+<pre>
+ArcFox is back!!
+Hello to all the amazing people that have been liking the project.
+Today im here to announce arcfox and betterbrowser is officialy back!!
+arcfox is being re-coded to be better and finally do what it should have done from the start.
+hope y'all keep liking the project and helping it to grow.
+you can keep eyes on the development through the roadmap bellow.
+I divided the roadmap in things that have to be on the mvp to make arcfox usable
+And things that would make it great but are not actually necessary.
+If you want to contact us, open a issue or use our <a href="https://discord.gg/jDASpgt68t">discord</a>
+</pre>
+
+## Rebuild roadmap
+### Essential:
+- [ ] Close, minimize and resize buttons.]
+  - [ ] Close
+  - [ ] Minimize
+  - [ ] Resize
+  - [ ] Color
+- [ ] Website Control Buttons
+  - [ ] Previous
+  - [ ] Next
+  - [ ] Reload
+- [ ] Search Bar
+  - [ ] Search Function
+  - [ ] Select Search Engine
+  - [ ] Open Browser Related Pages
+- [ ] Show Tabs On Sidebar
+  - [ ] Show Tabs
+  - [ ] Close Button
+  - [ ] Sumarize Tab Name
+  - [ ] Reload Tab
+  - [ ] Mute Tab
+  - [ ] Copy Link
+  - [ ] Duplicate Tab
+  - [ ] Unload Tab
+- [ ] Focus Mode
+  - [ ] Open sidebar on hovering left
+- [ ] support for firefox-osx and firefox based browsers
+  - [ ] MacOS
+  - [ ] Linux
+  - [ ] Librewolf
+  - [ ] TOR
+  - [ ] PaleMoon
+  - [ ] WaterFox
+### Non-Essential:
+- [ ] Bookmarks
+  - [ ] Show Bookmarks
+  - [ ] Add Bookmark Tab Context Menu
+  - [ ] Always Open Bookmarks
+- [ ] Settings
+  - [ ] Change Search Engine
+  - [ ] Change Shortcuts
+- [ ] Library
+  - [ ] History
+  - [ ] Downloads
+  - [ ] Bookmarks
+- [ ] Spaces
+  - [ ] Spaces Feature
+  - [ ] Rename Spaces
+  - [ ] Change Spaces Icon
+- [ ] Launchpad (you can use omni while it's not out)
+- [ ] Boosts
+  - [ ] Boosts Feature
+  - [ ] Boosts Store
 
 ##
 
