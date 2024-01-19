@@ -1,5 +1,5 @@
-# Important News!!
-<img src="advice.png"/>
+# ArcFox is back!!
+Hello to all the amazing people that have been liking the project. Today im here to announce arcfox and betterbrowser is officialy back!! arcfox is being recoded to be better and finally do what it should have done from the start. hope y'all keep liking the project and helping it to grow. love y'all.
 
 ##
 
