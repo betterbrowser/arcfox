@@ -12,19 +12,19 @@ If you want to contact us, open a issue or use our <a href="https://discord.gg/j
 
 ## Rebuild roadmap
 ### Essential:
-- [ ] Close, minimize and resize buttons.]
-  - [ ] Close
-  - [ ] Minimize
-  - [ ] Resize
+- [x] Close, minimize and resize buttons.]
+  - [x] Close
+  - [x] Minimize
+  - [x] Resize
+  - [x] Sidebar Toggle
   - [ ] Color
-- [ ] Website Control Buttons
-  - [ ] Previous
-  - [ ] Next
-  - [ ] Reload
-- [ ] Search Bar
-  - [ ] Search Function
-  - [ ] Select Search Engine
-  - [ ] Open Browser Related Pages
+- [x] Website Control Buttons
+  - [x] Previous
+  - [x] Next
+  - [x] Reload
+- [x] Search Bar
+  - [x] Search Function
+  - [x] Use User Search Engine
 - [ ] Show Tabs On Sidebar
   - [ ] Show Tabs
   - [ ] Close Button
