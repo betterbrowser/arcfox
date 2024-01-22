@@ -7,7 +7,7 @@ hope y'all keep liking the project and helping it to grow.
 you can keep eyes on the development through the roadmap bellow.
 I divided the roadmap in things that have to be on the mvp to make arcfox usable
 And things that would make it great but are not actually necessary.
-If you want to contact us, open a issue or use our <a href="https://discord.gg/jDASpgt68t">discord</a>
+If you want to contact us, open a <a href="https://github.com/betterbrowser/arcfox/issues">issue</a> or use our <a href="https://discord.gg/jDASpgt68t">discord</a>
 </pre>
 
 ## Rebuild roadmap
@@ -37,6 +37,11 @@ If you want to contact us, open a issue or use our <a href="https://discord.gg/j
 - [ ] Focus Mode
   - [ ] Open sidebar on hovering left
 ### Non-Essential:
+- [ ] Folders
+  - [ ] Folders Feature
+  - [ ] Stackable Folders
+  - [ ] Rename Folders
+  - [ ] Pin Folder?
 - [ ] support for firefox-osx and firefox based browsers
   - [ ] MacOS
   - [ ] Linux
@@ -89,11 +94,6 @@ ArcFox is a pack of firefox improvements that brings the appearance and some of 
 I really recomend you to give a try on arc browser if you can. But we gonna do our best to make firefox nice as arc.
 
 # Installation
-
-### ArcFox Installer
-We are working on a installer for arcfox, but while it's not done to use ArcFox you need to install arcfox-core and arcfox-theme (in this specific order). To proceed with the instalation, use the tutorial below. Using arcfox-core and arcfox-theme together is the best way to use ArcFox!
-
-# Manual installation
 
 ### ArcFox-core Installation
 To install arcfox-core you need to download it on your firefox, we recommend you to download from the official addon store:
