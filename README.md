@@ -12,7 +12,7 @@ If you want to contact us, open a issue or use our <a href="https://discord.gg/j
 
 ## Rebuild roadmap
 ### Essential:
-- [x] Close, minimize and resize buttons.]
+- [x] Close, minimize and resize buttons.
   - [x] Close
   - [x] Minimize
   - [x] Resize
@@ -36,6 +36,7 @@ If you want to contact us, open a issue or use our <a href="https://discord.gg/j
   - [ ] Unload Tab
 - [ ] Focus Mode
   - [ ] Open sidebar on hovering left
+### Non-Essential:
 - [ ] support for firefox-osx and firefox based browsers
   - [ ] MacOS
   - [ ] Linux
@@ -43,7 +44,6 @@ If you want to contact us, open a issue or use our <a href="https://discord.gg/j
   - [ ] TOR
   - [ ] PaleMoon
   - [ ] WaterFox
-### Non-Essential:
 - [ ] Bookmarks
   - [ ] Show Bookmarks
   - [ ] Add Bookmark Tab Context Menu
