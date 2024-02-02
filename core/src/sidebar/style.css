@@ -44,13 +44,33 @@ body {
   color: white;
 }
 
-#sidebar-header button i {
+/* #sidebar-header button i {
   font-size: 15px;
   color: #aac2d3;
+} */
+
+#sidebar-header #close {
+  color: red;
 }
 
-#sidebar-header button i:hover {
-  color: white;
+#sidebar-header #size {
+  color: rgb(0, 220, 0);
+}
+
+#sidebar-header #hide {
+  color: yellow;
+}
+
+#sidebar-header #close:hover {
+  color: rgb(255, 120, 120);
+}
+
+#sidebar-header #size:hover {
+  color: rgb(120, 255, 190);
+}
+
+#sidebar-header #hide:hover {
+  color: rgb(255, 255, 120);
 }
 
 #page-control {
