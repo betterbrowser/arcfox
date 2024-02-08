@@ -26,13 +26,13 @@ If you want to contact us, open a <a href="https://github.com/betterbrowser/arcf
   - [x] Search Function
   - [x] Use User Search Engine
 - [ ] Show Tabs On Sidebar
-  - [ ] Show Tabs
-  - [ ] Close Button
+  - [x] Show Tabs
+  - [x] Close Button
   - [ ] Sumarize Tab Name
-  - [ ] Reload Tab
-  - [ ] Mute Tab
+  - [x] Reload Tab
+  - [x] Mute Tab
   - [ ] Copy Link
-  - [ ] Duplicate Tab
+  - [x] Duplicate Tab
   - [ ] Unload Tab
 - [ ] Focus Mode
   - [ ] Open sidebar on hovering left
