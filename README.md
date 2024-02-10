@@ -75,7 +75,7 @@ If you want to contact us, open a <a href="https://github.com/betterbrowser/arcf
   <a href="#">
   </a>
   <p align="center">
-   <img width="150" height="150" src="/logo.png" alt="Logo">
+   <img width="150" height="150" src="public/media/logo.png" alt="Logo">
   </p>
   <h1 align="center"><b>ArcFox</b></h1>
   <p align="center">
@@ -87,7 +87,7 @@ If you want to contact us, open a <a href="https://github.com/betterbrowser/arcf
 </p>
 
 # What is ArcFox?
-<img src="screenshot.png"/>
+<img src="public/media/screenshot.png"/>
 
 ArcFox is a pack of firefox improvements that brings the appearance and some of the features of arc browser to firefox. Recently, The Browser Company © (the developers of arc browser) announced a windows version, so this project almost lost the reason to exist. But there still a linux version to be made and some people just like firefox and don't want to change.
 
@@ -101,7 +101,7 @@ To install arcfox-core you need to download it on your firefox, we recommend you
 > Warning: To use arcfox you need arcfox theme!!
 
 <a href="https://addons.mozilla.org/firefox/addon/arcfox/">
-  <img src="firefox.png" alt="Download on addons store"></img>
+  <img src="public/media/badge.png" alt="Download on addons store"></img>
 </a>
 
 ### ArcFox-Theme Installation
@@ -114,7 +114,10 @@ To install arcfox-theme you need to open your firefox configurations and turn st
 - Inside the "chrome" folder, drop the "userChrome.css" that you find on the <a href="https://github.com/betterbrowser/arcfox/releases">releases.</a>
 - Restart firefox.
 
-# How to remove ArcFox
+# Roadmap
+ArcFox still have a lot of features to be implemented and you can see our <a href="https://github.com/orgs/betterbrowser/projects/2">Roadmap</a> for a better understanding of the upcoming features and things we are working on :D
+
+# Removing ArcFox
 If you have a major issue, or just want a different/default look, here is how to remove ArcFox.
 
 1. Remove `(Firefox Profile)/chrome/userchrome.css`

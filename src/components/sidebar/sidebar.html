@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="sidebar.css">
+</head>
+<body>
+    <div class="controls">
+        <nav class="window-control">
+            <button id="close-window">x</button>
+            <button id="minimize-window">-</button>
+            <button id="resize-window">+</button>
+            <button id="close-sidebar">#</button>
+        </nav>
+        <nav class="browser-control">
+            <button id="previous-page"><</button>
+            <button id="next-page">></button>
+            <button id="refresh-page">@</button>
+        </nav>
+    </div>
+    <div class="search">
+        <input id="search-bar"></input>
+    </div>
+    <div id="tab-list"></div>
+    <script src="models/window-control.js"></script>
+    <script src="models/browser-control.js"></script>
+    <script src="models/search.js"></script>
+    <script src="models/tabs.js"></script>
+</body>
+</html>
