@@ -27,15 +27,105 @@ input {
 }
 
 .tab {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
     background: white;
-    margin: 10px;
+    margin: 10px 0;
     padding: 10px;
     border: 1px solid black;
 }
-   
+
+.tab.active {
+    background: lime;
+}
+
+.tab > .infos {
+    display: flex;
+    flex-direction: row;
+    overflow: hidden;
+    width: 75%;
+}
+
+.tab > .infos > .name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.tab > .infos > .name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.tab .icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+}
+
+.tab .close{
+    padding: 5px;
+}
+
+[draggable="true"] > * {
+    /*
+   To prevent user selecting inside the drag source
+  */
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+}
+
+
 .folder {
     background: lightgray;
     margin: 10px;
     padding: 10px;
     border: 1px solid black;
-}   
+}
+
+.hidden {
+    display: none;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.loading {
+    animation: spin 1s linear infinite;
+}
+
+#tab-context-menu {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    background: white;
+    border: 1px solid black;
+    gap: 5px;
+    padding: 10px;
+    outline: none;
+}
+
+#tab-context-menu > button {
+    background-color: white;
+}
+
+#tab-context-menu > button:hover {
+    background-color: gray;
+}
+
+#tab-context-menu.active {
+    display: flex;
+}
+
+
+
+#folder-container {
+    background-color: lightgray;
+    min-height: 100px;
+}

@@ -7,6 +7,7 @@ searchInput.addEventListener("focus", async function(event) {
    var tabs = await browser.tabs.query({active: true, currentWindow: true});
    var currentUrl = tabs[0].url;
    event.target.value = currentUrl;
+    event.target.select();
 });
 
 // Modify the blur event listener

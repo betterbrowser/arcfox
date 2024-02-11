@@ -4,28 +4,65 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="sidebar.css">
+    <!-- jsDelivr :: Sortable :: Latest (https://www.jsdelivr.com/package/npm/sortablejs) -->
+    <script defer src="library/sortable.js"></script>
+    <script defer src="models/window-control.js"></script>
+    <script defer src="models/browser-control.js"></script>
+    <script defer src="models/search.js"></script>
+    <script defer src="models/tab-context-menu.js"></script>
+    <script defer src="models/tabs.js"></script>
+    <script defer src="models/folder.js"></script>
+    <script defer src="models/dragging.js"></script>
+
+
 </head>
 <body>
-    <div class="controls">
-        <nav class="window-control">
-            <button id="close-window">x</button>
-            <button id="minimize-window">-</button>
-            <button id="resize-window">+</button>
-            <button id="close-sidebar">#</button>
-        </nav>
-        <nav class="browser-control">
-            <button id="previous-page"><</button>
-            <button id="next-page">></button>
-            <button id="refresh-page">@</button>
-        </nav>
+<div class="controls">
+    <nav class="window-control">
+        <button id="close-window">x</button>
+        <button id="minimize-window">-</button>
+        <button id="resize-window">+</button>
+        <button id="close-sidebar">#</button>
+    </nav>
+    <nav class="browser-control">
+        <button id="previous-page"><</button>
+        <button id="next-page">></button>
+        <button id="refresh-page">@</button>
+    </nav>
+</div>
+<div class="search">
+    <input id="search-bar">
+</div>
+<div id="space-name" class="hidden">Elgem</div> <!-- Work in progress -->
+<div id="folder-container" class="hidden"></div> <!-- Work in progress -->
+<button id="new-tab">+ New Tab</button>
+<div id="tab-list"></div>
+<div id="tab-context-menu">
+    <button id="close">Close</button>
+    <button id="mute">Mute</button>
+    <button id="unmute">Unmute</button>
+    <button id="duplicate">Duplicate</button>
+    <button id="create-folder">Create Folder</button>
+</div>
+<template id="tab-template">
+    <div class="tab" title="" data-id="" data-windowId="">
+        <div class="infos">
+            <img class="icon" draggable="false">
+            <div data-type="name" class="name"></div>
+        </div>
+        <button class="close">X</button>
     </div>
-    <div class="search">
-        <input id="search-bar"></input>
+</template>
+<template id="folder-template">
+    <div class="folder" draggable="true">
+        <div class="folder-header">
+            <img class="icon">
+            <div data-type="name" class="name"></div>
+        </div>
+        <div class="folder-content hidden">
+
+        </div>
     </div>
-    <div id="tab-list"></div>
-    <script src="models/window-control.js"></script>
-    <script src="models/browser-control.js"></script>
-    <script src="models/search.js"></script>
-    <script src="models/tabs.js"></script>
+</template>
 </body>
 </html>
