@@ -28,12 +28,11 @@ If you want to contact us, open a <a href="https://github.com/betterbrowser/arcf
 - [ ] Show Tabs On Sidebar
   - [x] Show Tabs
   - [x] Close Button
-  - [ ] Sumarize Tab Name
   - [x] Reload Tab
   - [x] Mute Tab
-  - [ ] Copy Link
+  - [x] Copy Link
   - [x] Duplicate Tab
-  - [ ] Unload Tab
+  - [x] Unload Tab
 - [ ] Focus Mode
   - [ ] Open sidebar on hovering left
 ### Non-Essential:
