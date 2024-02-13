@@ -17,7 +17,7 @@ If you want to contact us, open a <a href="https://github.com/betterbrowser/arcf
   - [x] Minimize
   - [x] Resize
   - [x] Sidebar Toggle
-  - [ ] Color
+  - [x] Color
 - [x] Website Control Buttons
   - [x] Previous
   - [x] Next
@@ -128,7 +128,9 @@ If you have a major issue, or just want a different/default look, here is how to
 4. Be happy with your now boring and unproductive firefox!
 
 # Support
-If you have any problems you can open a issue on this repository or contact the developer on Discord, [here](https://discord.gg/jDASpgt68t).
+If you have any problems you can open a issue on this repository or contact our team on our [Discord](https://discord.gg/jDASpgt68t).
+
+And if you want to support ArcFox and BetterBrowser in a financial way you can donate to the developer [ko-fi](https://ko-fi.com/nikollesan) page
 
 # License
 Arcfox is distributed under [MIT License](/LICENSE).
