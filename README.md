@@ -25,7 +25,7 @@ If you want to contact us, open a <a href="https://github.com/betterbrowser/arcf
 - [x] Search Bar
   - [x] Search Function
   - [x] Use User Search Engine
-- [ ] Show Tabs On Sidebar
+- [x] Show Tabs On Sidebar
   - [x] Show Tabs
   - [x] Close Button
   - [x] Reload Tab
