@@ -13,8 +13,6 @@
     <script defer src="models/tabs.js"></script>
     <script defer src="models/folder.js"></script>
     <script defer src="models/dragging.js"></script>
-
-
 </head>
 <body>
 <div class="controls">
@@ -33,8 +31,8 @@
 <div class="search">
     <input id="search-bar">
 </div>
-<div id="space-name" class="hidden">Elgem</div> <!-- Work in progress -->
-<div id="folder-container" class="hidden"></div> <!-- Work in progress -->
+<div id="space-name" class="hidden">Elgem</div>
+<div id="folder-container" class="hidden"></div>
 <button id="new-tab">+ New Tab</button>
 <div id="tab-list"></div>
 <div id="tab-context-menu">
@@ -43,6 +41,8 @@
     <button id="unmute">Unmute</button>
     <button id="duplicate">Duplicate</button>
     <button id="create-folder">Create Folder</button>
+    <button id="copy-link">Copy Link</button>
+    <button id="unload-tab">Unload Tab</button>
 </div>
 <template id="tab-template">
     <div class="tab" title="" data-id="" data-windowId="">

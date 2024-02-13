@@ -8,6 +8,8 @@ const mute = document.getElementById("mute");
 const unmute = document.getElementById("unmute");
 const duplicate = document.getElementById("duplicate");
 const createFolder = document.getElementById("create-folder");
+const copyLink = document.getElementById("copy-link"); // Add this line
+const unloadTab = document.getElementById("unload-tab"); // Add this line
 
 close.addEventListener("click", async (e) => {
     browser.tabs.remove(Number.parseInt(contextTab.dataset.id));
@@ -15,12 +17,12 @@ close.addEventListener("click", async (e) => {
 });
 
 mute.addEventListener("click", async (e) => {
-    browser.tabs.update(Number.parseInt(contextTab.dataset.id), {muted: true});
+    browser.tabs.update(Number.parseInt(contextTab.dataset.id), { muted: true });
     tabContextMenu.classList.remove("active");
 });
 
 unmute.addEventListener("click", async (e) => {
-    browser.tabs.update(Number.parseInt(contextTab.dataset.id), {muted: false});
+    browser.tabs.update(Number.parseInt(contextTab.dataset.id), { muted: false });
     tabContextMenu.classList.remove("active");
 });
 
@@ -37,6 +39,20 @@ createFolder.addEventListener("click", async (e) => {
     tabContextMenu.classList.remove("active");
 });
 
+copyLink.addEventListener("click", async (e) => { // Add this block
+    const tabId = Number.parseInt(contextTab.dataset.id);
+    const tabData = await browser.tabs.get(tabId);
+    const pageUrl = tabData.url;
+    navigator.clipboard.writeText(pageUrl);
+    tabContextMenu.classList.remove("active");
+});
+
+unloadTab.addEventListener("click", async (e) => {
+    const tabId = Number.parseInt(contextTab.dataset.id);
+    browser.tabs.discard(tabId).catch(error => console.error(error));
+    tabContextMenu.classList.remove("active");
+});
+
 async function openContextMenu(e) {
     e.preventDefault();
 
@@ -46,7 +62,7 @@ async function openContextMenu(e) {
 
     const tabData = await browser.tabs.get(tabId);
 
-    displayCreateFolder(contextTab.parentNode)
+    displayCreateFolder(contextTab.parentNode);
 
     displayMuteButtons(tabData);
 
@@ -57,47 +73,36 @@ async function openContextMenu(e) {
     tabContextMenu.focus();
 }
 
-function displayCreateFolder(tabContainer)
-{
+function displayCreateFolder(tabContainer) {
     createFolder.classList.remove("hidden");
 
-    if(tabContainer === tabList)
-    {
+    if (tabContainer === tabList) {
         createFolder.classList.add("hidden");
     }
 }
 
-function displayMuteButtons(tabData)
-{
-    if(tabData.mutedInfo.muted)
-    {
+function displayMuteButtons(tabData) {
+    if (tabData.mutedInfo.muted) {
         mute.classList.add("hidden");
         unmute.classList.remove("hidden");
-    }
-    else
-    {
+    } else {
         mute.classList.remove("hidden");
         unmute.classList.add("hidden");
     }
 }
 
-
 tabContextMenu.addEventListener("focusout", (e) => {
-    if(e.relatedTarget === null)
-    {
+    if (e.relatedTarget === null) {
         tabContextMenu.classList.remove("active");
         return;
     }
 
-    if(e.relatedTarget.parentNode !== tabContextMenu)
-    {
+    if (e.relatedTarget.parentNode !== tabContextMenu) {
         tabContextMenu.classList.remove("active");
     }
 });
 
-
-
-function getXPosition(tab, clientX){
+function getXPosition(tab, clientX) {
     const maxLeftPosition = tab.getBoundingClientRect().width - tabContextMenu.getBoundingClientRect().width;
     return Math.min(clientX, maxLeftPosition);
 }
