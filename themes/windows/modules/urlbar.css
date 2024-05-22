@@ -1,0 +1,55 @@
+#urlbar {
+  height: 30px !important;
+  margin-left: 200px !important;
+  width: calc(100% - 200px) !important;
+  z-index: 1;
+  text-align: center;
+  padding: 0px !important;
+  margin-top: 20px !important;
+  margin-bottom: 20px !important;
+  -moz-border-radius: 100px !important;
+}
+
+/* overlay for when the URL bar is focused */
+#urlbar:not(.hidden-focus)[focused="true"] {
+  height: unset !important;
+  text-align: left !important;
+  position: fixed !important;
+  top: 30% !important;
+  /*
+  margin-left: calc(20vw + var(--is-bar-visible, 0) * 250px) !important;
+  */
+  margin-right: 20vw !important;
+  margin-left: 20vw !important;
+  width: 60vw !important;
+  z-index: 10000 !important;
+  padding: 10px !important;
+}
+
+#urlbar-background,
+#searchbar {
+  border-radius: 200px !important;
+  border-color: transparent !important;
+
+  #urlbar[open] & {
+    border-radius: 8px !important;
+    border-color: transparent !important;
+    outline: 0px solid !important;
+
+    &:not(:-moz-lwtheme) {
+      outline-color: transparent !important;
+    }
+  }
+}
+
+#urlbar[open] > .urlbarView > .urlbarView-body-outer > .urlbarView-body-inner {
+  border-top: 0 !important;
+  align-items: center !important;
+}
+
+#urlbar-background {
+  background-color: #323446 !important;
+}
+#identity-box *:not(#page-proxy-favicon) {
+  display: none !important;
+}

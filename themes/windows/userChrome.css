@@ -1,3 +1,5 @@
+@import url("modules/urlbar.css");
+
 #appcontent
   > #tabbrowser-tabbox
   > #tabbrowser-tabpanels
@@ -7,10 +9,11 @@
   > browser {
   border-radius: 10px !important;
   margin: 10px !important;
+  margin-top: 30px !important;
 }
 
 .browserStack {
-	background: #3b3f52;
+  background: #3b3f52;
 }
 
 .browserContainer {
@@ -20,7 +23,9 @@
   ) !important;
   background-image: var(--lwt-header-image), var(--lwt-additional-images) !important;
   background-repeat: no-repeat, var(--lwt-background-tiling) !important;
-  background-position: right top, var(--lwt-background-alignment) !important;
+  background-position:
+    right top,
+    var(--lwt-background-alignment) !important;
 }
 
 #titlebar {
@@ -41,43 +46,20 @@
   margin-left: 10px !important;
 }
 
-#navigator-toolbox:not(:hover) {
-  --is-bar-visible: hidden;
-  opacity: 0 !important;
-  height: 15px;
-  transition: height 200ms ease-in-out, opacity 175ms ease-in-out;
-}
-
 #navigator-toolbox {
   position: fixed;
   z-index: 1;
-  height: 10px;
-  overflow: var(--is-bar-visible);
+  height: 30px;
+  overflow: var(--is-bar-visible, visible);
   right: 0;
   top: 0;
-  width: calc(100% - 310px);
+  width: 100%;
   background-color: transparent !important;
-}
-
-#navigator-toolbox:hover {
-  height: 40px;
-  opacity: 1 !important;
-  transition: opacity 175ms ease-in-out;
-}
-
-#navigator-toolbox:focus-within {
-  height: 40px;
-  opacity: 1 !important;
-  transition: opacity 175ms ease-in-out;
-  --is-bar-visible: visible;
+  border: 0px !important;
 }
 
 #nav-bar {
   background-color: #3b3f52 !important;
-}
-
-#urlbar-background {
-  background-color: #323446 !important;
 }
 
 toolbarbutton[open="true"] {
@@ -85,10 +67,11 @@ toolbarbutton[open="true"] {
 }
 
 #sidebar-header {
-   display: none;
+  display: none;
 }
 
 #sidebar-box {
+  z-index: 2;
   min-width: 300px !important;
   max-width: 300px !important;
   min-height: unset !important;
@@ -97,7 +80,28 @@ toolbarbutton[open="true"] {
 }
 
 #sidebar-splitter {
+  z-index: 2;
+  display: none !important;
   background-color: transparent !important;
   border: none !important;
   box-shadow: none !important;
+}
+
+/* add overlay when focusing URL bar input */
+#urlbar:is([breakout][breakout-extend]) {
+  &:before {
+    content: "";
+    position: fixed;
+    pointer-events: none;
+
+    width: 100vw;
+    height: 100vh;
+
+    top: 0px;
+    left: 0px;
+
+    background-color: #000000;
+    opacity: 0.5;
+    backdrop-filter: blur(300px);
+  }
 }
