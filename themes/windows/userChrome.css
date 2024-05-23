@@ -7,9 +7,10 @@
   > .browserContainer
   > .browserStack
   > browser {
-  border-radius: 10px !important;
   margin: 10px !important;
   margin-top: 30px !important;
+
+  border-radius: 10px !important;
 }
 
 .browserStack {
@@ -17,15 +18,15 @@
 }
 
 .browserContainer {
-  background-color: var(
-    --lwt-accent-color-inactive,
-    var(--lwt-accent-color)
-  ) !important;
   background-image: var(--lwt-header-image), var(--lwt-additional-images) !important;
   background-repeat: no-repeat, var(--lwt-background-tiling) !important;
   background-position:
     right top,
     var(--lwt-background-alignment) !important;
+  background-color: var(
+    --lwt-accent-color-inactive,
+    var(--lwt-accent-color)
+  ) !important;
 }
 
 #titlebar {
@@ -47,15 +48,16 @@
 }
 
 #navigator-toolbox {
-  position: fixed;
-  z-index: 1;
-  height: 30px;
-  overflow: var(--is-bar-visible, visible);
-  right: 0;
-  top: 0;
   width: 100%;
-  background-color: transparent !important;
+  height: 30px;
+  top: 0;
+  right: 0;
+
+  position: fixed;
+  overflow: var(--is-bar-visible, visible);
   border: 0px !important;
+  background-color: transparent !important;
+  z-index: 1;
 }
 
 #nav-bar {
@@ -71,37 +73,19 @@ toolbarbutton[open="true"] {
 }
 
 #sidebar-box {
-  z-index: 2;
   min-width: 300px !important;
   max-width: 300px !important;
   min-height: unset !important;
   max-height: unset !important;
+
   border-right: none !important;
+  z-index: 2;
 }
 
 #sidebar-splitter {
-  z-index: 2;
   display: none !important;
-  background-color: transparent !important;
   border: none !important;
+  background-color: transparent !important;
   box-shadow: none !important;
-}
-
-/* add overlay when focusing URL bar input */
-#urlbar:is([breakout][breakout-extend]) {
-  &:before {
-    content: "";
-    position: fixed;
-    pointer-events: none;
-
-    width: 100vw;
-    height: 100vh;
-
-    top: 0px;
-    left: 0px;
-
-    background-color: #000000;
-    opacity: 0.5;
-    backdrop-filter: blur(300px);
-  }
+  z-index: 2;
 }
