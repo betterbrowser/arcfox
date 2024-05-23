@@ -10,15 +10,13 @@
   -moz-border-radius: 100px !important;
 }
 
-/* overlay for when the URL bar is focused */
-#urlbar:not(.hidden-focus)[focused="true"] {
+/* overlay for when the URL bar is focused, ESC closes this overlay */
+#urlbar:is([breakout][breakout-extend]) {
+  marging-top: 0px !important;
   height: unset !important;
   text-align: left !important;
   position: fixed !important;
   top: 30% !important;
-  /*
-  margin-left: calc(20vw + var(--is-bar-visible, 0) * 250px) !important;
-  */
   margin-right: 20vw !important;
   margin-left: 20vw !important;
   width: 60vw !important;
@@ -28,6 +26,7 @@
 
 #urlbar-background,
 #searchbar {
+  margin: 5px !important;
   border-radius: 200px !important;
   border-color: transparent !important;
 
