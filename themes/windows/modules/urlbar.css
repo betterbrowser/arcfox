@@ -48,7 +48,7 @@
 }
 
 #urlbar-background {
-  background-color: #323446 !important;
+  background-color: var(--lwt-accent-color) !important;
 }
 #identity-box *:not(#page-proxy-favicon) {
   display: none !important;

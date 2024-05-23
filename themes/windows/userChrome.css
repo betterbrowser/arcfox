@@ -13,7 +13,7 @@
 }
 
 .browserStack {
-  background: #3b3f52;
+  background: var(--lwt-accent-color) !important;
 }
 
 .browserContainer {
@@ -56,10 +56,6 @@
   width: 100%;
   background-color: transparent !important;
   border: 0px !important;
-}
-
-#nav-bar {
-  background-color: #3b3f52 !important;
 }
 
 toolbarbutton[open="true"] {
