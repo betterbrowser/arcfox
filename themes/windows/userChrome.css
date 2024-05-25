@@ -1,4 +1,5 @@
 @import url("modules/urlbar.css");
+@import url("modules/navigation.css");
 
 #appcontent
   > #tabbrowser-tabbox
@@ -8,7 +9,7 @@
   > .browserStack
   > browser {
   margin: 10px !important;
-  margin-top: 30px !important;
+  margin-top: 40px !important;
 
   border-radius: 10px !important;
 }
@@ -37,27 +38,8 @@
   display: none !important;
 }
 
-#forward-button,
-#back-button,
-#reload-button {
-  display: none !important;
-}
-
 #sidebar-button {
   margin-left: 10px !important;
-}
-
-#navigator-toolbox {
-  width: 100%;
-  height: 30px;
-  top: 0;
-  right: 0;
-
-  position: fixed;
-  overflow: var(--is-bar-visible, visible);
-  border: 0px !important;
-  background-color: transparent !important;
-  z-index: 1;
 }
 
 toolbarbutton[open="true"] {

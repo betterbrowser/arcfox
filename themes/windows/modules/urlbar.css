@@ -1,13 +1,15 @@
 #urlbar {
   margin-top: 20px !important;
   margin-bottom: 20px !important;
-  margin-left: 200px !important;
+
+  margin-left: 80px !important;
+
   padding: 0px !important;
   padding-right: 10px !important;
   padding-left: 10px !important;
 
   height: 30px !important;
-  width: calc(100% - 200px) !important;
+  width: calc(100% - 150px) !important;
 
   text-align: center;
   -moz-border-radius: 100px !important;
@@ -75,6 +77,36 @@
   background-color: var(--lwt-accent-color) !important;
 }
 
-#identity-box *:not(#page-proxy-favicon) {
+#tracking-protection-icon-container,
+#page-action-buttons {
+  order: 2 !important;
+}
+
+#translation-button {
+  hidden: false !important;
+  display: flex !important;
+}
+
+.urlbar-page-action,
+#urlbar-go-button,
+.search-go-button,
+#tracking-protection-icon-container,
+#identity-icon-box {
+  padding-inline: 5px !important;
+  width: 25px !important;
+}
+
+#identity-icon-box,
+#identity-permission-box,
+.notification-anchor-icon {
+  padding-inline: 5px !important;
+}
+
+#identity-box[pageproxystate="valid"]:is(
+    .notSecureText,
+    .chromeUI,
+    .extensionPage
+  )
+  > .identity-box-button {
   display: none !important;
 }
