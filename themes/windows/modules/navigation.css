@@ -1,0 +1,25 @@
+#navigator-toolbox {
+  width: 100%;
+  height: 30px;
+  top: 0;
+  right: 0;
+
+  position: fixed !important;
+  overflow: var(--is-bar-visible, visible);
+  border: 0px !important;
+  background-color: white !important;
+  z-index: 1;
+}
+
+#navigator-toolbox:not(:-moz-lwtheme) {
+  background-color: var(--lwt-accent-color) !important;
+  color: var(--lwt-text-color) !important;
+}
+
+#nav-bar .toolbarbutton-icon {
+  scale: 0.75;
+}
+
+#nav-bar:not([customizing="true"]) {
+  background-color: var(--lwt-accent-color) !important;
+}
