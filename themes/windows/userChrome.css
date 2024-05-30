@@ -1,5 +1,3 @@
-@import url("modules/urlbar.css");
-
 #appcontent
   > #tabbrowser-tabbox
   > #tabbrowser-tabpanels
@@ -7,26 +5,22 @@
   > .browserContainer
   > .browserStack
   > browser {
-  margin: 10px !important;
-  margin-top: 30px !important;
-
   border-radius: 10px !important;
+  margin: 10px !important;
 }
 
 .browserStack {
-  background: var(--lwt-accent-color) !important;
+	background: #3b3f52;
 }
 
 .browserContainer {
-  background-image: var(--lwt-header-image), var(--lwt-additional-images) !important;
-  background-repeat: no-repeat, var(--lwt-background-tiling) !important;
-  background-position:
-    right top,
-    var(--lwt-background-alignment) !important;
   background-color: var(
     --lwt-accent-color-inactive,
     var(--lwt-accent-color)
   ) !important;
+  background-image: var(--lwt-header-image), var(--lwt-additional-images) !important;
+  background-repeat: no-repeat, var(--lwt-background-tiling) !important;
+  background-position: right top, var(--lwt-background-alignment) !important;
 }
 
 #titlebar {
@@ -47,17 +41,43 @@
   margin-left: 10px !important;
 }
 
-#navigator-toolbox {
-  width: 100%;
-  height: 30px;
-  top: 0;
-  right: 0;
+#navigator-toolbox:not(:hover) {
+  --is-bar-visible: hidden;
+  opacity: 0 !important;
+  height: 15px;
+  transition: height 200ms ease-in-out, opacity 175ms ease-in-out;
+}
 
+#navigator-toolbox {
   position: fixed;
-  overflow: var(--is-bar-visible, visible);
-  border: 0px !important;
-  background-color: transparent !important;
   z-index: 1;
+  height: 10px;
+  overflow: var(--is-bar-visible);
+  right: 0;
+  top: 0;
+  width: calc(100% - 310px);
+  background-color: transparent !important;
+}
+
+#navigator-toolbox:hover {
+  height: 40px;
+  opacity: 1 !important;
+  transition: opacity 175ms ease-in-out;
+}
+
+#navigator-toolbox:focus-within {
+  height: 40px;
+  opacity: 1 !important;
+  transition: opacity 175ms ease-in-out;
+  --is-bar-visible: visible;
+}
+
+#nav-bar {
+  background-color: #3b3f52 !important;
+}
+
+#urlbar-background {
+  background-color: #323446 !important;
 }
 
 toolbarbutton[open="true"] {
@@ -65,7 +85,7 @@ toolbarbutton[open="true"] {
 }
 
 #sidebar-header {
-  display: none;
+   display: none;
 }
 
 #sidebar-box {
@@ -73,15 +93,11 @@ toolbarbutton[open="true"] {
   max-width: 300px !important;
   min-height: unset !important;
   max-height: unset !important;
-
   border-right: none !important;
-  z-index: 2;
 }
 
 #sidebar-splitter {
-  display: none !important;
-  border: none !important;
   background-color: transparent !important;
+  border: none !important;
   box-shadow: none !important;
-  z-index: 2;
 }

@@ -6,7 +6,6 @@
 
 body {
     height: 100%;
-    background: blue;
     padding: 10px;
 }
 
@@ -17,27 +16,102 @@ body {
     background: red;
 }
 
-button {
-    padding: 5px;
+.window-control {
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
 }
 
-input {
+.window-button {
+    border-radius: 100%;
+    height: auto;
+    width: 14px;
+}
+
+#close-sidebar {
+    height: auto;
+    width: 14px;
+}
+
+.close {
+    background: transparent;
+    color: transparent;
+    font-weight: bold;
+}
+
+.close:hover {
+    color: white;
+}
+
+.search {
+    display: flex;
+    justify-content: space-between;
+    border-radius: 10px;
+    gap: 10px;
+    height: 20px;
+}
+
+#search-bar {
     width: 100%;
-    height: 30px;
+    overflow-x: hidden;
+    background: transparent;
+    border: none;
+    height: 20px;
+    display: flex;
+    gap: 6px;
+}
+
+#search-bar:focus {
+    outline: none;
+    background: transparent;
+    box-shadow: none;
+}
+
+.linktools {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+#space-name {
+    font-weight: bold;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+#new-tab {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    align-items: center;
+    padding: 6px;
+    height: 32px;
+    border-radius: 8px;
+}
+
+#new-tab:hover {
+    background-color: var(--hover-color) !important;
+}
+
+#tab-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 10px;
 }
 
 .tab {
     display: flex;
     justify-content: space-between;
     flex-direction: row;
-    background: white;
-    margin: 10px 0;
-    padding: 10px;
-    border: 1px solid black;
+    align-items: center;
+    padding: 6px;
+    border-radius: 8px;
+    height: 32px;
 }
 
-.tab.active {
-    background: lime;
+.tab:hover:not(.active) {
+    background-color: var(--hover-color) !important;
 }
 
 .tab > .infos {
@@ -60,9 +134,9 @@ input {
 }
 
 .tab .icon {
-    width: 20px;
-    height: 20px;
-    margin-right: 10px;
+    width: 16px;
+    height: 16px;
+    margin-right: 4px;
 }
 
 .tab .close{
@@ -70,9 +144,6 @@ input {
 }
 
 [draggable="true"] > * {
-    /*
-   To prevent user selecting inside the drag source
-  */
     user-select: none;
     -moz-user-select: none;
     -webkit-user-select: none;
@@ -122,7 +193,6 @@ input {
 #tab-context-menu.active {
     display: flex;
 }
-
 
 
 #folder-container {

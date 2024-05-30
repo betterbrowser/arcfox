@@ -20,8 +20,16 @@ searchInput.addEventListener("blur", async function(event) {
 
 // Function to shorten a URL
 function shortenUrl(url) {
-   const parsedUrl = new URL(url);
-   return parsedUrl.hostname;
+  const parsedUrl = new URL(url);
+  let hostname = parsedUrl.hostname;
+  // Remove 'www.' if present
+  hostname = hostname.replace(/^www\./, '');
+  // If no protocol is present or it's a special URL like 'about:', return the full URL
+  if (!parsedUrl.protocol || parsedUrl.protocol === 'about:') {
+     return url;
+  }
+  // Otherwise, return the hostname
+  return hostname;
 }
   
 // Function to retrieve the full URL

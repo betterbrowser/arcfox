@@ -110,8 +110,11 @@ To install arcfox-theme you need to open your firefox configurations and turn st
 - On the search bar, search for "toolkit.legacyUserProfileCustomizations.stylesheets" and set the value to "true".
 - Open <a href="about:support">"about:support"</a> and click on the “Open Folder” button on the right of "Profile Folder" to open it.
 - When the folder opens, search for a folder called "chrome", if you don't find it create one.
-- Inside the "chrome" folder, drop the files from "chrome.zip" that you find on the <a href="https://github.com/betterbrowser/arcfox/releases">releases.</a>
+- Inside the "chrome" folder, drop the "userChrome.css" that you find on the <a href="https://github.com/betterbrowser/arcfox/releases">releases.</a>
 - Restart firefox.
+
+# Roadmap
+ArcFox still have a lot of features to be implemented and you can see our <a href="https://github.com/orgs/betterbrowser/projects/2">Roadmap</a> for a better understanding of the upcoming features and things we are working on :D
 
 # Removing ArcFox
 If you have a major issue, or just want a different/default look, here is how to remove ArcFox.
@@ -123,9 +126,6 @@ If you have a major issue, or just want a different/default look, here is how to
 3. Restart your Firefox session, and it should be fixed! If not, make an issue in the issues tab
 
 4. Be happy with your now boring and unproductive firefox!
-
-# Roadmap
-ArcFox still have a lot of features to be implemented and you can see our <a href="https://github.com/orgs/betterbrowser/projects/2">Roadmap</a> for a better understanding of the upcoming features and things we are working on :D
 
 # Support
 If you have any problems you can open a issue on this repository or contact our team on our [Discord](https://discord.gg/jDASpgt68t).
