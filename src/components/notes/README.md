@@ -10,9 +10,11 @@ Features:
 - [ ] Dynamic color (ArcFox)
 
 This project uses SvelteJS, build it using:
-´´´
+```
+npm install
 npm run build
-´´´
+```
+if you see an error while running the local build, that's because Firefox blocks inline javascript, so put all your code on a separate file;
 
 This is meant to run locally on the browser, built into the ArcFox Extension
 Feel free to contribute by making changes or adding features!
