@@ -2,32 +2,20 @@
   "manifest_version": 2,
   "name": "ArcFox",
   "version": "2.5.0",
-  "author": "https://github.com/betterbrowser",
   "description": "Make firefox flow like arc.",
-  "homepage_url": "https://github.com/betterbrowser/arcfox",
   "icons": {
-    "48": "logo.png"
+    "16": "icon.png",
+    "48": "icon.png",
+    "98": "icon.png"
   },
-  "permissions": [
-    "activeTab",
-    "bookmarks",
-    "tabs",
-    "search",
-    "theme"
-  ],
-  "content_scripts": [
-    {
-        "matches": ["<all_urls>"],
-        "js": ["components/sidebar/models/theme.js"]
-    }
-  ],
+  "permissions": ["activeTab", "bookmarks", "tabs", "theme"],
   "background": {
-    "scripts": ["components/background.js"]
+    "scripts": ["background.js"]
   },
   "browser_action": {
     "default_title": "ArcFox",
     "default_icon": {
-      "48": "logo.png"
+      "48": "icon.png"
     }
   },
   "commands": {
@@ -35,18 +23,18 @@
       "suggested_key": {
         "default": "Alt+Q"
       },
-      "description": "Open Sidebar"
+      "description": "Open the extension sidebar"
     }
   },
   "sidebar_action": {
-    "default_title": "ArcFox",
     "default_panel": "components/sidebar/sidebar.html",
     "default_icon": {
-      "48": "logo.png"
+      "48": "icon.png"
     }
   },
-  "developer": {
-    "name": "Luander De Faria (Nikollesan)",
-    "url": "https://github.com/luanderfarias"
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "{8a65567e-d1bc-4494-a266-b3d300c106f8}"
+    }
   }
 }

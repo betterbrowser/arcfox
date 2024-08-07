@@ -11,7 +11,9 @@ If you want to contact us, open a <a href="https://github.com/betterbrowser/arcf
 </pre>
 
 ## Rebuild roadmap
+
 ### Essential:
+
 - [x] Close, minimize and resize buttons.
   - [x] Close
   - [x] Minimize
@@ -35,12 +37,23 @@ If you want to contact us, open a <a href="https://github.com/betterbrowser/arcf
   - [x] Unload Tab
 - [ ] Focus Mode
   - [ ] Open sidebar on hovering left
+
 ### Non-Essential:
+
 - [ ] Folders
   - [ ] Folders Feature
   - [ ] Stackable Folders
   - [ ] Rename Folders
   - [ ] Pin Folder?
+- [x] Notes
+  - [x] Share Notes
+  - [x] Keep notes on refresh
+  - [ ] Rich-text and Markdown features
+  - [ ] Dynamic color
+- [ ] Easels (under development)
+  - [ ] Share Easels
+  - [ ] Move elements
+  - [x] Create and delete elements
 - [ ] support for firefox-osx and firefox based browsers
   - [ ] MacOS
   - [ ] Linux
@@ -86,6 +99,7 @@ If you want to contact us, open a <a href="https://github.com/betterbrowser/arcf
 </p>
 
 # What is ArcFox?
+
 <img src="public/media/screenshot.png"/>
 
 ArcFox is a pack of firefox improvements that brings the appearance and some of the features of arc browser to firefox. Recently, The Browser Company © (the developers of arc browser) announced a windows version, so this project almost lost the reason to exist. But there still a linux version to be made and some people just like firefox and don't want to change.
@@ -95,6 +109,7 @@ I really recomend you to give a try on arc browser if you can. But we gonna do o
 # Installation
 
 ### ArcFox-core Installation
+
 To install arcfox-core you need to download it on your firefox, we recommend you to download from the official addon store:
 
 > Warning: To use arcfox you need arcfox theme!!
@@ -104,6 +119,7 @@ To install arcfox-core you need to download it on your firefox, we recommend you
 </a>
 
 ### ArcFox-Theme Installation
+
 To install arcfox-theme you need to open your firefox configurations and turn style modification on. To do that please follow this steps:
 
 - Digit <a href="about:config">"about:config"</a> on firefox address bar and click enter.
@@ -114,9 +130,11 @@ To install arcfox-theme you need to open your firefox configurations and turn st
 - Restart firefox.
 
 # Roadmap
+
 ArcFox still have a lot of features to be implemented and you can see our <a href="https://github.com/orgs/betterbrowser/projects/2">Roadmap</a> for a better understanding of the upcoming features and things we are working on :D
 
 # Removing ArcFox
+
 If you have a major issue, or just want a different/default look, here is how to remove ArcFox.
 
 1. Remove `(Firefox Profile)/chrome/userchrome.css`
@@ -128,9 +146,11 @@ If you have a major issue, or just want a different/default look, here is how to
 4. Be happy with your now boring and unproductive firefox!
 
 # Support
+
 If you have any problems you can open a issue on this repository or contact our team on our [Discord](https://discord.gg/jDASpgt68t).
 
 And if you want to support ArcFox and BetterBrowser in a financial way you can donate to the developer [ko-fi](https://ko-fi.com/nikollesan) page
 
 # License
+
 Arcfox is distributed under [MIT License](/LICENSE).
