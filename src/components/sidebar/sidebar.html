@@ -1,70 +1,66 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="sidebar.css">
-</head>
-<body>
-<div class="controls">
-    <nav class="window-control">
-        <button class="window-button" id="close-window"></button>
-        <button class="window-button" id="minimize-window"></button>
-        <button class="window-button" id="resize-window"></button>
-        <button id="close-sidebar"></button>
-    </nav>
-    <nav class="browser-control">
-        <button id="previous-page"><</button>
-        <button id="next-page">></button>
-        <button id="refresh-page">@</button>
-    </nav>
-</div>
-<div id="search" class="search">
-    <input id="search-bar">
-    <nav class="linktools">
-        <button id="copy-link">c</button>
-        <button id="devtools">*</button>
-    </nav>
-</div>
-<div id="space-name">ArcFox</div>
-<div id="folder-container" class="hidden"></div>
-<button id="new-tab">+ New Tab</button>
-<div id="tab-list"></div>
-<div id="tab-context-menu">
-    <button id="close">Close</button>
-    <button id="mute">Mute</button>
-    <button id="unmute">Unmute</button>
-    <button id="duplicate">Duplicate</button>
-    <button id="create-folder">Create Folder</button>
-    <button id="copy-link">Copy Link</button>
-    <button id="unload-tab">Unload Tab</button>
-</div>
-<template id="tab-template">
-    <div class="tab" id="tab" title="" data-id="" data-windowId="" draggable="true">
-        <div class="infos">
-            <img class="icon" draggable="false">
-            <div data-type="name" class="name"></div>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>arcfox-core</title>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
+    />
+  </head>
+  <body>
+    <div id="sidebar">
+      <div id="sidebar-header">
+        <div id="page-control">
+          <div id="action-buttons">
+            <button id="close"><i class="fa-solid fa-circle"></i></button>
+            <button id="size"><i class="fa-solid fa-circle"></i></button>
+            <button id="hide"><i class="fa-solid fa-circle"></i></button>
+          </div>
+          <button id="back"><i class="fa-solid fa-arrow-left"></i></button>
+          <button id="front"><i class="fa-solid fa-arrow-right"></i></button>
+          <button id="refresh"><i class="fa-solid fa-rotate-right"></i></button>
         </div>
-        <button class="close">X</button>
+        <div class="address-bar">
+          <input id="search-input" type="text" placeholder="Search..." />
+        </div>
+        <!-- Favorites?
+        <button class="favorite">
+          <img
+            src="https://mailmeteor.com/logos/assets/PNG/Gmail_Logo_512px.png"
+            alt=""
+          />
+        </button>-->
+      </div>
+      <div id="sidebar-content">
+        <button id="new-tab-button">+ New Tab <span>Ctrl+T</span></button>
+        <ul id="tab-list"></ul>
+      </div>
     </div>
-</template>
-<template id="folder-template">
-    <div class="folder" draggable="true">
-        <div class="folder-header">
-            <img class="icon">
-            <div data-type="name" class="name"></div>
-        </div>
-        <div class="folder-content hidden">
-
-        </div>
+    <div id="create-new" class="floating-div" popover>
+      <button id="b1" class="floating-button">
+        <i class="fa-regular fa-note-sticky"></i> New Note
+      </button>
+      <button id="b2" class="floating-button">
+        <i class="fa-regular fa-square-plus"></i> New Tab
+      </button>
     </div>
-</template>
-
-<script defer src="models/window-control.js"></script>
-<script defer src="models/browser-control.js"></script>
-<script defer src="models/search.js"></script>
-<script defer src="models/tab-context-menu.js"></script>
-<script defer src="models/tabs.js"></script>
-<script defer src="models/theme.js"></script>
-</body>
+    <div id="archive" class="floating-div" popover>
+      <h3>Coming soon!</h3>
+      <p>
+        Library stores all the stuff you've visited, downloaded, created, or
+        saved on Arc.
+      </p>
+    </div>
+    <div class="footer">
+      <button id="archive" popovertarget="archive">
+        <i class="fa-solid fa-box-archive"></i>
+      </button>
+      <button id="new" popovertarget="create-new">
+        <i class="fa-regular fa-plus"></i>
+      </button>
+    </div>
+    <script src="sidebar.js"></script>
+  </body>
 </html>
