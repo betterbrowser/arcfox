@@ -180,7 +180,8 @@ body {
   display: block;
   font-size: 14px;
   background-color: transparent;
-  margin: 0 auto;
+  text-align: left;
+  margin: 0 12px;
   margin-top: 10px;
   width: 93%;
   color: #aac2d3;
@@ -316,6 +317,10 @@ button.favorite:hover {
 
 button.favorite img {
   width: 20px;
+}
+
+a {
+  color: #c9cae6 !important;
 }
 
 @keyframes divspawn {

@@ -95,12 +95,14 @@ function updateSearchBar() {
     searchInput.parentNode.insertBefore(lockIcon, searchInput);
     if (currentTab.url.includes('https://arcfox-notes.vercel.app') || currentTab.url.includes('/easel-build')) {
       searchInput.value = currentTab.title;
-      console.log(currentTab)
     } else {
       if (currentUrl.slice(-1) == '/') {
         searchInput.value = currentUrl.replace('https://www.', '').replace('https://', '').slice(0, -1);
       } else {
         searchInput.value = currentUrl.replace('https://www.', '').replace('https://', '');
+      }
+      if (currentUrl == 'about:newtab') {
+        searchInput.value = "";
       }
     }
   });
@@ -271,6 +273,8 @@ function initTabSidebarControl() {
       base.splice(index, 1);
       renderItems(base);
     }
+    // Tries doing it again
+    browser.tabs.remove(tabId);
     initTabSidebarControl();
   };
 
