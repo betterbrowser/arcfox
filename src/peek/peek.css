@@ -1,10 +1,37 @@
+@import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200");
+
+div#peekpage {
+  height: 100vh;
+  width: 74vw;
+  margin: auto;
+  border: 0;
+  padding: 0;
+  border-radius: 4px;
+  animation: peekopen 0.5s;
+}
 div#peekpage::backdrop {
-  background: rgba(0, 0, 0, 0.7);
+  background: rgba(57, 59, 82, 0.6);
 }
 div#peekpage iframe {
   width: 100%;
   height: 100%;
+  border: 0;
   margin-bottom: -5px;
+}
+.peektools {
+  border-radius: 100px;
+  border: 0;
+  font-family: Material Symbols Outlined;
+  font-size: 20px;
+  width: 30px;
+  height: 30px;
+  margin-top: 20px;
+  position: fixed;
+  transform: translateX(calc(74vw + 10px));
+  z-index: 1000;
+  cursor: default;
+  animation: buttonappear 1s;
+  background: white;
 }
 @keyframes peekopen {
   from {
@@ -12,5 +39,10 @@ div#peekpage iframe {
   }
   50% {
     scale: 1.03;
+  }
+}
+@keyframes buttonappear {
+  from {
+    margin-left: 20px;
   }
 }
