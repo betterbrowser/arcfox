@@ -10,3 +10,16 @@ function handleShortcut(command) {
 }
 
 browser.commands.onCommand.addListener(handleShortcut);
+
+// Remove X-frame headers - required for Peek to work
+const handleReceivedHeaders = details => ({
+    responseHeaders: details.responseHeaders.filter(header =>
+        header.name.toLowerCase() !== "x-frame-options"
+    ),
+});
+
+browser.webRequest.onHeadersReceived.addListener(
+    handleReceivedHeaders,
+    { urls: ['<all_urls>'] },
+    ['blocking', 'responseHeaders'],
+);

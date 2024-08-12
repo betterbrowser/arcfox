@@ -5,12 +5,29 @@ const searchInput = document.getElementById("search-input");
 const tabList = document.getElementById("tab-list");
 const newTabButton = document.getElementById("new-tab-button");
 const searchIcon = document.querySelector('.address-bar i');
+const spaceName = document.querySelector('input#space-name');
 
 // Add event listeners
-newTabButton.addEventListener("click", function () {
-  browser.tabs.create({});
-});
+newTabButton.addEventListener("click", () =>
+  newTab()
+);
 
+// Put space name on localstorage
+spaceName.addEventListener('change', () => {
+  spaceName.blur()
+  localStorage.setItem('spaceName', spaceName.value)
+})
+
+// Auto-selects it on click
+spaceName.addEventListener('click', () => {
+  spaceName.select();
+})
+
+// Get space name from localstorage
+spaceName.value = localStorage.getItem('spaceName') || "Space 1";
+
+
+// Auto-selects address bar on click
 document.getElementById('search-input').addEventListener(`click`, () => {
   if (document.activeElement.id == 'search-input') {
     document.getElementById('search-input').select()
@@ -175,9 +192,13 @@ document.querySelector('button#b1').addEventListener("click", function () {
 });
 
 document.querySelector('button#b2').addEventListener("click", function () {
-  browser.tabs.create({});
+  newTab();
   document.querySelector('div#create-new').hidePopover();
 });
+
+function newTab() {
+  browser.tabs.create({});
+}
 
 // Sidebar Code
 function initTabSidebarControl() {

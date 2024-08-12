@@ -8,7 +8,15 @@
     "48": "icon.png",
     "98": "icon.png"
   },
-  "permissions": ["activeTab", "bookmarks", "tabs", "theme"],
+  "permissions": [
+    "<all_urls>",
+    "webRequest",
+    "webRequestBlocking",
+    "activeTab",
+    "bookmarks",
+    "tabs",
+    "theme"
+  ],
   "background": {
     "scripts": ["background.js"]
   },
@@ -21,7 +29,7 @@
   "commands": {
     "open-sidebar": {
       "suggested_key": {
-        "default": "Alt+Q"
+        "default": "Alt+S"
       },
       "description": "Open the extension sidebar"
     }
@@ -36,5 +44,12 @@
     "gecko": {
       "id": "{8a65567e-d1bc-4494-a266-b3d300c106f8}"
     }
-  }
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["peek/peek.js"],
+      "css": ["peek/peek.css"]
+    }
+  ]
 }

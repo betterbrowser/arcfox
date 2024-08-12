@@ -1,0 +1,16 @@
+div#peekpage::backdrop {
+  background: rgba(0, 0, 0, 0.7);
+}
+div#peekpage iframe {
+  width: 100%;
+  height: 100%;
+  margin-bottom: -5px;
+}
+@keyframes peekopen {
+  from {
+    scale: 0;
+  }
+  50% {
+    scale: 1.03;
+  }
+}
