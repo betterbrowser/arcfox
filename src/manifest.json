@@ -29,7 +29,7 @@
   "commands": {
     "open-sidebar": {
       "suggested_key": {
-        "default": "Alt+S"
+        "default": "Alt+Q"
       },
       "description": "Open the extension sidebar"
     }

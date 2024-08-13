@@ -23,6 +23,7 @@ div#peekpage iframe {
   border: 0;
   font-family: Material Symbols Outlined;
   font-size: 20px;
+  font-weight: 300;
   width: 30px;
   height: 30px;
   margin-top: 20px;
@@ -32,6 +33,9 @@ div#peekpage iframe {
   cursor: default;
   animation: buttonappear 1s;
   background: white;
+}
+.peektools#open_in_full {
+  margin-top: 60px;
 }
 @keyframes peekopen {
   from {
