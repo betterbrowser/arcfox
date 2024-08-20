@@ -4,9 +4,7 @@
   "version": "2.5.1",
   "description": "Make firefox flow like arc.",
   "icons": {
-    "16": "icon.png",
-    "48": "icon.png",
-    "98": "icon.png"
+    "48": "icon48.png"
   },
   "permissions": [
     "<all_urls>",
@@ -15,7 +13,7 @@
     "activeTab",
     "bookmarks",
     "tabs",
-    "theme"
+    "storage"
   ],
   "background": {
     "scripts": ["background.js"]
@@ -23,7 +21,7 @@
   "browser_action": {
     "default_title": "ArcFox",
     "default_icon": {
-      "48": "icon.png"
+      "48": "icon48.png"
     }
   },
   "commands": {
@@ -37,7 +35,7 @@
   "sidebar_action": {
     "default_panel": "components/sidebar/sidebar.html",
     "default_icon": {
-      "48": "icon.png"
+      "48": "icon48.png"
     }
   },
   "browser_specific_settings": {

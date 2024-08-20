@@ -10,7 +10,7 @@
 }
 
 .browserStack {
-	background: #3b3f52;
+  background: #3b3f52;
 }
 
 .browserContainer {
@@ -56,7 +56,9 @@
   right: 0;
   top: 0;
   width: calc(100% - 310px);
+  transition: 0.1s !important;
   background-color: transparent !important;
+  border-color: transparent !important;
 }
 
 #navigator-toolbox:hover {
@@ -74,6 +76,7 @@
 
 #nav-bar {
   background-color: #3b3f52 !important;
+  border-radius: 10px;
 }
 
 #urlbar-background {
@@ -85,11 +88,11 @@ toolbarbutton[open="true"] {
 }
 
 #sidebar-header {
-   display: none;
+  display: none;
 }
 
 #sidebar-box {
-  min-width: 300px !important;
+  min-width: 200px !important;
   max-width: 300px !important;
   min-height: unset !important;
   max-height: unset !important;

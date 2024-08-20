@@ -46,15 +46,15 @@ peekPage.appendChild(peekIframe);
 let collection = document.getElementsByTagName("a");
 Array.from(collection).forEach(function (element) {
     var oldhref = element.href;
+    element.href = "javascript:;";
+    element.removeAttribute("jsaction");
+    element.removeAttribute("target");
     element.onclick = (event) => {
         if (event.shiftKey) {
             event.preventDefault();
-            element.href = "javascript:;";
-            element.removeAttribute("jsaction");
-            element.removeAttribute("target");
             peekIframe.src = oldhref;
             peekBackdrop.style.display = 'block';
-            document.body.style.overflow = 'hidden'
+            document.body.style.overflow = 'hidden';
             peekPage.showPopover();
         } else {
             if (element.href == "javascript:;") {

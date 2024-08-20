@@ -15,7 +15,7 @@ newTabButton.addEventListener("click", () =>
 // Put space name on localstorage
 spaceName.addEventListener('change', () => {
   spaceName.blur()
-  localStorage.setItem('spaceName', spaceName.value)
+  browser.storage.local.set({ 'spaceName': spaceName.value })
 })
 
 // Auto-selects it on click
@@ -24,8 +24,9 @@ spaceName.addEventListener('click', () => {
 })
 
 // Get space name from localstorage
-spaceName.value = localStorage.getItem('spaceName') || "Space 1";
-
+browser.storage.local.get('spaceName', function (result) {
+  spaceName.value = result.spaceName || "Space 1";
+});
 
 // Auto-selects address bar on click
 document.getElementById('search-input').addEventListener(`click`, () => {
