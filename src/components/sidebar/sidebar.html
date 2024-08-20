@@ -32,6 +32,10 @@
             alt=""
           />
         </button>-->
+        <div id="space-info">
+          ✨
+          <input id="space-name" value="Space 1" />
+        </div>
       </div>
       <div id="sidebar-content">
         <button id="new-tab-button">+ New Tab <span>Ctrl+T</span></button>
@@ -39,10 +43,10 @@
       </div>
     </div>
     <div id="create-new" class="floating-div" popover>
-      <button id="b1" class="floating-button">
+      <button id="b1" class="floating-button" popovertarget="create-new">
         <i class="fa-regular fa-note-sticky"></i> New Note
       </button>
-      <button id="b2" class="floating-button">
+      <button id="b2" class="floating-button" popovertarget="create-new">
         <i class="fa-regular fa-square-plus"></i> New Tab
       </button>
     </div>

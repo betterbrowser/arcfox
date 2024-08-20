@@ -5,6 +5,11 @@
   font-family: Nunito;
 }
 
+:root {
+  --outlineColor: #aac2d32f;
+  --sidebarBackground: #3b3f52;
+}
+
 @font-face {
   font-family: Nunito;
   src: URL("./fonts/Nunito-VariableFont_wght.ttf") format("truetype");
@@ -25,7 +30,7 @@ body {
   position: fixed;
   top: 0;
   bottom: 0;
-  background-color: #3b3f52;
+  background-color: var(--sidebarBackground);
   box-shadow: 2px 0 4px rgba(0, 0, 0, 0.3);
   padding-left: 2px;
 }
@@ -40,9 +45,8 @@ body {
   align-items: center;
   flex-direction: column;
   padding: 10px 2px;
-  background-color: #3b3f52;
   margin: 0 15px;
-  border-bottom: 1px solid #aac2d32f;
+  border-bottom: 1px solid var(--outlineColor);
 }
 
 #sidebar-header button {
@@ -85,7 +89,8 @@ body {
   padding: 15px;
   border-radius: 15px;
   background: #323446;
-  width: 100%;
+  width: calc(100% + 10px);
+  margin-right: -3px;
   transition: scale 0.1s;
 }
 
@@ -109,9 +114,11 @@ body {
 
 #sidebar-content {
   height: 100%;
+  display: block;
   overflow-y: auto;
   max-height: calc(100% - 120px);
   padding-bottom: 50px;
+  margin: 0 12px;
 }
 
 #sidebar-content ul {
@@ -119,10 +126,10 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 6px;
+  gap: 6px 0;
   list-style: none;
   margin: 0;
-  padding: 10px;
+  margin-top: 10px;
 }
 
 #sidebar-content ul li {
@@ -180,10 +187,8 @@ body {
   display: block;
   font-size: 14px;
   background-color: transparent;
-  text-align: left;
-  margin: 0 12px;
   margin-top: 10px;
-  width: 93%;
+  width: 100%;
   color: #aac2d3;
 }
 
@@ -223,6 +228,19 @@ body {
   background: rgba(0, 0, 0, 0.1);
 }
 
+div#space-info {
+  margin-top: 10px;
+  width: 100%;
+  display: inline-flex;
+}
+
+div#space-info input {
+  margin-left: 4px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #9aaec0;
+}
+
 .footer {
   display: flex;
   flex-direction: row;
@@ -232,7 +250,7 @@ body {
   bottom: 0;
   left: 0;
   right: 0;
-  background-color: #3b3f52;
+  background-color: var(--sidebarBackground);
   padding: 18px;
   z-index: 1;
 }
@@ -244,7 +262,7 @@ body {
   left: 50%;
   width: 90%;
   height: 1px;
-  background-color: #5e5f71;
+  background-color: var(--outlineColor);
   transform: translateX(-50%);
 }
 

@@ -5,12 +5,30 @@ const searchInput = document.getElementById("search-input");
 const tabList = document.getElementById("tab-list");
 const newTabButton = document.getElementById("new-tab-button");
 const searchIcon = document.querySelector('.address-bar i');
+const spaceName = document.querySelector('input#space-name');
 
 // Add event listeners
-newTabButton.addEventListener("click", function () {
-  browser.tabs.create({});
+newTabButton.addEventListener("click", () =>
+  newTab()
+);
+
+// Put space name on localstorage
+spaceName.addEventListener('change', () => {
+  spaceName.blur()
+  browser.storage.local.set({ 'spaceName': spaceName.value })
+})
+
+// Auto-selects it on click
+spaceName.addEventListener('click', () => {
+  spaceName.select();
+})
+
+// Get space name from localstorage
+browser.storage.local.get('spaceName', function (result) {
+  spaceName.value = result.spaceName || "Space 1";
 });
 
+// Auto-selects address bar on click
 document.getElementById('search-input').addEventListener(`click`, () => {
   if (document.activeElement.id == 'search-input') {
     document.getElementById('search-input').select()
@@ -171,143 +189,137 @@ document.querySelector('button#b1').addEventListener("click", function () {
     url: 'https://arcfox-notes.vercel.app',
     active: true
   });
-  document.querySelector('div#create-new').hidePopover();
 });
 
 document.querySelector('button#b2').addEventListener("click", function () {
-  browser.tabs.create({});
-  document.querySelector('div#create-new').hidePopover();
+  newTab();
 });
 
+function newTab() {
+  browser.tabs.create({});
+}
+
 // Sidebar Code
-function initTabSidebarControl() {
-  const list = document.getElementById('tab-list');
-  let base, draggedOver, dragging, activeTabId;
+const list = document.getElementById('tab-list');
+let base, draggedOver, dragging, activeTabId;
 
-  const init = (array) => {
-    base = array.map((tab) => ({
-      id: tab.id,
-      title: tab.title,
-      favIconUrl: tab.favIconUrl,
-    }));
-    renderItems(base);
-  };
+const init = (array) => {
+  base = array.map((tab) => ({
+    id: tab.id,
+    title: tab.title,
+    favIconUrl: tab.favIconUrl,
+  }));
+  renderItems(base);
+};
 
-  const renderItems = (data) => {
-    list.innerHTML = '';
-    data.forEach((tab) => {
-      const node = document.createElement('li');
-      node.draggable = true;
-      node.dataset.tabId = tab.id;
+const renderItems = (data) => {
+  list.innerHTML = '';
+  data.forEach((tab) => {
+    const node = document.createElement('li');
+    node.draggable = true;
+    node.dataset.tabId = tab.id;
 
-      const titleNode = document.createElement('div');
-      titleNode.classList.add('tab-title');
-      titleNode.textContent = tab.title;
+    const titleNode = document.createElement('div');
+    titleNode.classList.add('tab-title');
+    titleNode.textContent = tab.title;
 
-      let iconNode;
-      if (tab.favIconUrl) {
-        iconNode = document.createElement('img');
-        iconNode.src = tab.favIconUrl;
-        iconNode.alt = tab.title;
-      } else {
-        iconNode = document.createElement('i');
-        iconNode.classList.add('fa', 'fa-solid', 'fa-globe');
-        iconNode.setAttribute('aria-hidden', 'true');
-      }
-
-      const closeButton = document.createElement('button');
-      closeButton.classList.add('close');
-      closeButton.title = 'Close Tab';
-      closeButton.innerHTML = '&times;';
-      closeButton.addEventListener('click', closeTab);
-
-      node.appendChild(iconNode);
-      node.appendChild(titleNode);
-      node.appendChild(closeButton);
-
-      node.addEventListener('drag', setDragging);
-      node.addEventListener('dragover', setDraggedOver);
-      node.addEventListener('drop', compare);
-      node.addEventListener('click', navigateToTab);
-      node.addEventListener('auxclick', (event) => {
-        if (event.button === 1) {
-          closeTabwithMiddleButton(event);
-        }
-      });
-
-      if (tab.id === activeTabId) {
-        node.classList.add('active');
-      }
-
-      list.appendChild(node);
-    });
-  };
-
-  const compare = (e) => {
-    const index1 = base.findIndex((tab) => tab.id === dragging);
-    const index2 = base.findIndex((tab) => tab.id === draggedOver);
-    const [draggedTab] = base.splice(index1, 1);
-    if (index2 === base.length) {
-      base.push(draggedTab);
+    let iconNode;
+    if (tab.favIconUrl) {
+      iconNode = document.createElement('img');
+      iconNode.src = tab.favIconUrl;
+      iconNode.alt = tab.title;
     } else {
-      base.splice(index2, 0, draggedTab);
+      iconNode = document.createElement('i');
+      iconNode.classList.add('fa', 'fa-solid', 'fa-globe');
+      iconNode.setAttribute('aria-hidden', 'true');
     }
+
+    const closeButton = document.createElement('button');
+    closeButton.classList.add('close');
+    closeButton.title = 'Close Tab';
+    closeButton.innerHTML = '&times;';
+    closeButton.addEventListener('click', closeTab);
+
+    node.appendChild(iconNode);
+    node.appendChild(titleNode);
+    node.appendChild(closeButton);
+
+    node.addEventListener('drag', setDragging);
+    node.addEventListener('dragover', setDraggedOver);
+    node.addEventListener('drop', compare);
+    node.addEventListener('click', navigateToTab);
+    node.addEventListener('auxclick', (event) => {
+      if (event.button === 1) {
+        closeTab(event);
+      }
+    });
+
+    if (tab.id === activeTabId) {
+      node.classList.add('active');
+    }
+
+    list.appendChild(node);
+  });
+};
+
+const compare = (e) => {
+  const index1 = base.findIndex((tab) => tab.id === dragging);
+  const index2 = base.findIndex((tab) => tab.id === draggedOver);
+  const [draggedTab] = base.splice(index1, 1);
+  if (index2 === base.length) {
+    base.push(draggedTab);
+  } else {
+    base.splice(index2, 0, draggedTab);
+  }
+  renderItems(base);
+};
+
+const setDraggedOver = (e) => {
+  e.preventDefault();
+  draggedOver = parseInt(e.target.dataset.tabId);
+};
+
+const setDragging = (e) => {
+  dragging = parseInt(e.target.dataset.tabId);
+};
+
+const closeTab = (e, middleclick = false) => {
+  e.stopPropagation();
+  var tabId;
+  if (middleclick) {
+    tabId = parseInt(e.currentTarget.dataset.tabId);
+  } else {
+    tabId = parseInt(e.target.parentNode.dataset.tabId);
+  }
+  browser.tabs.remove(tabId);
+  const index = base.findIndex((tab) => tab.id === tabId);
+  if (index !== -1) {
+    base.splice(index, 1);
     renderItems(base);
-  };
+  }
+  initTabSidebarControl();
+};
 
-  const setDraggedOver = (e) => {
-    e.preventDefault();
-    draggedOver = parseInt(e.target.dataset.tabId);
-  };
+const navigateToTab = (e) => {
+  const tabId = parseInt(e.currentTarget.dataset.tabId);
+  browser.tabs.update(tabId, { active: true, highlighted: false });
+  updateSearchBar();
 
-  const setDragging = (e) => {
-    dragging = parseInt(e.target.dataset.tabId);
-  };
+  const currentActiveTab = list.querySelector('.active');
+  if (currentActiveTab) {
+    currentActiveTab.classList.remove('active');
+  }
 
-  const closeTab = (e) => {
-    e.stopPropagation();
-    const tabId = parseInt(e.target.parentNode.dataset.tabId);
-    browser.tabs.remove(tabId);
-    const index = base.findIndex((tab) => tab.id === tabId);
-    if (index !== -1) {
-      base.splice(index, 1);
-      renderItems(base);
-    }
-    // Tries doing it again
-    browser.tabs.remove(tabId);
-    initTabSidebarControl();
-  };
+  activeTabId = tabId;
+  const newActiveTab = list.querySelector(`[data-tab-id="${activeTabId}"]`);
+  if (newActiveTab) {
+    newActiveTab.classList.add('active');
+  }
 
-  const closeTabwithMiddleButton = (e) => {
-    e.stopPropagation();
-    const tabId = parseInt(e.currentTarget.dataset.tabId);
-    browser.tabs.remove(tabId);
-    const index = base.findIndex((tab) => tab.id === tabId);
-    if (index !== -1) {
-      base.splice(index, 1);
-      renderItems(base);
-    }
-    initTabSidebarControl();
-  };
+  e.currentTarget.classList.add('current-tab');
+};
 
-  const navigateToTab = (e) => {
-    const tabId = parseInt(e.currentTarget.dataset.tabId);
-    browser.tabs.update(tabId, { active: true, highlighted: false });
-    updateSearchBar();
-
-    const currentActiveTab = list.querySelector('.active');
-    if (currentActiveTab) {
-      currentActiveTab.classList.remove('active');
-    }
-
-    activeTabId = tabId;
-    const newActiveTab = list.querySelector(`[data-tab-id="${activeTabId}"]`);
-    if (newActiveTab) {
-      newActiveTab.classList.add('active');
-    }
-
-    e.currentTarget.classList.add('current-tab');
-  };
+function initTabSidebarControl() {
 
   browser.tabs.query({ currentWindow: true }).then((tabs) => {
     init(tabs);
