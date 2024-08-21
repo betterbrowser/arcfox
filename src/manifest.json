@@ -1,10 +1,10 @@
 {
   "manifest_version": 2,
   "name": "ArcFox",
-  "version": "2.5.1",
+  "version": "2.5.1.1",
   "description": "Make firefox flow like arc.",
   "icons": {
-    "48": "icon48.png"
+    "48": "icon.png"
   },
   "permissions": [
     "<all_urls>",
@@ -21,7 +21,7 @@
   "browser_action": {
     "default_title": "ArcFox",
     "default_icon": {
-      "48": "icon48.png"
+      "48": "icon.png"
     }
   },
   "commands": {
@@ -35,7 +35,7 @@
   "sidebar_action": {
     "default_panel": "components/sidebar/sidebar.html",
     "default_icon": {
-      "48": "icon48.png"
+      "48": "icon.png"
     }
   },
   "content_scripts": [

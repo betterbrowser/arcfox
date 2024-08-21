@@ -18,6 +18,7 @@ div#peekpage iframe {
   border: 0;
   margin-bottom: -5px;
 }
+
 .peektools {
   border-radius: 100px;
   border: 0;
@@ -35,6 +36,11 @@ div#peekpage iframe {
   background: white;
   color: black;
 }
+
+.peektools::after {
+  content: attr(id);
+}
+
 .peektools#open_in_full {
   margin-top: 60px;
 }
