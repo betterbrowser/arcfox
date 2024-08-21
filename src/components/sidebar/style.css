@@ -33,7 +33,7 @@ body {
   background-color: var(--sidebarBackground);
   box-shadow: 2px 0 4px rgba(0, 0, 0, 0.3);
   padding-left: 2px;
-  padding-bottom: 50px;
+  padding-bottom: 48px;
 }
 
 #sidebar::-webkit-scrollbar {

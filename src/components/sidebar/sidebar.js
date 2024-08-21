@@ -174,6 +174,7 @@ function searchBar() {
     }
 
     browser.tabs.update(currentTab.id, { url: url });
+    searchInput.blur();
     updateSearchBar();
   });
 }
@@ -319,8 +320,17 @@ const navigateToTab = (e) => {
   e.currentTarget.classList.add('current-tab');
 };
 
-function initTabSidebarControl() {
+/* Settings page?
+document.getElementById('settings').addEventListener('click', () => {
+  browser.windows.create({
+    url: "../settings/settings.html", // URL to open in the new window
+    type: "popup",
+    width: 1000,
+    height: 600
+  });
+})*/
 
+function initTabSidebarControl() {
   browser.tabs.query({ currentWindow: true }).then((tabs) => {
     init(tabs);
     activeTabId = tabs.find((tab) => tab.active).id;
