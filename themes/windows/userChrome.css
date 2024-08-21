@@ -44,14 +44,13 @@
 #navigator-toolbox:not(:hover) {
   --is-bar-visible: hidden;
   opacity: 0 !important;
-  height: 15px;
   transition: height 200ms ease-in-out, opacity 175ms ease-in-out;
 }
 
 #navigator-toolbox {
   position: fixed;
   z-index: 1;
-  height: 10px;
+  height: 15px;
   overflow: var(--is-bar-visible);
   right: 0;
   top: 0;
@@ -103,4 +102,10 @@ toolbarbutton[open="true"] {
   background-color: transparent !important;
   border: none !important;
   box-shadow: none !important;
+}
+
+/* Hiding the header on new tab page */
+#main-window[BookmarksToolbarOverlapsBrowser] .newTabBrowserPanel,
+#main-window[BookmarksToolbarOverlapsBrowser] #sidebar-box {
+  padding-top: 0 !important;
 }
