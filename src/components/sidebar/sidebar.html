@@ -28,13 +28,20 @@
         <div class="address-bar">
           <input id="search-input" type="text" placeholder="Search..." />
         </div>
-        <!-- Favorites?
-        <button class="favorite">
-          <img
-            src="https://mailmeteor.com/logos/assets/PNG/Gmail_Logo_512px.png"
-            alt=""
-          />
-        </button>-->
+        <div id="favorites">
+          <button class="favorite" data-url="https://gmail.com">
+            <img
+              src="https://mailmeteor.com/logos/assets/PNG/Gmail_Logo_512px.png"
+              alt=""
+            />
+          </button>
+          <button class="favorite" data-url="https://music.youtube.com">
+            <img
+              src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/Youtube_Music_icon.svg/2048px-Youtube_Music_icon.svg.png"
+              alt=""
+            />
+          </button>
+        </div>
         <div id="space-info">
           ✨
           <input id="space-name" value="Space 1" />
@@ -72,6 +79,6 @@
         <i class="fa-regular fa-plus"></i>
       </button>
     </div>
-    <script src="sidebar.js"></script>
+    <script src="sidebar.js" defer></script>
   </body>
 </html>

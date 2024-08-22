@@ -1,6 +1,8 @@
 // Define variables
 let tabs = [];
 let activeTab = null;
+var openedFavorites = []
+var openedFavoritesIds = []
 const searchInput = document.getElementById("search-input");
 const tabList = document.getElementById("tab-list");
 const newTabButton = document.getElementById("new-tab-button");
@@ -259,7 +261,9 @@ const renderItems = (data) => {
       node.classList.add('active');
     }
 
-    list.appendChild(node);
+    if (!openedFavoritesIds.includes(tab.id)) {
+      list.appendChild(node);
+    }
   });
 };
 
@@ -306,16 +310,11 @@ const navigateToTab = (e) => {
   browser.tabs.update(tabId, { active: true, highlighted: false });
   updateSearchBar();
 
-  const currentActiveTab = list.querySelector('.active');
-  if (currentActiveTab) {
-    currentActiveTab.classList.remove('active');
-  }
+  list.querySelector('.active')?.classList.remove('active');
+  document.querySelector('[aria-label="favopen"]')?.setAttribute('aria-label', '');
 
   activeTabId = tabId;
-  const newActiveTab = list.querySelector(`[data-tab-id="${activeTabId}"]`);
-  if (newActiveTab) {
-    newActiveTab.classList.add('active');
-  }
+  list.querySelector(`[data-tab-id="${activeTabId}"]`)?.classList.add('active');
 
   e.currentTarget.classList.add('current-tab');
 };
@@ -323,12 +322,33 @@ const navigateToTab = (e) => {
 /* Settings page?
 document.getElementById('settings').addEventListener('click', () => {
   browser.windows.create({
-    url: "../settings/settings.html", // URL to open in the new window
+    url: "../settings/settings.html",
     type: "popup",
     width: 1000,
     height: 600
   });
 })*/
+
+// Favorites
+var favorites = []
+document.querySelectorAll('.favorite').forEach((element) => {
+  element.onclick = async () => {
+    if (!element.id) {
+      const tabCreated = await browser.tabs.create({ url: element.dataset.url });
+      element.id = tabCreated.id;
+      openedFavorites.push(tabCreated);
+      openedFavoritesIds.push(tabCreated.id);
+    } else {
+      list.querySelector('.active')?.classList.remove('active');
+      browser.tabs.update(parseInt(element.id), { active: true, highlighted: false });
+    }
+    document.querySelectorAll('[aria-label="favopen"]')?.forEach((elemento) => {
+      elemento.ariaLabel = "";
+    })
+    element.ariaLabel = "favopen";
+    updateSearchBar();
+  }
+})
 
 function initTabSidebarControl() {
   browser.tabs.query({ currentWindow: true }).then((tabs) => {

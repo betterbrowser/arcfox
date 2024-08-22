@@ -12,7 +12,7 @@ function handleShortcut(command) {
 browser.commands.onCommand.addListener(handleShortcut);
 
 // Remove X-frame headers - required for Peek to work
-var defaultRgx = ["<all_urls>", "*://*/*", "https://*.w3schools.com/*"].join('\n')
+var defaultRgx = ["<all_urls>", "*://*/*"].join('\n')
 var theRegex = null;
 var headersdo = {
     "content-security-policy": (x => { return false }),
