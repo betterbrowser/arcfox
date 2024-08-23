@@ -12,7 +12,7 @@
 
 @font-face {
   font-family: Nunito;
-  src: URL("./fonts/Nunito-VariableFont_wght.ttf") format("truetype");
+  src: URL("../fonts/Nunito-VariableFont_wght.ttf") format("truetype");
 }
 
 body {
@@ -45,7 +45,7 @@ body {
   display: flex;
   align-items: center;
   flex-direction: column;
-  padding: 10px 2px;
+  padding: 10px 0;
   margin: 0 15px;
   border-bottom: 1px solid var(--outlineColor);
 }
@@ -88,9 +88,9 @@ body {
   align-items: center;
   gap: 10px;
   padding: 15px;
+  width: 100%;
   border-radius: 15px;
   background: #323446;
-  width: calc(100% + 10px);
   margin-right: -3px;
   transition: scale 0.1s;
 }
@@ -326,7 +326,7 @@ div#space-info input {
 
 /* Favorites */
 div#favorites {
-  display: inline-flex;
+  display: flex;
   gap: 8px;
   width: 100%;
 }

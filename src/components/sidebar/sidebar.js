@@ -1,8 +1,11 @@
 // Define variables
 let tabs = [];
 let activeTab = null;
+
+var favorites = [];
 var openedFavorites = []
-var openedFavoritesIds = []
+var openedFavoritesIds = [];
+
 const searchInput = document.getElementById("search-input");
 const tabList = document.getElementById("tab-list");
 const newTabButton = document.getElementById("new-tab-button");
@@ -13,6 +16,12 @@ const spaceName = document.querySelector('input#space-name');
 newTabButton.addEventListener("click", () =>
   newTab()
 );
+
+// Get favorites from localstorage
+browser.storage.local.get('favorites', function (result) {
+  favorites = result.favorites || [{ url: 'https://gmail.com', favicon: 'https://mailmeteor.com/logos/assets/PNG/Gmail_Logo_512px.png', id: 0 }, { url: 'https://music.youtube.com', favicon: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/Youtube_Music_icon.svg/2048px-Youtube_Music_icon.svg.png', id: 1 }];
+  loadFavorites()
+});
 
 // Put space name on localstorage
 spaceName.addEventListener('change', () => {
@@ -319,7 +328,6 @@ const navigateToTab = (e) => {
   e.currentTarget.classList.add('current-tab');
 };
 
-/* Settings page?
 document.getElementById('settings').addEventListener('click', () => {
   browser.windows.create({
     url: "../settings/settings.html",
@@ -327,29 +335,55 @@ document.getElementById('settings').addEventListener('click', () => {
     width: 1000,
     height: 600
   });
-})*/
-
-// Favorites
-var favorites = []
-document.querySelectorAll('.favorite').forEach((element) => {
-  element.onclick = async () => {
-    if (!element.id) {
-      const tabCreated = await browser.tabs.create({ url: element.dataset.url });
-      element.id = tabCreated.id;
-      openedFavorites.push(tabCreated);
-      openedFavoritesIds.push(tabCreated.id);
-    } else {
-      list.querySelector('.active')?.classList.remove('active');
-      browser.tabs.update(parseInt(element.id), { active: true, highlighted: false });
-    }
-    document.querySelectorAll('[aria-label="favopen"]')?.forEach((elemento) => {
-      elemento.ariaLabel = "";
-    })
-    element.ariaLabel = "favopen";
-    updateSearchBar();
-  }
 })
 
+// Favorites
+function loadFavorites() {
+  favorites.forEach((favorite) => {
+    const element = document.createElement('button')
+    element.className = "favorite"
+    element.dataset.url = favorite.url;
+    element.onclick = async () => {
+      if (!element.id) {
+        const tabCreated = await browser.tabs.create({ url: element.dataset.url });
+        element.id = tabCreated.id;
+        openedFavorites.push(tabCreated);
+        openedFavoritesIds.push(tabCreated.id);
+      } else {
+        list.querySelector('.active')?.classList.remove('active');
+        browser.tabs.update(parseInt(element.id), { active: true, highlighted: false });
+      }
+      document.querySelectorAll('[aria-label="favopen"]')?.forEach((elemento) => {
+        elemento.ariaLabel = "";
+      })
+      element.ariaLabel = "favopen";
+      updateSearchBar();
+      await new Promise(resolve => setTimeout(resolve, 2500));
+      browser.tabs.query({ currentWindow: true }).then((tabs) => {
+        favIcon.src = tabs.find((elems) => elems.id == element.id).favIconUrl
+      });
+      browser.storage.local.get('favorites', function (result) {
+        var favoritesc = result.favorites || [{ url: 'https://gmail.com', favicon: 'https://mailmeteor.com/logos/assets/PNG/Gmail_Logo_512px.png' }, { url: 'https://music.youtube.com', favicon: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/Youtube_Music_icon.svg/2048px-Youtube_Music_icon.svg.png' }];
+        favoritesc[favorite.id].favicon = favIcon.src;
+        console.log(favoritesc)
+        browser.storage.local.set({ favorites: favoritesc })
+      });
+    }
+    const favIcon = document.createElement('img');
+    favIcon.src = favorite.favicon;
+
+    element.appendChild(favIcon)
+    document.querySelector('#favorites').appendChild(element);
+
+  });
+
+  document.addEventListener('contextmenu', function (e) {
+    e.preventDefault();
+  }, false);
+}
+
+
+// Init Sidebar
 function initTabSidebarControl() {
   browser.tabs.query({ currentWindow: true }).then((tabs) => {
     init(tabs);
