@@ -361,12 +361,12 @@ function loadFavorites() {
       await new Promise(resolve => setTimeout(resolve, 2500));
       browser.tabs.query({ currentWindow: true }).then((tabs) => {
         favIcon.src = tabs.find((elems) => elems.id == element.id).favIconUrl
-      });
-      browser.storage.local.get('favorites', function (result) {
-        var favoritesc = result.favorites || [{ url: 'https://gmail.com', favicon: 'https://mailmeteor.com/logos/assets/PNG/Gmail_Logo_512px.png' }, { url: 'https://music.youtube.com', favicon: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/Youtube_Music_icon.svg/2048px-Youtube_Music_icon.svg.png' }];
-        favoritesc[favorite.id].favicon = favIcon.src;
-        console.log(favoritesc)
-        browser.storage.local.set({ favorites: favoritesc })
+        browser.storage.local.get('favorites', function (result) {
+          var favoritesc = result.favorites || [{ url: 'https://gmail.com', favicon: 'https://mailmeteor.com/logos/assets/PNG/Gmail_Logo_512px.png' }, { url: 'https://music.youtube.com', favicon: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/Youtube_Music_icon.svg/2048px-Youtube_Music_icon.svg.png' }];
+          favoritesc[favorite.id].favicon = favIcon.src;
+          console.log(favoritesc)
+          browser.storage.local.set({ favorites: favoritesc })
+        });
       });
     }
     const favIcon = document.createElement('img');
