@@ -210,6 +210,9 @@ document.querySelector('button#b2').addEventListener("click", function () {
 
 function newTab() {
   browser.tabs.create({});
+  document.querySelectorAll('[aria-label="favopen"]')?.forEach((elemento) => {
+    elemento.ariaLabel = "";
+  })
 }
 
 // Sidebar Code

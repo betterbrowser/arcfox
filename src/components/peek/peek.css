@@ -35,6 +35,11 @@ div#peekpage iframe {
   animation: buttonappear 1s;
   background: white;
   color: black;
+  transition: 0.1s;
+}
+
+.peektools:hover {
+  background: #dbdbdb;
 }
 
 .peektools::after {
