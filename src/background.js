@@ -1,3 +1,4 @@
+browser.sidebarAction.open();
 // Open Sidebar Shortcut - ALT+Q
 function handleShortcut(command) {
     var match = window.navigator.userAgent.match(/Firefox\/([0-9]+)\./);
