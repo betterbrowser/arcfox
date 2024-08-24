@@ -38,6 +38,7 @@ document.querySelector('#btn').addEventListener('click', () => {
       favorites: favoritesc
     });
   })
+  browser.windows.create({})
   browser.windows.getAll({ populate: true }).then((windows) => {
     for (let window of windows) {
       browser.windows.remove(window.id);
