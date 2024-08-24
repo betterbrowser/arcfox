@@ -333,7 +333,7 @@ document.getElementById('settings').addEventListener('click', () => {
   browser.windows.create({
     url: "../settings/settings.html",
     type: "popup",
-    width: 1000,
+    width: 400,
     height: 600
   });
 })

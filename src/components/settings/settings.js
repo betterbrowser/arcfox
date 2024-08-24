@@ -6,13 +6,16 @@ browser.storage.local.get('favorites', function (result) {
   if (favorites[1] !== undefined) {
     document.querySelector('#f2').value = favorites[1].url;
   }
+  if (favorites[2] !== undefined) {
+    document.querySelector('#f3').value = favorites[2].url;
+  }
 });
 
 document.querySelector('#btn').addEventListener('click', () => {
   browser.storage.local.get('favorites', function (result) {
     var favoritesc = result.favorites || [{ url: 'https://gmail.com', favicon: 'https://mailmeteor.com/logos/assets/PNG/Gmail_Logo_512px.png', id: 0 }, { url: 'https://music.youtube.com', favicon: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/Youtube_Music_icon.svg/2048px-Youtube_Music_icon.svg.png', id: 1 }];
 
-    [0, 1].forEach((i) => {
+    [0, 1, 2].forEach((i) => {
       if (favoritesc[i] == undefined) {
         if (document.querySelector('#f' + (i + 1)).value !== "") {
           favoritesc[i] = {}
@@ -35,7 +38,9 @@ document.querySelector('#btn').addEventListener('click', () => {
       favorites: favoritesc
     });
   })
-  browser.windows.getCurrent({ populate: true }).then((window) => {
-    browser.windows.remove(window.id);
+  browser.windows.getAll({ populate: true }).then((windows) => {
+    for (let window of windows) {
+      browser.windows.remove(window.id);
+    }
   });
 })

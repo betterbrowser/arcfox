@@ -2,12 +2,12 @@
 <span>Open a Peek window when clicking on links with Shift held</span>
 <input disabled type="checkbox" name="" id="" checked />
 <h3>Favorites</h3>
-<span>You need to restart to see the changes</span>
-<br />
-<br />
+<span>Pin some tabs!</span>
+<div style="height: 10px"></div>
 <input type="text" id="f1" placeholder="Favorite 1..." />
 <input type="text" id="f2" placeholder="Favorite 2..." />
-<button id="btn">Save changes</button>
+<input type="text" id="f3" placeholder="Favorite 3..." />
+<button id="btn">Save and restart ArcFox</button>
 <style>
   * {
     user-select: none;
@@ -25,6 +25,37 @@
   h3 {
     margin: 15px 0 6px 0;
     padding: auto;
+  }
+  ::selection {
+    background-color: #565c78;
+  }
+  input {
+    color: white;
+    background: transparent;
+    font-family: Nunito;
+    font-size: 16px;
+    padding: 8px;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.398);
+    transition: 0.2s;
+    cursor: pointer;
+    margin-bottom: 10px;
+  }
+  input:focus {
+    scale: 0.98;
+    outline: none;
+    cursor: default;
+  }
+  button {
+    background-color: rgb(93, 93, 130);
+    color: white;
+    padding: 10px;
+    border: 0;
+    border-radius: 10px;
+    font-family: Nunito;
+    font-size: 14px;
+    font-weight: 800;
+    cursor: pointer;
   }
 </style>
 <script src="settings.js"></script>
