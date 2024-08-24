@@ -1,17 +1,27 @@
 browser.storage.local.get('favorites', function (result) {
   var favorites = result.favorites || [{ url: 'https://gmail.com', favicon: 'https://mailmeteor.com/logos/assets/PNG/Gmail_Logo_512px.png', id: 0 }, { url: 'https://music.youtube.com', favicon: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/Youtube_Music_icon.svg/2048px-Youtube_Music_icon.svg.png', id: 1 }];
-  if (favorites[0] !== undefined) {
-    document.querySelector('#f1').value = favorites[0].url;
-  }
-  if (favorites[1] !== undefined) {
-    document.querySelector('#f2').value = favorites[1].url;
-  }
-  if (favorites[2] !== undefined) {
-    document.querySelector('#f3').value = favorites[2].url;
-  }
+  // Sets the URLs
+  [0, 1, 2].forEach(i => favorites[i] && (document.querySelector(`#f${i + 1}`).value = favorites[i].url));
 });
 
 document.querySelector('#btn').addEventListener('click', () => {
+  saveSettings();
+  browser.windows.getAll({ populate: true }).then((windows) => {
+    for (let window of windows) {
+      browser.windows.remove(window.id);
+    }
+  });
+  browser.windows.create({})
+})
+
+document.querySelector('#save').addEventListener('click', () => {
+  saveSettings();
+  browser.windows.getCurrent().then((window) => {
+    browser.windows.remove(window.id)
+  })
+})
+
+function saveSettings() {
   browser.storage.local.get('favorites', function (result) {
     var favoritesc = result.favorites || [{ url: 'https://gmail.com', favicon: 'https://mailmeteor.com/logos/assets/PNG/Gmail_Logo_512px.png', id: 0 }, { url: 'https://music.youtube.com', favicon: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/Youtube_Music_icon.svg/2048px-Youtube_Music_icon.svg.png', id: 1 }];
 
@@ -38,10 +48,4 @@ document.querySelector('#btn').addEventListener('click', () => {
       favorites: favoritesc
     });
   })
-  browser.windows.create({})
-  browser.windows.getAll({ populate: true }).then((windows) => {
-    for (let window of windows) {
-      browser.windows.remove(window.id);
-    }
-  });
-})
+}

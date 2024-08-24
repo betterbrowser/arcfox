@@ -316,6 +316,7 @@ const closeTab = (e, middleclick = false) => {
     renderItems(base);
   }
   initTabSidebarControl();
+  updateSearchBar();
 };
 
 const navigateToTab = (e) => {
@@ -362,7 +363,17 @@ function loadFavorites() {
       })
       element.ariaLabel = "favopen";
       updateSearchBar();
-      await new Promise(resolve => setTimeout(resolve, 2700));
+      while (true) {
+        await new Promise(resolve => setTimeout(resolve, 200));
+        var tabsn = []
+        await browser.tabs.query({ currentWindow: true }).then((tabs) => {
+          tabsn = tabs
+        })
+        if ((tabsn.find((elems) => elems.id == element.id).favIconUrl !== undefined)) {
+          break
+        }
+      }
+
       browser.tabs.query({ currentWindow: true }).then((tabs) => {
         favIcon.src = tabs.find((elems) => elems.id == element.id).favIconUrl
         browser.storage.local.get('favorites', function (result) {
