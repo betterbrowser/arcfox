@@ -388,14 +388,13 @@ function loadFavorites() {
 
     element.appendChild(favIcon)
     document.querySelector('#favorites').appendChild(element);
-
   });
-
-  document.addEventListener('contextmenu', function (e) {
-    e.preventDefault();
-  }, false);
 }
 
+// Remove the context menu
+document.addEventListener('contextmenu', function (e) {
+  e.preventDefault();
+}, false);
 
 // Init Sidebar
 function initTabSidebarControl() {

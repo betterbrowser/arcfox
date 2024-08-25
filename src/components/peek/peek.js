@@ -41,18 +41,23 @@ document.body.appendChild(peekBackdrop);
 document.body.appendChild(peekPage);
 peekPage.appendChild(peekIframe);
 
-// Make peek functional in Anchor elements
-let collection = document.getElementsByTagName("a");
-Array.from(collection).forEach(function (element) {
-    element.removeAttribute("jsaction");
-    element.removeAttribute("target");
-    element.onclick = (event) => {
-        if (event.shiftKey) {
-            event.preventDefault();
-            peekIframe.src = element.href;
-            peekBackdrop.style.display = 'block';
-            document.body.style.overflow = 'hidden';
-            peekPage.showPopover();
-        }
-    };
-});
+
+document.addEventListener('DOMSubtreeModified', loadPeek, false);
+function loadPeek() {
+    // Make peek functional in Anchor elements
+    let collection = document.getElementsByTagName("a");
+    Array.from(collection).forEach(function (element) {
+        element.removeAttribute("jsaction");
+        element.removeAttribute("target");
+        element.onclick = (event) => {
+            if (event.shiftKey) {
+                event.preventDefault();
+                peekIframe.src = element.href;
+                peekBackdrop.style.display = 'block';
+                document.body.style.overflow = 'hidden';
+                peekPage.showPopover();
+            }
+        };
+    });
+}
+loadPeek();
