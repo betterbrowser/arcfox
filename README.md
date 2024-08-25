@@ -10,7 +10,7 @@ And things that would make it great but are not actually necessary.
 If you want to contact us, open a <a href="https://github.com/betterbrowser/arcfox/issues">issue</a> or use our <a href="https://discord.gg/jDASpgt68t">discord</a>
 </pre>
 
-## Rebuild roadmap
+## Our Roadmap
 
 ### Essential:
 
@@ -40,6 +40,10 @@ If you want to contact us, open a <a href="https://github.com/betterbrowser/arcf
 
 ### Non-Essential:
 
+- [x] Peek
+  - [x] Use Shift to Peek
+  - [x] Works in most webpages (Report if smth doesn't work as expected)
+  - [ ] Favorites Peek by default
 - [ ] Folders
   - [ ] Folders Feature
   - [ ] Stackable Folders
@@ -80,8 +84,9 @@ If you want to contact us, open a <a href="https://github.com/betterbrowser/arcf
 - [ ] Boosts
   - [ ] Boosts Feature
   - [ ] Boosts Store
+  - [ ] Arc Palette
 
-##
+ArcFox still has a lot of features to be implemented and you can see our <a href="https://github.com/orgs/betterbrowser/projects/2">Full Roadmap</a> for a better understanding of the upcoming features and things we are working on :D
 
 <p align="center">
   <a href="#">
@@ -128,10 +133,6 @@ To install arcfox-theme you need to open your firefox configurations and turn st
 - When the folder opens, search for a folder called "chrome", if you don't find it create one.
 - Inside the "chrome" folder, drop the "userChrome.css" that you find on the <a href="https://github.com/betterbrowser/arcfox/releases">releases.</a>
 - Restart firefox.
-
-# Roadmap
-
-ArcFox still have a lot of features to be implemented and you can see our <a href="https://github.com/orgs/betterbrowser/projects/2">Roadmap</a> for a better understanding of the upcoming features and things we are working on :D
 
 # Removing ArcFox
 
