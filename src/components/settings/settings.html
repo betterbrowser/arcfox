@@ -1,10 +1,76 @@
-<span>Peek tabs by pressing shift while clicking on a link</span>
-<input type="checkbox" name="" id="" />
+<h3>General</h3>
+<span>Open a Peek window when clicking on links with Shift held</span>
+<input disabled type="checkbox" name="" id="" checked />
+<h3>Favorites</h3>
+<span>Pin some tabs!</span>
+<div style="height: 10px"></div>
+<input type="text" id="f1" placeholder="Favorite 1..." />
+<input type="text" id="f2" placeholder="Favorite 2..." />
+<input type="text" id="f3" placeholder="Favorite 3..." />
+<button id="btn">Save and <i>restart</i> ArcFox</button>
+<button id="save">Restart later</button>
 <style>
+  * {
+    user-select: none;
+  }
   body {
-    font-family: Arial;
-    display: inline;
-    background-color: #292d2d;
+    font-family: Nunito;
+    background-color: #1a1d25;
     color: white;
+    padding: 10px;
+  }
+  @font-face {
+    font-family: Nunito;
+    src: URL("../fonts/Nunito-VariableFont_wght.ttf") format("truetype");
+  }
+  h3 {
+    margin: 15px 0 6px 0;
+    padding: auto;
+  }
+  ::selection {
+    background-color: #565c78;
+  }
+  input {
+    color: white;
+    background: transparent;
+    font-family: Nunito;
+    font-size: 16px;
+    padding: 8px;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.398);
+    transition: 0.2s;
+    cursor: pointer;
+    margin-bottom: 10px;
+  }
+  input:focus {
+    scale: 0.98;
+    outline: none;
+    cursor: default;
+  }
+  button {
+    background-color: rgb(93, 93, 130);
+    color: white;
+    padding: 10px;
+    border: 0;
+    border-radius: 10px;
+    font-family: Nunito;
+    font-size: 14px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: 0.1s;
+  }
+  button:hover {
+    scale: 1.02;
+  }
+  button:active {
+    scale: 0.98;
+  }
+  button#save {
+    margin-top: 10px;
+    background: transparent;
+    color: rgba(255, 255, 255, 0.65);
+    font-weight: 400;
+    border: 1px solid rgba(255, 255, 255, 0.226);
   }
 </style>
+<script src="settings.js"></script>

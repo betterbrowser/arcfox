@@ -1,10 +1,13 @@
 // Define variables
 let tabs = [];
 let activeTab = null;
+var favorites = [];
+var openedFavorites = []
+var openedFavoritesIds = [];
+
 const searchInput = document.getElementById("search-input");
 const tabList = document.getElementById("tab-list");
 const newTabButton = document.getElementById("new-tab-button");
-const searchIcon = document.querySelector('.address-bar i');
 const spaceName = document.querySelector('input#space-name');
 
 // Add event listeners
@@ -12,7 +15,7 @@ newTabButton.addEventListener("click", () =>
   newTab()
 );
 
-// Put space name on localstorage
+// Put space name on browser storeage
 spaceName.addEventListener('change', () => {
   spaceName.blur()
   browser.storage.local.set({ 'spaceName': spaceName.value })
@@ -29,12 +32,18 @@ browser.storage.local.get('spaceName', function (result) {
 });
 
 // Auto-selects address bar on click
-document.getElementById('search-input').addEventListener(`click`, () => {
+searchInput.addEventListener(`click`, () => {
   if (document.activeElement.id == 'search-input') {
-    document.getElementById('search-input').select()
+    searchInput.select()
   }
 });
 document.querySelector('div.address-bar').addEventListener(`click`, () => document.getElementById('search-input').select());
+
+// Loads favorites
+browser.storage.local.get('favorites', function (result) {
+  favorites = result.favorites || [{ url: 'https://gmail.com', favicon: 'https://mailmeteor.com/logos/assets/PNG/Gmail_Logo_512px.png', id: 0 }, { url: 'https://music.youtube.com', favicon: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/Youtube_Music_icon.svg/2048px-Youtube_Music_icon.svg.png', id: 1 }];
+  loadFavorites()
+});
 
 // Update sidebar when a tab changes
 browser.tabs.onUpdated.addListener((changeInfo) => {
@@ -77,6 +86,7 @@ function handleBrowserControl(id) {
   initTabSidebarControl();
 }
 
+// Handle controls
 const controls = ['back', 'front', 'refresh', 'close', 'size', 'hide', 'back', 'front']
 controls.forEach((control) => {
   document.getElementById(control).addEventListener("click", function () {
@@ -198,10 +208,12 @@ document.querySelector('button#b2').addEventListener("click", function () {
 
 function newTab() {
   browser.tabs.create({});
+  document.querySelectorAll('[aria-label="favopen"]')?.forEach((elemento) => {
+    elemento.ariaLabel = "";
+  })
 }
 
 // Sidebar Code
-const list = document.getElementById('tab-list');
 let base, draggedOver, dragging, activeTabId;
 
 const init = (array) => {
@@ -214,7 +226,7 @@ const init = (array) => {
 };
 
 const renderItems = (data) => {
-  list.innerHTML = '';
+  tabList.innerHTML = '';
   data.forEach((tab) => {
     const node = document.createElement('li');
     node.draggable = true;
@@ -259,7 +271,9 @@ const renderItems = (data) => {
       node.classList.add('active');
     }
 
-    list.appendChild(node);
+    if (!openedFavoritesIds.includes(tab.id)) {
+      tabList.appendChild(node);
+    }
   });
 };
 
@@ -299,6 +313,7 @@ const closeTab = (e, middleclick = false) => {
     renderItems(base);
   }
   initTabSidebarControl();
+  updateSearchBar();
 };
 
 const navigateToTab = (e) => {
@@ -306,30 +321,79 @@ const navigateToTab = (e) => {
   browser.tabs.update(tabId, { active: true, highlighted: false });
   updateSearchBar();
 
-  const currentActiveTab = list.querySelector('.active');
-  if (currentActiveTab) {
-    currentActiveTab.classList.remove('active');
-  }
+  tabList.querySelector('.active')?.classList.remove('active');
+  document.querySelector('[aria-label="favopen"]')?.setAttribute('aria-label', '');
 
   activeTabId = tabId;
-  const newActiveTab = list.querySelector(`[data-tab-id="${activeTabId}"]`);
-  if (newActiveTab) {
-    newActiveTab.classList.add('active');
-  }
+  tabList.querySelector(`[data-tab-id="${activeTabId}"]`)?.classList.add('active');
 
   e.currentTarget.classList.add('current-tab');
 };
 
-/* Settings page?
 document.getElementById('settings').addEventListener('click', () => {
   browser.windows.create({
-    url: "../settings/settings.html", // URL to open in the new window
+    url: "../settings/settings.html",
     type: "popup",
-    width: 1000,
+    width: 400,
     height: 600
   });
-})*/
+})
 
+// Favorites
+function loadFavorites() {
+  favorites.forEach((favorite) => {
+    const element = document.createElement('button')
+    element.className = "favorite"
+    element.dataset.url = favorite.url;
+    element.onclick = async () => {
+      if (!element.id) {
+        const tabCreated = await browser.tabs.create({ url: element.dataset.url });
+        element.id = tabCreated.id;
+        openedFavorites.push(tabCreated);
+        openedFavoritesIds.push(tabCreated.id);
+      } else {
+        list.querySelector('.active')?.classList.remove('active');
+        browser.tabs.update(parseInt(element.id), { active: true, highlighted: false });
+      }
+      document.querySelectorAll('[aria-label="favopen"]')?.forEach((elemento) => {
+        elemento.ariaLabel = "";
+      })
+      element.ariaLabel = "favopen";
+      updateSearchBar();
+      while (true) {
+        await new Promise(resolve => setTimeout(resolve, 200));
+        var tabsn = []
+        await browser.tabs.query({ currentWindow: true }).then((tabs) => {
+          tabsn = tabs
+        })
+        if ((tabsn.find((elems) => elems.id == element.id).favIconUrl !== undefined)) {
+          break
+        }
+      }
+
+      browser.tabs.query({ currentWindow: true }).then((tabs) => {
+        favIcon.src = tabs.find((elems) => elems.id == element.id).favIconUrl
+        browser.storage.local.get('favorites', function (result) {
+          var favoritesc = result.favorites || [{ url: 'https://gmail.com', favicon: 'https://mailmeteor.com/logos/assets/PNG/Gmail_Logo_512px.png' }, { url: 'https://music.youtube.com', favicon: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/Youtube_Music_icon.svg/2048px-Youtube_Music_icon.svg.png' }];
+          favoritesc[favorite.id].favicon = favIcon.src;
+          browser.storage.local.set({ favorites: favoritesc })
+        });
+      });
+    }
+    const favIcon = document.createElement('img');
+    favIcon.src = favorite.favicon;
+
+    element.appendChild(favIcon)
+    document.querySelector('#favorites').appendChild(element);
+  });
+}
+
+// Remove the context menu
+document.addEventListener('contextmenu', function (e) {
+  e.preventDefault();
+}, false);
+
+// Init Sidebar
 function initTabSidebarControl() {
   browser.tabs.query({ currentWindow: true }).then((tabs) => {
     init(tabs);
