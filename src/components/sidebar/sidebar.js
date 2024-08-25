@@ -352,7 +352,7 @@ function loadFavorites() {
         openedFavorites.push(tabCreated);
         openedFavoritesIds.push(tabCreated.id);
       } else {
-        list.querySelector('.active')?.classList.remove('active');
+        tabList.querySelector('.active')?.classList.remove('active');
         browser.tabs.update(parseInt(element.id), { active: true, highlighted: false });
       }
       document.querySelectorAll('[aria-label="favopen"]')?.forEach((elemento) => {
