@@ -1,1 +1,123 @@
-/* Not Disponible Yet */
+#appcontent
+  > #tabbrowser-tabbox
+  > #tabbrowser-tabpanels
+  > .deck-selected
+  > .browserContainer
+  > .browserStack
+  > browser {
+  border-radius: 10px !important;
+  margin: 10px !important;
+}
+
+.browserStack {
+  background: #3b3f52;
+}
+
+.browserContainer {
+  background-color: var(
+    --lwt-accent-color-inactive,
+    var(--lwt-accent-color)
+  ) !important;
+  background-image: var(--lwt-header-image), var(--lwt-additional-images) !important;
+  background-repeat: no-repeat, var(--lwt-background-tiling) !important;
+  background-position:
+    right top,
+    var(--lwt-background-alignment) !important;
+}
+
+#titlebar {
+  display: none !important;
+}
+
+.titlebar-buttonbox-container {
+  display: none !important;
+}
+
+#forward-button,
+#back-button,
+#reload-button {
+  display: none !important;
+}
+
+#sidebar-button {
+  margin-left: 10px !important;
+}
+
+/* Invisible hover area to trigger the top bar */
+#navigator-toolbox::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: calc(100% - 310px);
+  /* width: 100%; */
+  height: 10px; /* Adjust this height to control the hover area */
+  z-index: 2;
+  background-color: transparent; /* Ensure the hover area is transparent */
+}
+
+#navigator-toolbox:not(:hover) {
+  --is-bar-visible: hidden;
+  opacity: 0 !important;
+  height: 0; /* Ensure this is zero */
+  transition:
+    height 200ms ease-in-out,
+    opacity 175ms ease-in-out;
+}
+
+#navigator-toolbox {
+  position: fixed;
+  z-index: 1;
+  height: 0; /* Ensure this is zero initially */
+  overflow: var(--is-bar-visible);
+  right: 0;
+  top: 0;
+  width: 100% !important;
+  background-color: transparent !important;
+}
+
+/* Trigger the top bar on hover */
+#navigator-toolbox:hover {
+  height: 40px;
+  opacity: 1 !important;
+  transition:
+    opacity 175ms ease-in-out,
+    height 200ms ease-in-out;
+}
+
+#navigator-toolbox:focus-within {
+  height: 40px;
+  opacity: 1 !important;
+  transition:
+    opacity 175ms ease-in-out,
+    height 200ms ease-in-out;
+  --is-bar-visible: visible;
+}
+
+#nav-bar {
+  background-color: #3b3f52 !important;
+}
+
+#urlbar-background {
+  background-color: #323446 !important;
+}
+
+toolbarbutton[open="true"] {
+  --is-bar-visible: visible !important;
+}
+
+#sidebar-header {
+  display: none;
+}
+
+#sidebar-box {
+  min-width: 300px !important;
+  max-width: 300px !important;
+  border-right: none !important;
+}
+
+#sidebar-splitter {
+  background-color: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
