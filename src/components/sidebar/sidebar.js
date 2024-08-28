@@ -41,7 +41,14 @@ document.querySelector('div.address-bar').addEventListener(`click`, () => docume
 
 // Loads favorites
 browser.storage.local.get('favorites', function (result) {
-  favorites = result.favorites || [{ url: 'https://gmail.com', favicon: 'https://mailmeteor.com/logos/assets/PNG/Gmail_Logo_512px.png', id: 0 }, { url: 'https://music.youtube.com', favicon: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/Youtube_Music_icon.svg/2048px-Youtube_Music_icon.svg.png', id: 1 }];
+  if (result.favorites == undefined) {
+    favorites = [{ url: 'https://gmail.com', favicon: 'https://mailmeteor.com/logos/assets/PNG/Gmail_Logo_512px.png', id: 0 }, { url: 'https://music.youtube.com', favicon: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/Youtube_Music_icon.svg/2048px-Youtube_Music_icon.svg.png', id: 1 }]
+    browser.storage.local.set({
+      favorites: favorites
+    });
+  } else {
+    favorites = result.favorites
+  }
   loadFavorites()
 });
 
@@ -341,50 +348,72 @@ document.getElementById('settings').addEventListener('click', () => {
 
 // Favorites
 function loadFavorites() {
-  favorites.forEach((favorite) => {
-    const element = document.createElement('button')
-    element.className = "favorite"
-    element.dataset.url = favorite.url;
-    element.onclick = async () => {
-      if (!element.id) {
-        const tabCreated = await browser.tabs.create({ url: element.dataset.url });
-        element.id = tabCreated.id;
-        openedFavorites.push(tabCreated);
-        openedFavoritesIds.push(tabCreated.id);
-      } else {
-        tabList.querySelector('.active')?.classList.remove('active');
-        browser.tabs.update(parseInt(element.id), { active: true, highlighted: false });
-      }
-      document.querySelectorAll('[aria-label="favopen"]')?.forEach((elemento) => {
-        elemento.ariaLabel = "";
-      })
-      element.ariaLabel = "favopen";
-      updateSearchBar();
-      while (true) {
-        await new Promise(resolve => setTimeout(resolve, 200));
-        var tabsn = []
-        await browser.tabs.query({ currentWindow: true }).then((tabs) => {
-          tabsn = tabs
-        })
-        if ((tabsn.find((elems) => elems.id == element.id).favIconUrl !== undefined)) {
-          break
+  // Render
+  favorites.forEach(async (favorite) => {
+    if (favorite !== undefined) {
+      const element = document.createElement('button')
+      element.className = "favorite"
+      element.dataset.url = favorite.url;
+      element.onclick = async () => {
+        if (!openedFavoritesIds[favorite.id]) {
+          const tabCreated = await browser.tabs.create({ url: element.dataset.url });
+          openedFavorites.push(tabCreated);
+          openedFavoritesIds[favorite.id] = tabCreated.id;
+        } else {
+          tabList.querySelector('.active')?.classList.remove('active');
+          browser.tabs.update(openedFavoritesIds[favorite.id], { active: true });
         }
-      }
+        document.querySelectorAll('[aria-label="favopen"]')?.forEach((elemento) => {
+          elemento.ariaLabel = "";
+        })
+        element.ariaLabel = "favopen";
+        updateSearchBar();
+        while (true) {
+          await new Promise(resolve => setTimeout(resolve, 200));
+          var tabsn = []
+          await browser.tabs.query({ currentWindow: true }).then((tabs) => {
+            tabsn = tabs
+          })
+          if ((tabsn.find((elems) => elems.id == openedFavoritesIds[favorite.id]).favIconUrl !== undefined)) {
+            break
+          }
+        }
 
-      browser.tabs.query({ currentWindow: true }).then((tabs) => {
-        favIcon.src = tabs.find((elems) => elems.id == element.id).favIconUrl
-        browser.storage.local.get('favorites', function (result) {
-          var favoritesc = result.favorites || [{ url: 'https://gmail.com', favicon: 'https://mailmeteor.com/logos/assets/PNG/Gmail_Logo_512px.png' }, { url: 'https://music.youtube.com', favicon: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/Youtube_Music_icon.svg/2048px-Youtube_Music_icon.svg.png' }];
-          favoritesc[favorite.id].favicon = favIcon.src;
-          browser.storage.local.set({ favorites: favoritesc })
+        browser.tabs.query({ currentWindow: true }).then((tabs) => {
+          favIcon.src = tabs.find((elems) => elems.id == openedFavoritesIds[favorite.id]).favIconUrl
+          browser.storage.local.get('favorites', function (result) {
+            var favoritesc = result.favorites;
+            favoritesc[favorite.id].favicon = favIcon.src;
+            browser.storage.local.set({ favorites: favoritesc })
+          });
         });
-      });
-    }
-    const favIcon = document.createElement('img');
-    favIcon.src = favorite.favicon;
+      }
+      const favIcon = document.createElement('img');
+      favIcon.src = favorite.favicon;
 
-    element.appendChild(favIcon)
-    document.querySelector('#favorites').appendChild(element);
+      element.appendChild(favIcon)
+      document.querySelector('#favorites').appendChild(element);
+      // Look for updates on settings
+      while (true) {
+        await new Promise(resolve => setTimeout(resolve, 300));
+        browser.storage.local.get('favorites', function (result) {
+          var favoritesg = result.favorites;
+          if (JSON.stringify(favoritesg) !== JSON.stringify(favorites)) {
+            [0, 1, 2].forEach(i => {
+              if (favoritesg[i]?.url !== favorites[i]?.url) {
+                if (i == favorite.id) {
+                  browser.tabs.remove(openedFavoritesIds[favorite.id]);
+                  openedFavoritesIds.splice(favorite.id, 1);
+                }
+                document.querySelector('#favorites').innerHTML = "";
+                favorites = favoritesg
+                loadFavorites();
+              }
+            })
+          }
+        })
+      }
+    }
   });
 }
 

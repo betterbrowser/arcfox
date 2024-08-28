@@ -6,16 +6,6 @@ browser.storage.local.get('favorites', function (result) {
 
 document.querySelector('#btn').addEventListener('click', () => {
   saveSettings();
-  browser.windows.getAll({ populate: true }).then((windows) => {
-    for (let window of windows) {
-      browser.windows.remove(window.id);
-    }
-  });
-  browser.windows.create({})
-})
-
-document.querySelector('#save').addEventListener('click', () => {
-  saveSettings();
   browser.windows.getCurrent().then((window) => {
     browser.windows.remove(window.id)
   })
@@ -35,13 +25,13 @@ function saveSettings() {
         }
       } else {
         if (document.querySelector('#f' + (i + 1)).value !== "" && document.querySelector('#f' + (i + 1)).value !== favoritesc[i].url) {
-          favoritesc[i].url = document.querySelector('#f' + (i + 1)).value
+          favoritesc[i].url = document.querySelector('#f' + (i + 1)).value;
           favoritesc[i].favicon = 'https://i0.wp.com/www.flyycredit.com/wp-content/uploads/2018/06/globe-icon-white.png?fit=512%2C512&ssl=1';
         }
       }
 
       if (document.querySelector('#f' + (i + 1)).value == "") {
-        delete favoritesc[i]
+        favoritesc[i] = undefined
       }
     })
     browser.storage.local.set({

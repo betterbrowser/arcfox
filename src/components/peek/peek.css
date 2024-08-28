@@ -14,6 +14,7 @@ div#peekpage {
   padding: 0;
   border-radius: 4px;
   animation: peekopen 0.5s;
+  transition: 0.2s cubic-bezier(0.51, 0, 0.29, 1);
 }
 div#peekpage::backdrop {
   background: rgba(57, 59, 82, 0.6);
@@ -28,6 +29,7 @@ div#peekpage iframe {
 .peektools {
   border-radius: 100px;
   border: 0;
+  display: inline-flex;
   font-family: "Material Symbols Outlined";
   font-size: 20px;
   font-weight: 300;
@@ -45,11 +47,13 @@ div#peekpage iframe {
 }
 
 .peektools:hover {
-  background: #dbdbdb;
+  background: #d4d4d4;
 }
 
-.peektools::after {
-  content: attr(id);
+.peektools img {
+  width: 17px;
+  position: relative;
+  margin: auto;
 }
 
 .peektools#open_in_full {
