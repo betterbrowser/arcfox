@@ -5,7 +5,7 @@ peekPage.popover = true;
 
 // Backdrop
 var peekBackdrop = document.createElement('div');
-peekBackdrop.style = "display: none; height: 100vh; width: 100vw; top: 0; left: 0; position: fixed; z-index: 2147483647;";
+peekBackdrop.style = "display: none; height: 100vh; width: 100vw; top: 0; left: 0; position: fixed; z-index: 2147483647; background: rgba(57, 59, 82, 0.6); transition: opacity 0.3s; opacity: 0;";
 peekBackdrop.onclick = () => closePeek();
 
 // Iframe
@@ -35,7 +35,8 @@ tools.forEach((tool) => {
 
 async function closePeek() {
     peekPage.style.scale = 0;
-    await new Promise(resolve => setTimeout(resolve, 200));
+    peekBackdrop.style.opacity = 0;
+    await new Promise(resolve => setTimeout(resolve, 300));
     peekPage.hidePopover();
     document.body.style.overflow = ''
     peekBackdrop.style.display = 'none'
@@ -62,6 +63,7 @@ function loadPeek() {
                 peekPage.style.scale = "";
                 peekIframe.src = element.href;
                 peekBackdrop.style.display = 'block';
+                peekBackdrop.style.opacity = 1;
                 document.body.style.overflow = 'hidden';
 
             }

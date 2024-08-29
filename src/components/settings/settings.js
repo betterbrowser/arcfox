@@ -26,7 +26,6 @@ function saveSettings() {
       } else {
         if (document.querySelector('#f' + (i + 1)).value !== "" && document.querySelector('#f' + (i + 1)).value !== favoritesc[i].url) {
           favoritesc[i].url = document.querySelector('#f' + (i + 1)).value;
-          favoritesc[i].favicon = 'https://i0.wp.com/www.flyycredit.com/wp-content/uploads/2018/06/globe-icon-white.png?fit=512%2C512&ssl=1';
         }
       }
 

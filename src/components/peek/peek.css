@@ -14,10 +14,7 @@ div#peekpage {
   padding: 0;
   border-radius: 4px;
   animation: peekopen 0.5s;
-  transition: 0.2s cubic-bezier(0.51, 0, 0.29, 1);
-}
-div#peekpage::backdrop {
-  background: rgba(57, 59, 82, 0.6);
+  transition: scale 0.21s cubic-bezier(0.63, -0.01, 0.47, 1);
 }
 div#peekpage iframe {
   width: 100%;
@@ -43,7 +40,7 @@ div#peekpage iframe {
   animation: buttonappear 1s;
   background: white;
   color: black;
-  transition: 0.1s;
+  transition: background 0.1s;
 }
 
 .peektools:hover {

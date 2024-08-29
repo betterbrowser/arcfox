@@ -394,17 +394,32 @@ function loadFavorites() {
       element.appendChild(favIcon)
       document.querySelector('#favorites').appendChild(element);
       // Look for updates on settings
-      while (true) {
-        await new Promise(resolve => setTimeout(resolve, 300));
+      browser.storage.onChanged.addListener(() => {
         browser.storage.local.get('favorites', function (result) {
           var favoritesg = result.favorites;
           if (JSON.stringify(favoritesg) !== JSON.stringify(favorites)) {
             [0, 1, 2].forEach(i => {
-              if (favoritesg[i]?.url !== favorites[i]?.url) {
-                if (i == favorite.id) {
+              var url1 = ""
+              if (favoritesg[i]) {
+                url1 = favoritesg[i].url
+              } else {
+                url1 = "none"
+              }
+              var url2 = ""
+              if (favorites[i]) {
+                url2 = favorites[i].url
+              } else {
+                url2 = "none"
+              }
+              if (url1 !== url2) {
+                if (favoritesg[i]) {
+                  favoritesg[i].favicon = 'https://i0.wp.com/www.flyycredit.com/wp-content/uploads/2018/06/globe-icon-white.png?fit=512%2C512&ssl=1';
+                }
+                if (openedFavoritesIds[favorite.id]) {
                   browser.tabs.remove(openedFavoritesIds[favorite.id]);
                   openedFavoritesIds.splice(favorite.id, 1);
                 }
+
                 document.querySelector('#favorites').innerHTML = "";
                 favorites = favoritesg
                 loadFavorites();
@@ -412,7 +427,7 @@ function loadFavorites() {
             })
           }
         })
-      }
+      })
     }
   });
 }
