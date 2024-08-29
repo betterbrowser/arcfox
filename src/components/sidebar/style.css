@@ -330,6 +330,9 @@ div#favorites {
   gap: 8px;
   width: 100%;
 }
+div#favorites:-moz-drag-over {
+  background: red;
+}
 button.favorite {
   background: #aac2d320 !important;
   border-radius: 10px !important;
@@ -358,6 +361,7 @@ button.favorite img {
   width: 18px;
   position: relative;
   top: 10%;
+  pointer-events: none;
 }
 
 a {

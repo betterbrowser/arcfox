@@ -2,8 +2,7 @@
 let tabs = [];
 let activeTab = null;
 var favorites = [];
-var openedFavorites = []
-var openedFavoritesIds = [];
+var openedFavorites = [];
 
 const searchInput = document.getElementById("search-input");
 const tabList = document.getElementById("tab-list");
@@ -278,7 +277,7 @@ const renderItems = (data) => {
       node.classList.add('active');
     }
 
-    if (!openedFavoritesIds.includes(tab.id)) {
+    if (!openedFavorites.includes(tab.id)) {
       tabList.appendChild(node);
     }
   });
@@ -347,6 +346,38 @@ document.getElementById('settings').addEventListener('click', () => {
 })
 
 // Favorites
+
+function favoriteDragOver(e) {
+  e.preventDefault();
+};
+
+function favoriteDrop() {
+  var favoritesg = []
+  var i = 0
+  browser.storage.local.get('favorites', function (result) {
+    favoritesg = result.favorites;
+    while (favoritesg[i] !== undefined) {
+      i++
+    }
+  })
+  browser.tabs.query({ currentWindow: true }).then((tabs) => {
+    if (i <= 3) {
+      var tabtoPin = tabs.find((tab) => dragging == tab.id)
+      if (!tabtoPin.url.startsWith('about:')) {
+        favoritesg[i] = { url: tabtoPin.url, favicon: tabtoPin.favIconUrl, id: i }
+        openedFavorites[i] = tabtoPin.id
+        renderItems(base);
+        browser.storage.local.set({
+          favorites: favoritesg
+        });
+      }
+    }
+  })
+}
+
+document.querySelector('#favorites').addEventListener('dragover', favoriteDragOver);
+document.querySelector('#favorites').addEventListener('drop', favoriteDrop);
+
 function loadFavorites() {
   // Render
   favorites.forEach(async (favorite) => {
@@ -355,74 +386,40 @@ function loadFavorites() {
       element.className = "favorite"
       element.dataset.url = favorite.url;
       element.onclick = async () => {
-        if (!openedFavoritesIds[favorite.id]) {
+        if (!openedFavorites[favorite.id]) {
           const tabCreated = await browser.tabs.create({ url: element.dataset.url });
-          openedFavorites.push(tabCreated);
-          openedFavoritesIds[favorite.id] = tabCreated.id;
+          openedFavorites[favorite.id] = tabCreated.id;
         } else {
           tabList.querySelector('.active')?.classList.remove('active');
-          browser.tabs.update(openedFavoritesIds[favorite.id], { active: true });
+          browser.tabs.update(openedFavorites[favorite.id], { active: true });
         }
         document.querySelectorAll('[aria-label="favopen"]')?.forEach((elemento) => {
           elemento.ariaLabel = "";
         })
         element.ariaLabel = "favopen";
         updateSearchBar();
-        while (true) {
-          await new Promise(resolve => setTimeout(resolve, 200));
-          var tabsn = []
-          await browser.tabs.query({ currentWindow: true }).then((tabs) => {
-            tabsn = tabs
-          })
-          if ((tabsn.find((elems) => elems.id == openedFavoritesIds[favorite.id]).favIconUrl !== undefined)) {
-            break
-          }
-        }
-
-        browser.tabs.query({ currentWindow: true }).then((tabs) => {
-          favIcon.src = tabs.find((elems) => elems.id == openedFavoritesIds[favorite.id]).favIconUrl
-          browser.storage.local.get('favorites', function (result) {
-            var favoritesc = result.favorites;
-            favoritesc[favorite.id].favicon = favIcon.src;
-            browser.storage.local.set({ favorites: favoritesc })
-          });
-        });
       }
       const favIcon = document.createElement('img');
       favIcon.src = favorite.favicon;
 
       element.appendChild(favIcon)
       document.querySelector('#favorites').appendChild(element);
-      // Look for updates on settings
+      // Look for updates
       browser.storage.onChanged.addListener(() => {
         browser.storage.local.get('favorites', function (result) {
           var favoritesg = result.favorites;
           if (JSON.stringify(favoritesg) !== JSON.stringify(favorites)) {
-            [0, 1, 2].forEach(i => {
-              var url1 = ""
-              if (favoritesg[i]) {
-                url1 = favoritesg[i].url
-              } else {
-                url1 = "none"
-              }
-              var url2 = ""
-              if (favorites[i]) {
-                url2 = favorites[i].url
-              } else {
-                url2 = "none"
-              }
-              if (url1 !== url2) {
-                if (favoritesg[i]) {
-                  favoritesg[i].favicon = 'https://i0.wp.com/www.flyycredit.com/wp-content/uploads/2018/06/globe-icon-white.png?fit=512%2C512&ssl=1';
-                }
-                if (openedFavoritesIds[favorite.id]) {
-                  browser.tabs.remove(openedFavoritesIds[favorite.id]);
-                  openedFavoritesIds.splice(favorite.id, 1);
-                }
+            favoritesg.forEach(fav => {
+              if (fav?.url) {
+                if (fav.url !== favorites[fav.id]?.url) {
+                  if (!favoritesg[fav.id]?.favicon) {
+                    favoritesg[fav.id].favicon = 'https://i0.wp.com/www.flyycredit.com/wp-content/uploads/2018/06/globe-icon-white.png?fit=512%2C512&ssl=1';
+                  }
 
-                document.querySelector('#favorites').innerHTML = "";
-                favorites = favoritesg
-                loadFavorites();
+                  document.querySelector('#favorites').innerHTML = "";
+                  favorites = favoritesg
+                  loadFavorites();
+                }
               }
             })
           }
