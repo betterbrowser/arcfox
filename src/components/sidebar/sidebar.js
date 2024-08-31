@@ -352,25 +352,24 @@ function favoriteDragOver(e) {
 };
 
 function favoriteDrop() {
-  var favoritesg = []
-  var i = 0
   browser.storage.local.get('favorites', function (result) {
-    favoritesg = result.favorites;
+    var favoritesg = result.favorites;
+    var i = 0
     while (favoritesg[i] !== undefined) {
       i++
     }
-  })
-  browser.tabs.query({ currentWindow: true }).then((tabs) => {
-    if (i <= 3) {
-      var tabtoPin = tabs.find((tab) => dragging == tab.id)
-      if (!tabtoPin.url.startsWith('about:')) {
-        favoritesg[i] = { url: tabtoPin.url, favicon: tabtoPin.favIconUrl, id: i }
-        openedFavorites[i] = tabtoPin.id
-        renderItems(base);
-        browser.storage.local.set({
-          favorites: favoritesg
-        });
-      }
+    if (favoritesg.length < 4) {
+      browser.tabs.query({ currentWindow: true }).then((tabs) => {
+        var tabtoPin = tabs.find((tab) => dragging == tab.id)
+        if (!tabtoPin.url.startsWith('about:')) {
+          favoritesg[i] = { url: tabtoPin.url, favicon: tabtoPin.favIconUrl, id: i }
+          openedFavorites[i] = tabtoPin.id
+          renderItems(base);
+          browser.storage.local.set({
+            favorites: favoritesg
+          });
+        }
+      })
     }
   })
 }
@@ -410,16 +409,14 @@ function loadFavorites() {
           var favoritesg = result.favorites;
           if (JSON.stringify(favoritesg) !== JSON.stringify(favorites)) {
             favoritesg.forEach(fav => {
-              if (fav?.url) {
-                if (fav.url !== favorites[fav.id]?.url) {
-                  if (!favoritesg[fav.id]?.favicon) {
-                    favoritesg[fav.id].favicon = 'https://i0.wp.com/www.flyycredit.com/wp-content/uploads/2018/06/globe-icon-white.png?fit=512%2C512&ssl=1';
-                  }
-
-                  document.querySelector('#favorites').innerHTML = "";
-                  favorites = favoritesg
-                  loadFavorites();
+              if (fav?.url !== favorites[fav.id]?.url) {
+                if (!favoritesg[fav.id]?.favicon) {
+                  favoritesg[fav.id].favicon = 'https://i0.wp.com/www.flyycredit.com/wp-content/uploads/2018/06/globe-icon-white.png?fit=512%2C512&ssl=1';
                 }
+
+                document.querySelector('#favorites').innerHTML = "";
+                favorites = favoritesg
+                loadFavorites();
               }
             })
           }
