@@ -265,7 +265,7 @@ const renderItems = (data) => {
     node.addEventListener('drag', setDragging);
     node.addEventListener('dragover', setDraggedOver);
     node.addEventListener('drop', compare);
-    node.addEventListener('click', navigateToTab);
+    node.addEventListener('mousedown', navigateToTab);
     node.addEventListener('auxclick', (event) => {
       if (event.button === 1) {
         closeTab(event);
@@ -350,7 +350,6 @@ document.getElementById('settings').addEventListener('click', () => {
   */
 
 // Favorites
-
 function favoriteDragOver(e) {
   e.preventDefault();
 };
@@ -378,6 +377,7 @@ function favoriteDrop() {
   })
 }
 
+document.querySelector('#favorites').addEventListener('dragenter', favoriteDragOver);
 document.querySelector('#favorites').addEventListener('dragover', favoriteDragOver);
 document.querySelector('#favorites').addEventListener('drop', favoriteDrop);
 
@@ -407,35 +407,52 @@ function loadFavorites() {
       }
       element.onauxclick = async (event) => {
         if (event.button === 1 && openedFavorites[favorite.id]) {
-          await browser.tabs.remove(openedFavorites[favorite.id])
-          updateSearchBar()
-          openedFavorites[favorite.id] = undefined
+          browser.tabs.remove(openedFavorites[favorite.id])
+          delete openedFavorites[favorite.id]
           element.ariaLabel = ""
+        } else if (event.button === 2) {
+          browser.storage.local.get('favorites', function (result) {
+            var favoritesg = result.favorites;
+            delete favoritesg[favorite.id]
+            if (openedFavorites[favorite.id]) {
+              delete openedFavorites[favorite.id]
+              initTabSidebarControl();
+            }
+            document.querySelector('#favorites').innerHTML = "";
+            favorites = favoritesg
+            loadFavorites();
+            browser.storage.local.set({
+              favorites: favoritesg
+            });
+          })
         }
       }
+
+      // FavIcon
       const favIcon = document.createElement('img');
       favIcon.src = favorite.favicon;
-
       element.appendChild(favIcon)
+
       document.querySelector('#favorites').appendChild(element);
-      // Look for updates
-      browser.storage.onChanged.addListener(() => {
-        browser.storage.local.get('favorites', function (result) {
-          var favoritesg = result.favorites;
-          if (JSON.stringify(favoritesg) !== JSON.stringify(favorites)) {
-            favoritesg.forEach(fav => {
-              if (fav?.url !== favorites[fav.id]?.url) {
-                document.querySelector('#favorites').innerHTML = "";
-                favorites = favoritesg
-                loadFavorites();
-              }
-            })
-          }
-        })
-      })
     }
   });
 }
+
+// Look for updates
+browser.storage.onChanged.addListener(() => {
+  browser.storage.local.get('favorites', function (result) {
+    var favoritesg = result.favorites;
+    if (JSON.stringify(favoritesg) !== JSON.stringify(favorites)) {
+      favoritesg.forEach(fav => {
+        if (fav?.url !== favorites[fav.id]?.url) {
+          document.querySelector('#favorites').innerHTML = "";
+          favorites = favoritesg
+          loadFavorites();
+        }
+      })
+    }
+  })
+})
 
 // Remove the context menu
 document.addEventListener('contextmenu', function (e) {

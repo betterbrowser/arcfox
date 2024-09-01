@@ -331,6 +331,29 @@ div#favorites {
   gap: 8px;
   width: 100%;
 }
+div#favorites:empty {
+  height: 7px;
+  margin-top: -4px;
+  position: relative;
+  transform: translateY(40px);
+  transition: 0.2s;
+}
+div#favorites:empty:-moz-drag-over {
+  margin: top 5px;
+  background: rgba(255, 255, 255, 0.071);
+  border-radius: 18px;
+  text-align: center;
+  margin-top: 10px;
+  padding: 10px;
+  border: 2px solid var(--outlineColor);
+  border-style: dashed;
+  height: auto;
+  transform: translateY(0px);
+}
+div#favorites:empty:-moz-drag-over::after {
+  color: white;
+  content: "Quickly access your most viewed websites by dragging them here";
+}
 button.favorite {
   background: #aac2d320 !important;
   border-radius: 10px !important;
