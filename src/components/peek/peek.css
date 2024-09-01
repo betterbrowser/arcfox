@@ -2,7 +2,9 @@
 
 /* Arc Palette */
 :root {
+  --arc-palette-foregroundPrimary: #c7c0e9 !important;
   --arc-palette-background: #1c1a26 !important;
+  --arc-palette-backgroundExtra: #2b2839 !important;
 }
 
 /* Peek */

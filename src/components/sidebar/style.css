@@ -364,6 +364,7 @@ button.favorite {
   margin-top: 10px;
   padding: 10px !important;
   transition: background 0.1s, scale 0.2s;
+  animation: favoritespawn 0.2s;
 }
 
 button.favorite:hover {
@@ -395,5 +396,10 @@ a {
     scale: 0.93;
     margin-bottom: -10px;
     margin-left: -6px;
+  }
+}
+@keyframes favoritespawn {
+  from {
+    scale: 0.97;
   }
 }

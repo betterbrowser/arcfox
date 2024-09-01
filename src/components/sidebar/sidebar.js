@@ -151,13 +151,6 @@ function performSearch(url) {
   return newTitle;
 }
 
-// Function to extract keywords from a URL
-function extractKeywords(url) {
-  const queryParam = new URLSearchParams(new URL(url).search).get('q');
-
-  return queryParam;
-}
-
 function searchBar() {
   const query = searchInput.value.trim();
   if (query === "") {
@@ -185,10 +178,10 @@ function searchBar() {
         url = "https://" + query;
       }
     } else {
-      url = "https://www.google.com/search?q=" + encodeURIComponent(query);
+      browser.search.search({ disposition: "CURRENT_TAB", query: query })
     }
 
-    browser.tabs.update(currentTab.id, { url: url });
+    browser.tabs.update(currentTab.id, { url });
     searchInput.blur();
     updateSearchBar();
   });
@@ -265,7 +258,7 @@ const renderItems = (data) => {
     node.addEventListener('drag', setDragging);
     node.addEventListener('dragover', setDraggedOver);
     node.addEventListener('drop', compare);
-    node.addEventListener('mousedown', navigateToTab);
+    node.addEventListener('click', navigateToTab);
     node.addEventListener('auxclick', (event) => {
       if (event.button === 1) {
         closeTab(event);
@@ -282,7 +275,7 @@ const renderItems = (data) => {
   });
 };
 
-const compare = (e) => {
+const compare = () => {
   const index1 = base.findIndex((tab) => tab.id === dragging);
   const index2 = base.findIndex((tab) => tab.id === draggedOver);
   const [draggedTab] = base.splice(index1, 1);
@@ -407,17 +400,23 @@ function loadFavorites() {
       }
       element.onauxclick = async (event) => {
         if (event.button === 1 && openedFavorites[favorite.id]) {
+          // Unload favorite
           browser.tabs.remove(openedFavorites[favorite.id])
-          delete openedFavorites[favorite.id]
+          openedFavorites[favorite.id] = undefined
           element.ariaLabel = ""
         } else if (event.button === 2) {
+          // Remove favorite
+          if (openedFavorites[favorite.id]) {
+            if (element.ariaLabel === "favopen") {
+              initTabSidebarControl();
+            } else {
+              browser.tabs.remove(openedFavorites[favorite.id]);
+            }
+            delete openedFavorites[favorite.id];
+          }
           browser.storage.local.get('favorites', function (result) {
             var favoritesg = result.favorites;
             delete favoritesg[favorite.id]
-            if (openedFavorites[favorite.id]) {
-              delete openedFavorites[favorite.id]
-              initTabSidebarControl();
-            }
             document.querySelector('#favorites').innerHTML = "";
             favorites = favoritesg
             loadFavorites();

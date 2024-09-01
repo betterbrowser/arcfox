@@ -1,3 +1,6 @@
+/*
+Peek is causing severe performance issues
+
 // Peek
 var peekPage = document.createElement("div");
 peekPage.id = "peekpage";
@@ -48,14 +51,10 @@ document.body.appendChild(peekBackdrop);
 document.body.appendChild(peekPage);
 peekPage.appendChild(peekIframe);
 
-
-document.addEventListener('DOMSubtreeModified', loadPeek, false);
 function loadPeek() {
     // Make peek functional in Anchor elements
     let collection = document.getElementsByTagName("a");
-    Array.from(collection).forEach(function (element) {
-        element.removeAttribute("jsaction");
-        element.removeAttribute("target");
+    Array.from(collection).forEach((element) => {
         element.onclick = (event) => {
             if (event.shiftKey) {
                 event.preventDefault();
@@ -65,9 +64,10 @@ function loadPeek() {
                 peekBackdrop.style.display = 'block';
                 peekBackdrop.style.opacity = 1;
                 document.body.style.overflow = 'hidden';
-
             }
         };
     });
 }
 loadPeek();
+document.addEventListener('DOMSubtreeModified', loadPeek);
+*/
