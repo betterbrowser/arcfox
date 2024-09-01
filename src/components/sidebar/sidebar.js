@@ -1,8 +1,7 @@
 // Define variables
 let tabs = [];
 let activeTab = null;
-var favorites = [];
-var openedFavorites = [];
+let favorites, openedFavorites = []
 
 const searchInput = document.getElementById("search-input");
 const tabList = document.getElementById("tab-list");
@@ -313,6 +312,9 @@ const closeTab = (e, middleclick = false) => {
     tabId = parseInt(e.target.parentNode.dataset.tabId);
   }
   browser.tabs.remove(tabId);
+};
+
+browser.tabs.onRemoved.addListener((tabId) => {
   const index = base.findIndex((tab) => tab.id === tabId);
   if (index !== -1) {
     base.splice(index, 1);
@@ -320,7 +322,7 @@ const closeTab = (e, middleclick = false) => {
   }
   initTabSidebarControl();
   updateSearchBar();
-};
+})
 
 const navigateToTab = (e) => {
   const tabId = parseInt(e.currentTarget.dataset.tabId);
@@ -336,6 +338,7 @@ const navigateToTab = (e) => {
   e.currentTarget.classList.add('current-tab');
 };
 
+/* Settings
 document.getElementById('settings').addEventListener('click', () => {
   browser.windows.create({
     url: "../settings/settings.html",
@@ -344,6 +347,7 @@ document.getElementById('settings').addEventListener('click', () => {
     height: 600
   });
 })
+  */
 
 // Favorites
 
@@ -384,6 +388,9 @@ function loadFavorites() {
       const element = document.createElement('button')
       element.className = "favorite"
       element.dataset.url = favorite.url;
+      if (openedFavorites[favorite.id] && (await browser.tabs.get(openedFavorites[favorite.id]))?.active) {
+        element.ariaLabel = 'favopen';
+      }
       element.onclick = async () => {
         if (!openedFavorites[favorite.id]) {
           const tabCreated = await browser.tabs.create({ url: element.dataset.url });
@@ -398,6 +405,14 @@ function loadFavorites() {
         element.ariaLabel = "favopen";
         updateSearchBar();
       }
+      element.onauxclick = async (event) => {
+        if (event.button === 1 && openedFavorites[favorite.id]) {
+          await browser.tabs.remove(openedFavorites[favorite.id])
+          updateSearchBar()
+          openedFavorites[favorite.id] = undefined
+          element.ariaLabel = ""
+        }
+      }
       const favIcon = document.createElement('img');
       favIcon.src = favorite.favicon;
 
@@ -410,10 +425,6 @@ function loadFavorites() {
           if (JSON.stringify(favoritesg) !== JSON.stringify(favorites)) {
             favoritesg.forEach(fav => {
               if (fav?.url !== favorites[fav.id]?.url) {
-                if (!favoritesg[fav.id]?.favicon) {
-                  favoritesg[fav.id].favicon = 'https://i0.wp.com/www.flyycredit.com/wp-content/uploads/2018/06/globe-icon-white.png?fit=512%2C512&ssl=1';
-                }
-
                 document.querySelector('#favorites').innerHTML = "";
                 favorites = favoritesg
                 loadFavorites();
