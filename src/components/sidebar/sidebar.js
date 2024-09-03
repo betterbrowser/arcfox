@@ -7,6 +7,7 @@ const searchInput = document.getElementById("search-input");
 const tabList = document.getElementById("tab-list");
 const newTabButton = document.getElementById("new-tab-button");
 const spaceName = document.querySelector('input#space-name');
+const favoriteDiv = document.querySelector('#favorites')
 
 // Add event listeners
 newTabButton.addEventListener("click", () =>
@@ -370,9 +371,9 @@ function favoriteDrop() {
   })
 }
 
-document.querySelector('#favorites').addEventListener('dragenter', favoriteDragOver);
-document.querySelector('#favorites').addEventListener('dragover', favoriteDragOver);
-document.querySelector('#favorites').addEventListener('drop', favoriteDrop);
+favoriteDiv.addEventListener('dragenter', favoriteDragOver);
+favoriteDiv.addEventListener('dragover', favoriteDragOver);
+favoriteDiv.addEventListener('drop', favoriteDrop);
 
 function loadFavorites() {
   // Render
@@ -399,25 +400,21 @@ function loadFavorites() {
         updateSearchBar();
       }
       element.onauxclick = async (event) => {
-        if (event.button === 1 && openedFavorites[favorite.id]) {
+        if (event.button == 1 && openedFavorites[favorite.id]) {
           // Unload favorite
           browser.tabs.remove(openedFavorites[favorite.id])
           openedFavorites[favorite.id] = undefined
           element.ariaLabel = ""
-        } else if (event.button === 2) {
+        } else if (event.button == 2) {
           // Remove favorite
+          initTabSidebarControl();
           if (openedFavorites[favorite.id]) {
-            if (element.ariaLabel === "favopen") {
-              initTabSidebarControl();
-            } else {
-              browser.tabs.remove(openedFavorites[favorite.id]);
-            }
             delete openedFavorites[favorite.id];
           }
           browser.storage.local.get('favorites', function (result) {
             var favoritesg = result.favorites;
             delete favoritesg[favorite.id]
-            document.querySelector('#favorites').innerHTML = "";
+            favoriteDiv.innerHTML = "";
             favorites = favoritesg
             loadFavorites();
             browser.storage.local.set({
@@ -432,7 +429,7 @@ function loadFavorites() {
       favIcon.src = favorite.favicon;
       element.appendChild(favIcon)
 
-      document.querySelector('#favorites').appendChild(element);
+      favoriteDiv.appendChild(element);
     }
   });
 }
@@ -444,7 +441,7 @@ browser.storage.onChanged.addListener(() => {
     if (JSON.stringify(favoritesg) !== JSON.stringify(favorites)) {
       favoritesg.forEach(fav => {
         if (fav?.url !== favorites[fav.id]?.url) {
-          document.querySelector('#favorites').innerHTML = "";
+          favoriteDiv.innerHTML = "";
           favorites = favoritesg
           loadFavorites();
         }

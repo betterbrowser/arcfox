@@ -6,8 +6,10 @@
 }
 
 :root {
-  --outlineColor: #aac2d32f;
-  --sidebarBackground: #3b3f52;
+  --outlineColor: #d0d0d02f;
+  --sidebarBackground: linear-gradient(#3d5952, #4c4a3e);
+  --sidebarFooterBackground: linear-gradient(#513d59, 0%, #4c4a3e);
+  --themeColorLight: #d7fff2df;
 }
 
 @font-face {
@@ -30,7 +32,7 @@ body {
   position: fixed;
   top: 0;
   bottom: 0;
-  background-color: var(--sidebarBackground);
+  background: var(--sidebarBackground);
   box-shadow: 2px 0 4px rgba(0, 0, 0, 0.3);
   padding-left: 2px;
   padding-bottom: 48px;
@@ -61,6 +63,9 @@ body {
 #sidebar-header button i {
   font-size: 15px;
   color: #aac2d3;
+  color: var(--themeColorLight);
+  filter: grayscale(0.2);
+  opacity: 0.8;
 }
 
 #sidebar-header button i:hover {
@@ -90,7 +95,7 @@ body {
   padding: 15px;
   width: 100%;
   border-radius: 15px;
-  background: #323446;
+  background: #00000038;
   margin-right: -3px;
   transition: scale 0.1s;
 }
@@ -167,11 +172,11 @@ body {
 }
 
 #sidebar-content ul li:hover {
-  background: #323446;
+  background: #00000024;
 }
 
 #sidebar-content ul li.active {
-  background-color: #5e5f71c1;
+  background-color: #ffffff1f;
 }
 
 #sidebar-content ul li[data-pinned="true"] {
@@ -183,7 +188,7 @@ body {
 }
 
 #sidebar-content ul li.active:hover {
-  background-color: #5e5f71;
+  background-color: #ffffff2c;
 }
 
 #sidebar-content button#new-tab-button {
@@ -195,12 +200,18 @@ body {
   background-color: transparent;
   margin-top: 10px;
   width: 100%;
-  color: #aac2d3;
+  color: var(--themeColorLight);
+  filter: grayscale(0.5);
+  transition: scale 0.2s;
 }
 
 #sidebar-content button#new-tab-button:hover {
-  background-color: #5e5f71;
+  background-color: #ffffff21;
   color: white;
+}
+
+#sidebar-content button#new-tab-button:active {
+  scale: 0.97;
 }
 
 #sidebar-content button#new-tab-button span {
@@ -244,7 +255,9 @@ div#space-info input {
   margin-left: 4px;
   font-size: 14px;
   font-weight: 600;
-  color: #9aaec0;
+  color: var(--themeColorLight);
+  filter: grayscale(0.5);
+  opacity: 0.8;
 }
 
 .footer {
@@ -256,7 +269,7 @@ div#space-info input {
   bottom: 0;
   left: 0;
   right: 0;
-  background-color: var(--sidebarBackground);
+  background: var(--sidebarFooterBackground);
   padding: 18px;
   z-index: 1;
 }
@@ -268,7 +281,7 @@ div#space-info input {
   left: 50%;
   width: 90%;
   height: 1px;
-  background-color: var(--outlineColor);
+  background: var(--outlineColor);
   transform: translateX(-50%);
 }
 
@@ -291,7 +304,8 @@ div#space-info input {
   z-index: 2; /* set to a higher value than the footer */
   width: 90%;
   padding: 10px;
-  background-color: #323446;
+  background-color: #0000003c;
+  backdrop-filter: blur(16px);
   border: none;
   border-radius: 10px;
   color: white;
@@ -355,7 +369,7 @@ div#favorites:empty:-moz-drag-over::after {
   content: "Quickly access your most viewed websites by dragging them here";
 }
 button.favorite {
-  background: #aac2d320 !important;
+  background: #d1d1d120 !important;
   border-radius: 10px !important;
   height: 45px;
   width: 100%;
@@ -368,7 +382,7 @@ button.favorite {
 }
 
 button.favorite:hover {
-  background: #aac2d32d !important;
+  background: #c0c0c02d !important;
 }
 
 button.favorite:active {
@@ -376,7 +390,7 @@ button.favorite:active {
 }
 
 button.favorite[aria-label="favopen"] {
-  background: #aac2d343 !important;
+  background: #c7c7c743 !important;
 }
 
 button.favorite img {
@@ -387,7 +401,7 @@ button.favorite img {
 }
 
 a {
-  color: #c9cae6 !important;
+  color: var(--themeColorLight) !important;
 }
 
 @keyframes divspawn {
