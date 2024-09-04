@@ -1,6 +1,3 @@
-/*
-Peek is causing severe performance issues
-
 // Peek
 var peekPage = document.createElement("div");
 peekPage.id = "peekpage";
@@ -8,7 +5,7 @@ peekPage.popover = true;
 
 // Backdrop
 var peekBackdrop = document.createElement('div');
-peekBackdrop.style = "display: none; height: 100vh; width: 100vw; top: 0; left: 0; position: fixed; z-index: 2147483647; background: rgba(57, 59, 82, 0.6); transition: opacity 0.3s; opacity: 0;";
+peekBackdrop.id = 'peekbackdrop'
 peekBackdrop.onclick = () => closePeek();
 
 // Iframe
@@ -69,5 +66,15 @@ function loadPeek() {
     });
 }
 loadPeek();
-document.addEventListener('DOMSubtreeModified', loadPeek);
-*/
+
+const observer = new MutationObserver((mutationsList) => {
+    mutationsList.forEach(mutation => {
+        mutation.addedNodes.forEach(node => {
+            if (node.nodeType == Node.ELEMENT_NODE && node.tagName == 'A') {
+                loadPeek();
+            }
+        });
+    })
+});
+
+observer.observe(document.body, { childList: true, subtree: true });

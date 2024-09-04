@@ -5,7 +5,6 @@
 * {
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
   font-family: Nunito;
 }
 
@@ -25,11 +24,11 @@ body {
 }
 
 ::-moz-selection {
-  background-color: #565c78;
+  background-color: var(--themeColorDark);
 }
 
 ::selection {
-  background-color: #565c78;
+  background-color: var(--themeColorDark);
 }
 
 #sidebar {
@@ -38,8 +37,8 @@ body {
   top: 0;
   bottom: 0;
   background: var(--sidebarBackground);
-  box-shadow: 2px 0 4px rgba(0, 0, 0, 0.3);
-  padding-left: 2px;
+  padding-right: 6px;
+  padding-left: 14px;
   padding-bottom: 48px;
 }
 
@@ -53,7 +52,6 @@ body {
   align-items: center;
   flex-direction: column;
   padding: 10px 0;
-  margin: 0 15px;
   border-bottom: 1px solid var(--outlineColor);
 }
 
@@ -62,12 +60,10 @@ body {
   border-radius: 5px;
   margin-bottom: 10px;
   background: transparent;
-  color: white;
 }
 
 #sidebar-header button i {
   font-size: 15px;
-  color: #aac2d3;
   color: var(--themeColorLight);
   filter: grayscale(0.2);
   opacity: 0.8;
@@ -124,8 +120,7 @@ body {
 #sidebar-content {
   display: block;
   overflow-y: auto;
-  height: calc(100% - 63px);
-  margin: 0 12px;
+  height: 100%;
 }
 
 #sidebar-content ul {
@@ -133,17 +128,15 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 6px 0;
+  gap: 6px;
   list-style: none;
-  margin: 0;
   margin-top: 10px;
-  margin-bottom: 110px;
+  margin-bottom: 127px;
 }
 
 #sidebar-content ul li {
   display: flex;
   position: relative;
-  justify-content: flex-start;
   align-items: center;
   height: 40px;
   padding: 10px;
@@ -185,10 +178,6 @@ body {
   font-size: 20px;
 }
 
-#sidebar-content ul li[data-pinned=true] {
-  display: none !important;
-}
-
 #sidebar-content button#new-tab-button {
   padding: 10px;
   border-radius: 12px;
@@ -209,13 +198,11 @@ body {
 #sidebar-content button#new-tab-button:active {
   scale: 0.97;
 }
-
 #sidebar-content button#new-tab-button span {
   opacity: 0;
   position: relative;
   float: right;
 }
-
 #sidebar-content button#new-tab-button:hover span {
   opacity: 1;
 }
@@ -236,7 +223,6 @@ body {
   scale: 1.3;
   transform: translateX(5px);
 }
-
 #sidebar-content ul li:hover button:hover {
   background: rgba(0, 0, 0, 0.1);
 }
@@ -244,7 +230,7 @@ body {
 div#space-info {
   margin-top: 10px;
   width: 100%;
-  display: inline-flex;
+  display: flex;
 }
 
 div#space-info input {
@@ -290,16 +276,14 @@ div#space-info input {
 }
 
 .floating-div {
-  flex-direction: column;
   align-items: center;
   gap: 7px;
   position: absolute;
   top: auto;
   bottom: 70px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 2; /* set to a higher value than the footer */
-  width: 90%;
+  margin: auto !important;
+  width: calc(100% - 20px);
+  left: 4px;
   padding: 10px;
   background-color: rgba(0, 0, 0, 0.2352941176);
   -webkit-backdrop-filter: blur(16px);
@@ -330,7 +314,6 @@ div#space-info input {
   color: white;
   cursor: pointer;
 }
-
 .floating-div button i {
   margin-right: 5px;
 }
@@ -376,19 +359,15 @@ button.favorite {
   transition: background 0.1s, scale 0.2s;
   animation: favoritespawn 0.2s;
 }
-
 button.favorite:hover {
   background: rgba(192, 192, 192, 0.1764705882) !important;
 }
-
 button.favorite:active {
   scale: 0.97;
 }
-
 button.favorite[aria-label=favopen] {
   background: rgba(199, 199, 199, 0.262745098) !important;
 }
-
 button.favorite img {
   width: 18px;
   position: relative;

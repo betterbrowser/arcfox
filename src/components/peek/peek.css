@@ -24,6 +24,18 @@ div#peekpage iframe {
   border: 0;
   margin-bottom: -5px;
 }
+div#peekbackdrop {
+  display: none;
+  height: 100vh;
+  width: 100vw;
+  top: 0;
+  left: 0;
+  position: fixed;
+  z-index: 2147483647;
+  background: rgba(57, 59, 82, 0.6);
+  transition: opacity 0.3s;
+  opacity: 0;
+}
 
 .peektools {
   border-radius: 100px;
