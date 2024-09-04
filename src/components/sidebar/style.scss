@@ -23,11 +23,6 @@ body {
   width: 100%;
   height: 100%;
 }
-
-::-moz-selection {
-  background-color: #565c78;
-}
-
 ::selection {
   background-color: #565c78;
 }
@@ -71,9 +66,9 @@ body {
   color: var(--themeColorLight);
   filter: grayscale(0.2);
   opacity: 0.8;
-}
-#sidebar-header button i:hover {
-  color: white;
+  &:hover {
+    color: white;
+  }
 }
 
 #page-control {
@@ -99,12 +94,12 @@ body {
   padding: 15px;
   width: 100%;
   border-radius: 15px;
-  background: rgba(0, 0, 0, 0.2196078431);
+  background: #00000038;
   margin-right: -3px;
   transition: scale 0.1s;
-}
-.address-bar:active {
-  scale: 0.98;
+  &:active {
+    scale: 0.98;
+  }
 }
 
 .address-bar i {
@@ -151,18 +146,18 @@ body {
   border-radius: 12px;
   color: white;
   transition: scale 0.2s;
-}
-#sidebar-content ul li:hover {
-  background: rgba(0, 0, 0, 0.1411764706);
-}
-#sidebar-content ul li.active {
-  background-color: rgba(255, 255, 255, 0.1215686275);
-}
-#sidebar-content ul li.active:hover {
-  background-color: rgba(255, 255, 255, 0.1725490196);
-}
-#sidebar-content ul li:active {
-  scale: 0.97;
+  &:hover {
+    background: #00000024;
+  }
+  &.active {
+    background-color: #ffffff1f;
+    &:hover {
+      background-color: #ffffff2c;
+    }
+  }
+  &:active {
+    scale: 0.97;
+  }
 }
 
 .tab-title {
@@ -185,10 +180,11 @@ body {
   font-size: 20px;
 }
 
-#sidebar-content ul li[data-pinned=true] {
+#sidebar-content ul li[data-pinned="true"] {
   display: none !important;
 }
 
+// New Tab Button
 #sidebar-content button#new-tab-button {
   padding: 10px;
   border-radius: 12px;
@@ -201,13 +197,13 @@ body {
   color: var(--themeColorLight);
   filter: grayscale(0.5);
   transition: scale 0.2s;
-}
-#sidebar-content button#new-tab-button:hover {
-  background-color: rgba(255, 255, 255, 0.1294117647);
-  color: white;
-}
-#sidebar-content button#new-tab-button:active {
-  scale: 0.97;
+  &:hover {
+    background-color: #ffffff21;
+    color: white;
+  }
+  &:active {
+    scale: 0.97;
+  }
 }
 
 #sidebar-content button#new-tab-button span {
@@ -301,9 +297,8 @@ div#space-info input {
   z-index: 2; /* set to a higher value than the footer */
   width: 90%;
   padding: 10px;
-  background-color: rgba(0, 0, 0, 0.2352941176);
-  -webkit-backdrop-filter: blur(16px);
-          backdrop-filter: blur(16px);
+  background-color: #0000003c;
+  backdrop-filter: blur(16px);
   border: none;
   border-radius: 10px;
   color: white;
@@ -324,48 +319,48 @@ div#space-info input {
   cursor: pointer;
   font-family: Nunito;
   font-weight: 500;
-}
-.floating-div button:hover {
-  background-color: var(--themeColorDark);
-  color: white;
-  cursor: pointer;
+  &:hover {
+    background-color: var(--themeColorDark);
+    color: white;
+    cursor: pointer;
+  }
 }
 
 .floating-div button i {
   margin-right: 5px;
 }
 
+// Favorites
 div#favorites {
   display: flex;
   gap: 8px;
   width: 100%;
+  &:empty {
+    height: 7px;
+    margin-top: -4px;
+    position: relative;
+    transform: translateY(40px);
+    transition: 0.2s;
+    &:-moz-drag-over {
+      margin: top 5px;
+      background: rgba(255, 255, 255, 0.071);
+      border-radius: 18px;
+      text-align: center;
+      margin-top: 10px;
+      padding: 10px;
+      border: 2px solid var(--outlineColor);
+      border-style: dashed;
+      height: auto;
+      transform: translateY(0px);
+      &::after {
+        color: white;
+        content: "Quickly access your most viewed websites by dragging them here";
+      }
+    }
+  }
 }
-div#favorites:empty {
-  height: 7px;
-  margin-top: -4px;
-  position: relative;
-  transform: translateY(40px);
-  transition: 0.2s;
-}
-div#favorites:empty:-moz-drag-over {
-  margin: top 5px;
-  background: rgba(255, 255, 255, 0.071);
-  border-radius: 18px;
-  text-align: center;
-  margin-top: 10px;
-  padding: 10px;
-  border: 2px solid var(--outlineColor);
-  border-style: dashed;
-  height: auto;
-  transform: translateY(0px);
-}
-div#favorites:empty:-moz-drag-over::after {
-  color: white;
-  content: "Quickly access your most viewed websites by dragging them here";
-}
-
 button.favorite {
-  background: rgba(209, 209, 209, 0.1254901961) !important;
+  background: #d1d1d120 !important;
   border-radius: 10px !important;
   height: 45px;
   width: 100%;
@@ -378,15 +373,15 @@ button.favorite {
 }
 
 button.favorite:hover {
-  background: rgba(192, 192, 192, 0.1764705882) !important;
+  background: #c0c0c02d !important;
 }
 
 button.favorite:active {
   scale: 0.97;
 }
 
-button.favorite[aria-label=favopen] {
-  background: rgba(199, 199, 199, 0.262745098) !important;
+button.favorite[aria-label="favopen"] {
+  background: #c7c7c743 !important;
 }
 
 button.favorite img {
@@ -412,4 +407,4 @@ a {
   from {
     scale: 0.97;
   }
-}/*# sourceMappingURL=style.css.map */
+}
