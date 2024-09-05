@@ -45,7 +45,7 @@ If you want to contact us, open a <a href="https://github.com/betterbrowser/arcf
   - [x] Keep notes on refresh
   - [ ] Rich-text and Markdown features
   - [ ] Dynamic color
-- [ ] Peek (under development)
+- [x] Peek
   - [x] Use Shift to Peek
   - [x] Works in most webpages (Report if smth doesn't work as expected)
   - [ ] Favorites Peek by default

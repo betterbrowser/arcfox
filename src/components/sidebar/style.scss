@@ -8,13 +8,30 @@
   font-family: Nunito;
 }
 
+$sidebarColor1: #3b3f52;
+$sidebarColor2: #3b3f52;
+
 :root {
   --outlineColor: #d0d0d02f;
-  --sidebarBackground: linear-gradient(#3d5952, #4c4a3e);
-  --sidebarFooterBackground: linear-gradient(#513d59, 0%, #4c4a3e);
-  --themeColorLight: #d7fff2df;
-  --themeColorDark: #63908182;
+  --sidebarBackground: linear-gradient(#{$sidebarColor1}, #{$sidebarColor2});
+  --sidebarFooterBackground: #{$sidebarColor2};
+  --themeColorLight: #{saturate(lighten($sidebarColor1, 60%), 10%)};
+  --themeColorDark: #{rgba(lighten($sidebarColor1, 15%), 0.7)};
+  --onBackgroundColor: white;
 }
+
+/* @media (prefers-color-scheme: light) {
+  :root {
+    --sidebarBackground: linear-gradient(
+      #{lighten($sidebarColor1, 60%)},
+      #{lighten($sidebarColor2, 60%)}
+    );
+    --sidebarFooterBackground: #{lighten($sidebarColor2, 60%)};
+    --themeColorLight: #{saturate(darken($sidebarColor1, 60%), 10%)};
+    --themeColorDark: #{saturate(lighten($sidebarColor1, 15%), 10%)};
+    --onBackgroundColor: black;
+  }
+} */
 
 body {
   margin: 0;
@@ -32,9 +49,7 @@ body {
   top: 0;
   bottom: 0;
   background: var(--sidebarBackground);
-  padding-right: 6px;
-  padding-left: 14px;
-  padding-bottom: 48px;
+  padding-left: 10px;
 }
 
 #sidebar::-webkit-scrollbar {
@@ -46,30 +61,31 @@ body {
   display: flex;
   align-items: center;
   flex-direction: column;
-  padding: 10px 0;
-  border-bottom: 1px solid var(--outlineColor);
+  padding-top: 10px;
 }
 
 #sidebar-header button {
   border: none;
-  border-radius: 5px;
-  margin-bottom: 10px;
   background: transparent;
 }
 
 #sidebar-header button i {
   font-size: 15px;
   color: var(--themeColorLight);
-  filter: grayscale(0.2);
   opacity: 0.8;
+  border-radius: 5px;
+  margin-bottom: 14px;
+  transition: 0.1s;
   &:hover {
-    color: white;
+    color: var(--onBackgroundColor);
   }
 }
 
 #page-control {
   display: flex;
   margin: 10px;
+  padding: 0 5px;
+  margin-bottom: 0;
   width: 100%;
   flex-direction: row;
   justify-content: flex-end;
@@ -80,33 +96,35 @@ body {
   display: flex;
   margin-right: auto;
   gap: 7px;
+  & button i {
+    opacity: 0.5;
+    &:hover {
+      opacity: 0.9;
+    }
+  }
 }
 
 .address-bar {
   display: flex;
   flex-direction: row;
   align-items: center;
-  gap: 10px;
-  padding: 15px;
+  gap: 8px;
+  padding: 12px;
   width: 100%;
-  border-radius: 15px;
-  background: #00000038;
-  margin-right: -3px;
+  border-radius: 14px;
+  color: var(--onBackgroundColor) !important;
+  background: #d1d1d113 !important;
   transition: scale 0.1s;
   &:active {
     scale: 0.98;
   }
 }
 
-.address-bar i {
-  color: white;
-}
-
 #sidebar-header input {
   border: none;
   width: 100%;
   font-size: 15px;
-  color: white;
+  color: var(--onBackgroundColor);
   text-decoration: none;
   background: none;
   outline: none;
@@ -114,8 +132,15 @@ body {
 
 #sidebar-content {
   display: block;
-  overflow-y: auto;
+  overflow-y: scroll;
   height: 100%;
+  padding-bottom: 225px;
+}
+
+#sidebar-content hr {
+  border: 0;
+  height: 1px;
+  background: var(--outlineColor);
 }
 
 #sidebar-content ul {
@@ -137,7 +162,7 @@ body {
   padding: 10px;
   width: 100%;
   border-radius: 12px;
-  color: white;
+  color: var(--onBackgroundColor);
   transition: scale 0.2s;
   &:hover {
     background: #00000024;
@@ -160,7 +185,6 @@ body {
 }
 
 .tab-title {
-  color: #fff;
   width: 90%;
   font-size: 14px;
   white-space: nowrap;
@@ -231,16 +255,16 @@ div#space-info {
   margin-top: 10px;
   width: 100%;
   display: flex;
+  display: none;
 }
 
 // Space Name
 div#space-info input {
   margin-left: 4px;
-  font-size: 14px;
-  font-weight: 600;
+  font-size: 13px;
   color: var(--themeColorLight);
-  filter: grayscale(0.5);
-  opacity: 0.8;
+  font-weight: 700;
+  opacity: 0.7;
 }
 
 .footer {
@@ -271,7 +295,7 @@ div#space-info input {
 .footer button {
   border: none;
   background: none;
-  color: white;
+  color: var(--onBackgroundColor);
   font-size: 20px;
   transition: 0.2s;
 }
@@ -283,8 +307,8 @@ div#space-info input {
   top: auto;
   bottom: 70px;
   margin: auto !important;
-  width: calc(100% - 20px);
-  left: 4px;
+  width: calc(100% - 9px);
+  left: 8px;
   padding: 10px;
   background-color: #0000003c;
   backdrop-filter: blur(16px);
@@ -308,7 +332,6 @@ div#space-info input {
     font-weight: 500;
     &:hover {
       background-color: var(--themeColorDark);
-      color: white;
       cursor: pointer;
     }
     & i {
@@ -322,14 +345,16 @@ div#favorites {
   display: flex;
   gap: 8px;
   width: 100%;
+  margin-top: 8px;
+  margin-bottom: 8px;
   &:empty {
     height: 7px;
     margin-top: -4px;
     position: relative;
-    transform: translateY(40px);
+    transform: translateY(20px);
     transition: 0.2s;
     &:-moz-drag-over {
-      margin: top 5px;
+      margin-top: 5px;
       background: rgba(255, 255, 255, 0.07);
       border-radius: 18px;
       text-align: center;
@@ -347,18 +372,17 @@ div#favorites {
   }
 }
 button.favorite {
-  background: #d1d1d120 !important;
-  border-radius: 10px !important;
+  background: #d1d1d113 !important;
+  border-radius: 12px !important;
   height: 45px;
   width: 100%;
   display: inline;
   text-align: center;
-  margin-top: 10px;
   padding: 10px !important;
   transition: background 0.1s, scale 0.2s;
   animation: favoritespawn 0.2s;
   &:hover {
-    background: #c0c0c02d !important;
+    background: #c0c0c023 !important;
   }
   &:active {
     scale: 0.97;
@@ -368,7 +392,7 @@ button.favorite {
   }
   // Favicon
   & img {
-    width: 18px;
+    width: 20px;
     position: relative;
     top: 10%;
     pointer-events: none;

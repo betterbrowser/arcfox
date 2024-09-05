@@ -117,17 +117,15 @@ function updateSearchBar() {
     }
     const lockIcon = document.createElement('i');
     lockIcon.id = 'search-icon';
-    if (currentTab.url.startsWith('https://')) {
-      lockIcon.className = 'fas fa-lock';
+    if (!openedFavorites.includes(currentTab.id)) {
+      lockIcon.className = currentTab.url.startsWith('https://') ? 'fas fa-lock'
+        : currentTab.url.startsWith('about:') ? ''
+          : 'fas fa-lock-open';
     } else {
-      if (!currentTab.url.startsWith('about:')) {
-        lockIcon.className = 'fas fa-lock-open';
-      } else {
-        lockIcon.className = '';
-      }
+      lockIcon.className = '';
     }
     searchInput.parentNode.insertBefore(lockIcon, searchInput);
-    if (currentTab.url.includes('https://arcfox-notes.vercel.app') || currentTab.url.includes('/easel-build')) {
+    if (currentTab.url.startsWith('https://arcfox-notes.vercel.app')) {
       searchInput.value = currentTab.title;
     } else {
       if (currentUrl.slice(-1) == '/') {
@@ -266,7 +264,7 @@ const renderItems = (data) => {
       }
     });
 
-    if (tab.id === activeTabId) {
+    if (tab.id === activeTabId && !openedFavorites.includes(tab.id)) {
       node.classList.add('active');
     }
 
