@@ -1,14 +1,13 @@
 // Define variables
 let tabs = [];
 let activeTab = null;
-var favorites = [];
-var openedFavorites = []
-var openedFavoritesIds = [];
+let favorites, openedFavorites = []
 
 const searchInput = document.getElementById("search-input");
 const tabList = document.getElementById("tab-list");
 const newTabButton = document.getElementById("new-tab-button");
 const spaceName = document.querySelector('input#space-name');
+const favoriteDiv = document.querySelector('#favorites')
 
 // Add event listeners
 newTabButton.addEventListener("click", () =>
@@ -41,7 +40,14 @@ document.querySelector('div.address-bar').addEventListener(`click`, () => docume
 
 // Loads favorites
 browser.storage.local.get('favorites', function (result) {
-  favorites = result.favorites || [{ url: 'https://gmail.com', favicon: 'https://mailmeteor.com/logos/assets/PNG/Gmail_Logo_512px.png', id: 0 }, { url: 'https://music.youtube.com', favicon: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/Youtube_Music_icon.svg/2048px-Youtube_Music_icon.svg.png', id: 1 }];
+  if (result.favorites == undefined) {
+    favorites = [{ url: 'https://gmail.com', favicon: 'https://mailmeteor.com/logos/assets/PNG/Gmail_Logo_512px.png', id: 0 }, { url: 'https://music.youtube.com', favicon: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/Youtube_Music_icon.svg/2048px-Youtube_Music_icon.svg.png', id: 1 }]
+    browser.storage.local.set({
+      favorites: favorites
+    });
+  } else {
+    favorites = result.favorites
+  }
   loadFavorites()
 });
 
@@ -111,17 +117,15 @@ function updateSearchBar() {
     }
     const lockIcon = document.createElement('i');
     lockIcon.id = 'search-icon';
-    if (currentTab.url.startsWith('https://')) {
-      lockIcon.className = 'fas fa-lock';
+    if (!openedFavorites.includes(currentTab.id)) {
+      lockIcon.className = currentTab.url.startsWith('https://') ? 'fas fa-lock'
+        : currentTab.url.startsWith('about:') ? ''
+          : 'fas fa-lock-open';
     } else {
-      if (!currentTab.url.startsWith('about:')) {
-        lockIcon.className = 'fas fa-lock-open';
-      } else {
-        lockIcon.className = '';
-      }
+      lockIcon.className = '';
     }
     searchInput.parentNode.insertBefore(lockIcon, searchInput);
-    if (currentTab.url.includes('https://arcfox-notes.vercel.app') || currentTab.url.includes('/easel-build')) {
+    if (currentTab.url.startsWith('https://arcfox-notes.vercel.app')) {
       searchInput.value = currentTab.title;
     } else {
       if (currentUrl.slice(-1) == '/') {
@@ -144,13 +148,6 @@ function performSearch(url) {
   const newTitle = `Search results for ${keywords}`;
 
   return newTitle;
-}
-
-// Function to extract keywords from a URL
-function extractKeywords(url) {
-  const queryParam = new URLSearchParams(new URL(url).search).get('q');
-
-  return queryParam;
 }
 
 function searchBar() {
@@ -180,10 +177,10 @@ function searchBar() {
         url = "https://" + query;
       }
     } else {
-      url = "https://www.google.com/search?q=" + encodeURIComponent(query);
+      browser.search.search({ disposition: "CURRENT_TAB", query: query })
     }
 
-    browser.tabs.update(currentTab.id, { url: url });
+    browser.tabs.update(currentTab.id, { url });
     searchInput.blur();
     updateSearchBar();
   });
@@ -271,13 +268,13 @@ const renderItems = (data) => {
       node.classList.add('active');
     }
 
-    if (!openedFavoritesIds.includes(tab.id)) {
+    if (!openedFavorites.includes(tab.id)) {
       tabList.appendChild(node);
     }
   });
 };
 
-const compare = (e) => {
+const compare = () => {
   const index1 = base.findIndex((tab) => tab.id === dragging);
   const index2 = base.findIndex((tab) => tab.id === draggedOver);
   const [draggedTab] = base.splice(index1, 1);
@@ -307,6 +304,9 @@ const closeTab = (e, middleclick = false) => {
     tabId = parseInt(e.target.parentNode.dataset.tabId);
   }
   browser.tabs.remove(tabId);
+};
+
+browser.tabs.onRemoved.addListener((tabId) => {
   const index = base.findIndex((tab) => tab.id === tabId);
   if (index !== -1) {
     base.splice(index, 1);
@@ -314,7 +314,7 @@ const closeTab = (e, middleclick = false) => {
   }
   initTabSidebarControl();
   updateSearchBar();
-};
+})
 
 const navigateToTab = (e) => {
   const tabId = parseInt(e.currentTarget.dataset.tabId);
@@ -330,6 +330,7 @@ const navigateToTab = (e) => {
   e.currentTarget.classList.add('current-tab');
 };
 
+/* Settings
 document.getElementById('settings').addEventListener('click', () => {
   browser.windows.create({
     url: "../settings/settings.html",
@@ -338,55 +339,115 @@ document.getElementById('settings').addEventListener('click', () => {
     height: 600
   });
 })
+  */
 
 // Favorites
-function loadFavorites() {
-  favorites.forEach((favorite) => {
-    const element = document.createElement('button')
-    element.className = "favorite"
-    element.dataset.url = favorite.url;
-    element.onclick = async () => {
-      if (!element.id) {
-        const tabCreated = await browser.tabs.create({ url: element.dataset.url });
-        element.id = tabCreated.id;
-        openedFavorites.push(tabCreated);
-        openedFavoritesIds.push(tabCreated.id);
-      } else {
-        tabList.querySelector('.active')?.classList.remove('active');
-        browser.tabs.update(parseInt(element.id), { active: true, highlighted: false });
-      }
-      document.querySelectorAll('[aria-label="favopen"]')?.forEach((elemento) => {
-        elemento.ariaLabel = "";
+function favoriteDragOver(e) {
+  e.preventDefault();
+};
+
+function favoriteDrop() {
+  browser.storage.local.get('favorites', function (result) {
+    var favoritesg = result.favorites;
+    var i = 0
+    while (favoritesg[i] !== undefined) {
+      i++
+    }
+    if (favoritesg.length < 4) {
+      browser.tabs.query({ currentWindow: true }).then((tabs) => {
+        var tabtoPin = tabs.find((tab) => dragging == tab.id)
+        if (!tabtoPin.url.startsWith('about:')) {
+          favoritesg[i] = { url: tabtoPin.url, favicon: tabtoPin.favIconUrl, id: i }
+          openedFavorites[i] = tabtoPin.id
+          renderItems(base);
+          browser.storage.local.set({
+            favorites: favoritesg
+          });
+        }
       })
-      element.ariaLabel = "favopen";
-      updateSearchBar();
-      while (true) {
-        await new Promise(resolve => setTimeout(resolve, 200));
-        var tabsn = []
-        await browser.tabs.query({ currentWindow: true }).then((tabs) => {
-          tabsn = tabs
+    }
+  })
+}
+
+favoriteDiv.addEventListener('dragenter', favoriteDragOver);
+favoriteDiv.addEventListener('dragover', favoriteDragOver);
+favoriteDiv.addEventListener('drop', favoriteDrop);
+
+function loadFavorites() {
+  // Render
+  favorites.forEach(async (favorite) => {
+    if (favorite !== undefined) {
+      const element = document.createElement('button')
+      element.className = "favorite"
+      element.dataset.url = favorite.url;
+      if (openedFavorites[favorite.id] && (await browser.tabs.get(openedFavorites[favorite.id]))?.active) {
+        element.ariaLabel = 'favopen';
+      }
+      element.onclick = async () => {
+        if (!openedFavorites[favorite.id]) {
+          const tabCreated = await browser.tabs.create({ url: element.dataset.url });
+          openedFavorites[favorite.id] = tabCreated.id;
+        } else {
+          tabList.querySelector('.active')?.classList.remove('active');
+          browser.tabs.update(openedFavorites[favorite.id], { active: true });
+        }
+        document.querySelectorAll('[aria-label="favopen"]')?.forEach((elemento) => {
+          elemento.ariaLabel = "";
         })
-        if ((tabsn.find((elems) => elems.id == element.id).favIconUrl !== undefined)) {
-          break
+        element.ariaLabel = "favopen";
+        updateSearchBar();
+      }
+      element.onauxclick = async (event) => {
+        if (event.button == 1 && openedFavorites[favorite.id]) {
+          // Unload favorite
+          browser.tabs.remove(openedFavorites[favorite.id])
+          openedFavorites[favorite.id] = undefined
+          element.ariaLabel = ""
+        } else if (event.button == 2) {
+          // Remove favorite
+          initTabSidebarControl();
+          if (openedFavorites[favorite.id]) {
+            delete openedFavorites[favorite.id];
+          }
+          browser.storage.local.get('favorites', function (result) {
+            var favoritesg = result.favorites;
+            delete favoritesg[favorite.id]
+            favoriteDiv.innerHTML = "";
+            favorites = favoritesg
+            loadFavorites();
+            browser.storage.local.set({
+              favorites: favoritesg
+            });
+          })
         }
       }
 
-      browser.tabs.query({ currentWindow: true }).then((tabs) => {
-        favIcon.src = tabs.find((elems) => elems.id == element.id).favIconUrl
-        browser.storage.local.get('favorites', function (result) {
-          var favoritesc = result.favorites || [{ url: 'https://gmail.com', favicon: 'https://mailmeteor.com/logos/assets/PNG/Gmail_Logo_512px.png' }, { url: 'https://music.youtube.com', favicon: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/Youtube_Music_icon.svg/2048px-Youtube_Music_icon.svg.png' }];
-          favoritesc[favorite.id].favicon = favIcon.src;
-          browser.storage.local.set({ favorites: favoritesc })
-        });
-      });
-    }
-    const favIcon = document.createElement('img');
-    favIcon.src = favorite.favicon;
+      // FavIcon
+      const favIcon = document.createElement('img');
+      favIcon.src = favorite.favicon;
+      element.appendChild(favIcon)
 
-    element.appendChild(favIcon)
-    document.querySelector('#favorites').appendChild(element);
+      favoriteDiv.appendChild(element);
+    }
+    updateSearchBar();
   });
 }
+
+// Look for updates
+browser.storage.onChanged.addListener(() => {
+  browser.storage.local.get('favorites', function (result) {
+    var favoritesg = result.favorites;
+    if (JSON.stringify(favoritesg) !== JSON.stringify(favorites)) {
+      favoritesg.forEach(fav => {
+        if (fav?.url !== favorites[fav.id]?.url) {
+          favoriteDiv.innerHTML = "";
+          favorites = favoritesg
+          loadFavorites();
+        }
+      })
+    }
+  })
+})
 
 // Remove the context menu
 document.addEventListener('contextmenu', function (e) {

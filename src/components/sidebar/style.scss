@@ -8,38 +8,37 @@
   font-family: Nunito;
 }
 
+$sidebarColor1: #3b3f52;
+$sidebarColor2: #3b3f52;
+
 :root {
   --outlineColor: #d0d0d02f;
-  --sidebarBackground: linear-gradient(#3b3f52, #3b3f52);
-  --sidebarFooterBackground: #3b3f52;
-  --themeColorLight: #d7dae8;
-  --themeColorDark: rgba(91, 97, 126, 0.7);
+  --sidebarBackground: linear-gradient(#{$sidebarColor1}, #{$sidebarColor2});
+  --sidebarFooterBackground: #{$sidebarColor2};
+  --themeColorLight: #{saturate(lighten($sidebarColor1, 60%), 10%)};
+  --themeColorDark: #{rgba(lighten($sidebarColor1, 15%), 0.7)};
   --onBackgroundColor: white;
 }
 
 /* @media (prefers-color-scheme: light) {
   :root {
     --sidebarBackground: linear-gradient(
-      #dadce5,
-      #dadce5
+      #{lighten($sidebarColor1, 60%)},
+      #{lighten($sidebarColor2, 60%)}
     );
-    --sidebarFooterBackground: #dadce5;
-    --themeColorLight: black;
-    --themeColorDark: #505a89;
+    --sidebarFooterBackground: #{lighten($sidebarColor2, 60%)};
+    --themeColorLight: #{saturate(darken($sidebarColor1, 60%), 10%)};
+    --themeColorDark: #{saturate(lighten($sidebarColor1, 15%), 10%)};
     --onBackgroundColor: black;
   }
 } */
+
 body {
   margin: 0;
   padding: 0;
   width: 100%;
   height: 100%;
 }
-
-::-moz-selection {
-  background-color: var(--themeColorDark);
-}
-
 ::selection {
   background-color: var(--themeColorDark);
 }
@@ -77,9 +76,9 @@ body {
   border-radius: 5px;
   margin-bottom: 2px;
   transition: 0.1s;
-}
-#sidebar-header button i:hover {
-  color: var(--onBackgroundColor);
+  &:hover {
+    color: var(--onBackgroundColor);
+  }
 }
 
 #page-control {
@@ -96,12 +95,12 @@ body {
   display: flex;
   margin-right: auto;
   gap: 7px;
-}
-#action-buttons button i {
-  opacity: 0.5;
-}
-#action-buttons button i:hover {
-  opacity: 0.9;
+  & button i {
+    opacity: 0.5;
+    &:hover {
+      opacity: 0.9;
+    }
+  }
 }
 
 .address-bar {
@@ -113,11 +112,11 @@ body {
   width: 100%;
   border-radius: 14px;
   color: var(--onBackgroundColor) !important;
-  background: rgba(209, 209, 209, 0.0745098039) !important;
+  background: #d1d1d113 !important;
   transition: scale 0.1s;
-}
-.address-bar:active {
-  scale: 0.98;
+  &:active {
+    scale: 0.98;
+  }
 }
 
 #sidebar-header input {
@@ -153,6 +152,7 @@ body {
   margin-top: 10px;
 }
 
+// Tab Style
 #sidebar-content ul li {
   display: flex;
   position: relative;
@@ -163,23 +163,24 @@ body {
   border-radius: 12px;
   color: var(--onBackgroundColor);
   transition: scale 0.2s;
-}
-#sidebar-content ul li:hover {
-  background: rgba(0, 0, 0, 0.1411764706);
-}
-#sidebar-content ul li.active {
-  background-color: rgba(255, 255, 255, 0.1215686275);
-}
-#sidebar-content ul li.active:hover {
-  background-color: rgba(255, 255, 255, 0.1725490196);
-}
-#sidebar-content ul li:active {
-  scale: 0.97;
-}
-#sidebar-content ul li img {
-  margin-right: 10px;
-  width: 16px;
-  pointer-events: none;
+  &:hover {
+    background: #00000024;
+  }
+  &.active {
+    background-color: #ffffff1f;
+    &:hover {
+      background-color: #ffffff2c;
+    }
+  }
+  &:active {
+    scale: 0.97;
+  }
+  // Favicon
+  & img {
+    margin-right: 10px;
+    width: 16px;
+    pointer-events: none;
+  }
 }
 
 .tab-title {
@@ -195,6 +196,7 @@ body {
   font-size: 20px;
 }
 
+// New Tab Button
 #sidebar-content button#new-tab-button {
   padding: 10px;
   border-radius: 12px;
@@ -207,23 +209,26 @@ body {
   color: var(--themeColorLight);
   filter: grayscale(0.5);
   transition: scale 0.2s;
-}
-#sidebar-content button#new-tab-button:hover {
-  background-color: rgba(255, 255, 255, 0.1294117647);
-  color: white;
-}
-#sidebar-content button#new-tab-button:active {
-  scale: 0.97;
-}
-#sidebar-content button#new-tab-button span {
-  opacity: 0;
-  position: relative;
-  float: right;
-}
-#sidebar-content button#new-tab-button:hover span {
-  opacity: 1;
+  &:hover {
+    background-color: #ffffff21;
+    color: white;
+  }
+  &:active {
+    scale: 0.97;
+  }
+
+  // Show command on hover
+  & span {
+    opacity: 0;
+    position: relative;
+    float: right;
+  }
+  &:hover span {
+    opacity: 1;
+  }
 }
 
+// Tab Close Button
 #sidebar-content ul li button {
   display: none;
 }
@@ -239,11 +244,12 @@ body {
   border: 0;
   scale: 1.3;
   transform: translateX(5px);
-}
-#sidebar-content ul li:hover button:hover {
-  background: rgba(0, 0, 0, 0.1);
+  &:hover {
+    background: rgba(0, 0, 0, 0.1);
+  }
 }
 
+// Space Info
 div#space-info {
   margin-top: 10px;
   width: 100%;
@@ -251,6 +257,7 @@ div#space-info {
   display: none;
 }
 
+// Space Name
 div#space-info input {
   margin-left: 4px;
   font-size: 13px;
@@ -302,70 +309,69 @@ div#space-info input {
   width: calc(100% - 9px);
   left: 8px;
   padding: 10px;
-  background-color: rgba(0, 0, 0, 0.2352941176);
-  -webkit-backdrop-filter: blur(16px);
-          backdrop-filter: blur(16px);
+  background-color: #0000003c;
+  backdrop-filter: blur(16px);
   border: none;
   border-radius: 10px;
   color: white;
   animation: divspawn 0.2s;
-}
-.floating-div button {
-  margin: 0 auto;
-  width: 100%;
-  padding: 5px;
-  padding-left: 10px;
-  border-radius: 5px;
-  border: none;
-  font-size: 14px;
-  min-height: 40px;
-  color: white;
-  background-color: transparent;
-  cursor: pointer;
-  font-family: Nunito;
-  font-weight: 500;
-}
-.floating-div button:hover {
-  background-color: var(--themeColorDark);
-  cursor: pointer;
-}
-.floating-div button i {
-  margin-right: 5px;
+  & button {
+    margin: 0 auto;
+    width: 100%;
+    padding: 5px;
+    padding-left: 10px;
+    border-radius: 5px;
+    border: none;
+    font-size: 14px;
+    min-height: 40px;
+    color: white;
+    background-color: transparent;
+    cursor: pointer;
+    font-family: Nunito;
+    font-weight: 500;
+    &:hover {
+      background-color: var(--themeColorDark);
+      cursor: pointer;
+    }
+    & i {
+      margin-right: 5px;
+    }
+  }
 }
 
+// Favorites
 div#favorites {
   display: flex;
   gap: 8px;
   width: 100%;
   margin-top: 8px;
   margin-bottom: 8px;
+  &:empty {
+    height: 7px;
+    margin-top: -4px;
+    position: relative;
+    transform: translateY(20px);
+    transition: 0.2s;
+    &:-moz-drag-over {
+      margin-top: 5px;
+      background: rgba(255, 255, 255, 0.07);
+      border-radius: 18px;
+      text-align: center;
+      margin-top: 10px;
+      padding: 10px;
+      border: 2px solid var(--outlineColor);
+      border-style: dashed;
+      height: auto;
+      transform: translateY(0px);
+      &::after {
+        color: white;
+        content: "Quickly access your most viewed websites by dragging them here";
+      }
+    }
+  }
 }
-div#favorites:empty {
-  height: 7px;
-  margin-top: -4px;
-  position: relative;
-  transform: translateY(20px);
-  transition: 0.2s;
-}
-div#favorites:empty:-moz-drag-over {
-  margin-top: 5px;
-  background: rgba(255, 255, 255, 0.07);
-  border-radius: 18px;
-  text-align: center;
-  margin-top: 10px;
-  padding: 10px;
-  border: 2px solid var(--outlineColor);
-  border-style: dashed;
-  height: auto;
-  transform: translateY(0px);
-}
-div#favorites:empty:-moz-drag-over::after {
-  color: white;
-  content: "Quickly access your most viewed websites by dragging them here";
-}
-
 button.favorite {
-  background: rgba(209, 209, 209, 0.0745098039) !important;
+  background: #d1d1d113 !important;
   border-radius: 12px !important;
   height: 45px;
   width: 100%;
@@ -374,21 +380,22 @@ button.favorite {
   padding: 10px !important;
   transition: background 0.1s, scale 0.2s;
   animation: favoritespawn 0.2s;
-}
-button.favorite:hover {
-  background: rgba(192, 192, 192, 0.137254902) !important;
-}
-button.favorite:active {
-  scale: 0.97;
-}
-button.favorite[aria-label=favopen] {
-  background: rgba(199, 199, 199, 0.262745098) !important;
-}
-button.favorite img {
-  width: 20px;
-  position: relative;
-  top: 10%;
-  pointer-events: none;
+  &:hover {
+    background: #c0c0c023 !important;
+  }
+  &:active {
+    scale: 0.97;
+  }
+  &[aria-label="favopen"] {
+    background: #c7c7c743 !important;
+  }
+  // Favicon
+  & img {
+    width: 20px;
+    position: relative;
+    top: 10%;
+    pointer-events: none;
+  }
 }
 
 a {
@@ -407,4 +414,4 @@ a {
   from {
     scale: 0.97;
   }
-}/*# sourceMappingURL=style.css.map */
+}

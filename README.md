@@ -40,6 +40,11 @@ If you want to contact us, open a <a href="https://github.com/betterbrowser/arcf
 
 ### Non-Essential:
 
+- [x] Notes
+  - [x] Share Notes
+  - [x] Keep notes on refresh
+  - [ ] Rich-text and Markdown features
+  - [ ] Dynamic color
 - [x] Peek
   - [x] Use Shift to Peek
   - [x] Works in most webpages (Report if smth doesn't work as expected)
@@ -49,11 +54,6 @@ If you want to contact us, open a <a href="https://github.com/betterbrowser/arcf
   - [ ] Stackable Folders
   - [ ] Rename Folders
   - [ ] Pin Folder?
-- [x] Notes
-  - [x] Share Notes
-  - [x] Keep notes on refresh
-  - [ ] Rich-text and Markdown features
-  - [ ] Dynamic color
 - [ ] Easels (under development)
   - [ ] Share Easels
   - [ ] Move elements
@@ -78,13 +78,13 @@ If you want to contact us, open a <a href="https://github.com/betterbrowser/arcf
   - [ ] Bookmarks
 - [ ] Spaces
   - [ ] Spaces Feature
-  - [ ] Rename Spaces
+  - [x] Rename Spaces
   - [ ] Change Spaces Icon
 - [ ] Launchpad (you can use omni while it's not out)
 - [ ] Boosts
   - [ ] Boosts Feature
   - [ ] Boosts Store
-  - [ ] Arc Palette
+  - [x] Arc Palette
 
 ArcFox still has a lot of features to be implemented and you can see our <a href="https://github.com/orgs/betterbrowser/projects/2">Full Roadmap</a> for a better understanding of the upcoming features and things we are working on :D
 
@@ -107,7 +107,7 @@ ArcFox still has a lot of features to be implemented and you can see our <a href
 
 <img src="public/media/screenshot.png"/>
 
-ArcFox is a pack of firefox improvements that brings the appearance and some of the features of arc browser to firefox. Recently, The Browser Company © (the developers of arc browser) announced a windows version, so this project almost lost the reason to exist. But there still a linux version to be made and some people just like firefox and don't want to change.
+ArcFox is a pack of firefox improvements that brings the appearance and some of the features of arc browser to firefox. Recently, The Browser Company © (the developers of arc browser) announced a Windows version, so this project almost lost the reason to exist. But there's still a linux version to be made and some people just like firefox and don't want to change.
 
 I really recomend you to give a try on arc browser if you can. But we gonna do our best to make firefox nice as arc.
 

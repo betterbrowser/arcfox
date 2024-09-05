@@ -1,23 +1,18 @@
-#appcontent
-  > #tabbrowser-tabbox
-  > #tabbrowser-tabpanels
-  > .deck-selected
-  > .browserContainer
-  > .browserStack
-  > browser {
+#appcontent > #tabbrowser-tabbox > #tabbrowser-tabpanels > .deck-selected > .browserContainer > .browserStack > browser {
   border-radius: 10px !important;
   margin: 10px !important;
 }
 
+browser {
+  background: linear-gradient(#262834, #262834);
+}
+
 .browserStack {
-  background: #3b3f52;
+  background: linear-gradient(#3b3f52, #3b3f52);
 }
 
 .browserContainer {
-  background-color: var(
-    --lwt-accent-color-inactive,
-    var(--lwt-accent-color)
-  ) !important;
+  background-color: var(--lwt-accent-color-inactive, var(--lwt-accent-color)) !important;
   background-image: var(--lwt-header-image), var(--lwt-additional-images) !important;
   background-repeat: no-repeat, var(--lwt-background-tiling) !important;
   background-position: right top, var(--lwt-background-alignment) !important;
@@ -47,6 +42,10 @@
   transition: height 200ms ease-in-out, opacity 175ms ease-in-out;
 }
 
+#PersonalToolbar {
+  display: none;
+}
+
 #navigator-toolbox {
   position: fixed;
   z-index: 1;
@@ -74,15 +73,15 @@
 }
 
 #nav-bar {
-  background-color: #3b3f52 !important;
+  background: #3b3f52 !important;
   border-radius: 10px;
 }
 
 #urlbar-background {
-  background-color: #323446 !important;
+  background: #3b3f52 !important;
 }
 
-toolbarbutton[open="true"] {
+toolbarbutton[open=true] {
   --is-bar-visible: visible !important;
 }
 
@@ -91,6 +90,7 @@ toolbarbutton[open="true"] {
 }
 
 #sidebar-box {
+  width: 200px;
   min-width: 200px !important;
   max-width: 300px !important;
   min-height: unset !important;
@@ -108,4 +108,4 @@ toolbarbutton[open="true"] {
 #main-window[BookmarksToolbarOverlapsBrowser] .newTabBrowserPanel,
 #main-window[BookmarksToolbarOverlapsBrowser] #sidebar-box {
   padding-top: 0 !important;
-}
+}/*# sourceMappingURL=userChrome.css.map */

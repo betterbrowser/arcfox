@@ -1,8 +1,8 @@
-@import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200");
-
 /* Arc Palette */
 :root {
+  --arc-palette-foregroundPrimary: #c7c0e9 !important;
   --arc-palette-background: #1c1a26 !important;
+  --arc-palette-backgroundExtra: #2b2839 !important;
 }
 
 /* Peek */
@@ -14,9 +14,7 @@ div#peekpage {
   padding: 0;
   border-radius: 4px;
   animation: peekopen 0.5s;
-}
-div#peekpage::backdrop {
-  background: rgba(57, 59, 82, 0.6);
+  transition: scale 0.21s cubic-bezier(0.63, -0.01, 0.47, 1) !important;
 }
 div#peekpage iframe {
   width: 100%;
@@ -24,11 +22,23 @@ div#peekpage iframe {
   border: 0;
   margin-bottom: -5px;
 }
+div#peekbackdrop {
+  display: none;
+  height: 100vh;
+  width: 100vw;
+  top: 0;
+  left: 0;
+  position: fixed;
+  z-index: 2147483647;
+  background: rgba(57, 59, 82, 0.6);
+  transition: opacity 0.3s;
+  opacity: 0;
+}
 
 .peektools {
   border-radius: 100px;
   border: 0;
-  font-family: "Material Symbols Outlined";
+  display: inline-flex;
   font-size: 20px;
   font-weight: 300;
   width: 30px;
@@ -37,19 +47,21 @@ div#peekpage iframe {
   position: fixed;
   transform: translateX(calc(74vw + 10px));
   z-index: 1000;
-  cursor: default;
+  cursor: default !important;
   animation: buttonappear 1s;
   background: white;
   color: black;
-  transition: 0.1s;
+  transition: background 0.1s !important;
 }
 
 .peektools:hover {
-  background: #dbdbdb;
+  background: #d4d4d4;
 }
 
-.peektools::after {
-  content: attr(id);
+.peektools img {
+  width: 17px;
+  position: relative;
+  margin: auto;
 }
 
 .peektools#open_in_full {
