@@ -131,7 +131,6 @@ body {
   gap: 6px;
   list-style: none;
   margin-top: 10px;
-  margin-bottom: 127px;
 }
 
 #sidebar-content ul li {
@@ -157,6 +156,11 @@ body {
 #sidebar-content ul li:active {
   scale: 0.97;
 }
+#sidebar-content ul li img {
+  margin-right: 10px;
+  width: 16px;
+  pointer-events: none;
+}
 
 .tab-title {
   color: #fff;
@@ -165,12 +169,6 @@ body {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-}
-
-#sidebar-content ul li img {
-  margin-right: 10px;
-  width: 16px;
-  pointer-events: none;
 }
 
 .fa-globe {
@@ -293,7 +291,6 @@ div#space-info input {
   color: white;
   animation: divspawn 0.2s;
 }
-
 .floating-div button {
   margin: 0 auto;
   width: 100%;
@@ -332,7 +329,7 @@ div#favorites:empty {
 }
 div#favorites:empty:-moz-drag-over {
   margin: top 5px;
-  background: rgba(255, 255, 255, 0.071);
+  background: rgba(255, 255, 255, 0.07);
   border-radius: 18px;
   text-align: center;
   margin-top: 10px;

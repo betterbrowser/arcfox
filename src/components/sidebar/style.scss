@@ -126,9 +126,9 @@ body {
   gap: 6px;
   list-style: none;
   margin-top: 10px;
-  margin-bottom: 127px;
 }
 
+// Tab Style
 #sidebar-content ul li {
   display: flex;
   position: relative;
@@ -151,6 +151,12 @@ body {
   &:active {
     scale: 0.97;
   }
+  // Favicon
+  & img {
+    margin-right: 10px;
+    width: 16px;
+    pointer-events: none;
+  }
 }
 
 .tab-title {
@@ -160,12 +166,6 @@ body {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-}
-
-#sidebar-content ul li img {
-  margin-right: 10px;
-  width: 16px;
-  pointer-events: none;
 }
 
 .fa-globe {
@@ -292,29 +292,28 @@ div#space-info input {
   border-radius: 10px;
   color: white;
   animation: divspawn 0.2s;
-}
-
-.floating-div button {
-  margin: 0 auto;
-  width: 100%;
-  padding: 5px;
-  padding-left: 10px;
-  border-radius: 5px;
-  border: none;
-  font-size: 14px;
-  min-height: 40px;
-  color: white;
-  background-color: transparent;
-  cursor: pointer;
-  font-family: Nunito;
-  font-weight: 500;
-  &:hover {
-    background-color: var(--themeColorDark);
+  & button {
+    margin: 0 auto;
+    width: 100%;
+    padding: 5px;
+    padding-left: 10px;
+    border-radius: 5px;
+    border: none;
+    font-size: 14px;
+    min-height: 40px;
     color: white;
+    background-color: transparent;
     cursor: pointer;
-  }
-  & i {
-    margin-right: 5px;
+    font-family: Nunito;
+    font-weight: 500;
+    &:hover {
+      background-color: var(--themeColorDark);
+      color: white;
+      cursor: pointer;
+    }
+    & i {
+      margin-right: 5px;
+    }
   }
 }
 
@@ -331,7 +330,7 @@ div#favorites {
     transition: 0.2s;
     &:-moz-drag-over {
       margin: top 5px;
-      background: rgba(255, 255, 255, 0.071);
+      background: rgba(255, 255, 255, 0.07);
       border-radius: 18px;
       text-align: center;
       margin-top: 10px;
@@ -367,7 +366,7 @@ button.favorite {
   &[aria-label="favopen"] {
     background: #c7c7c743 !important;
   }
-  // Favorite Icon
+  // Favicon
   & img {
     width: 18px;
     position: relative;
