@@ -264,7 +264,7 @@ const renderItems = (data) => {
       }
     });
 
-    if (tab.id === activeTabId && !openedFavorites.includes(tab.id)) {
+    if (tab.id === activeTabId) {
       node.classList.add('active');
     }
 
@@ -429,6 +429,7 @@ function loadFavorites() {
 
       favoriteDiv.appendChild(element);
     }
+    updateSearchBar();
   });
 }
 
