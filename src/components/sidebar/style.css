@@ -385,7 +385,7 @@ button.favorite[aria-label=favopen] {
   background: rgba(199, 199, 199, 0.262745098) !important;
 }
 button.favorite img {
-  width: 20px;
+  width: 17px;
   position: relative;
   top: 10%;
   pointer-events: none;
