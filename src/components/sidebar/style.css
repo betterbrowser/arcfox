@@ -75,7 +75,7 @@ body {
   color: var(--themeColorLight);
   opacity: 0.8;
   border-radius: 5px;
-  margin-bottom: 14px;
+  margin-bottom: 2px;
   transition: 0.1s;
 }
 #sidebar-header button i:hover {
@@ -86,7 +86,6 @@ body {
   display: flex;
   margin: 10px;
   padding: 0 5px;
-  margin-bottom: 0;
   width: 100%;
   flex-direction: row;
   justify-content: flex-end;
