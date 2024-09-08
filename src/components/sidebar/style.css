@@ -78,7 +78,14 @@ body {
   width: 100%;
   flex-direction: row;
   justify-content: flex-end;
-  gap: 7px;
+  gap: 12px;
+}
+#page-control button i {
+  font-size: 16px;
+  opacity: 0.8;
+}
+#page-control button i:hover {
+  opacity: 1;
 }
 
 #action-buttons {
@@ -88,6 +95,7 @@ body {
 }
 #action-buttons button i {
   opacity: 0.5;
+  font-size: 15px;
 }
 #action-buttons button i:hover {
   opacity: 0.9;
@@ -146,8 +154,8 @@ body {
   display: flex;
   position: relative;
   align-items: center;
-  height: 40px;
-  padding: 10px;
+  height: 38px;
+  padding: 0px 10px;
   width: 100%;
   border-radius: 12px;
   color: var(--onBackgroundColor);
@@ -262,17 +270,6 @@ div#space-info input {
   z-index: 1;
 }
 
-.footer::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 50%;
-  width: 90%;
-  height: 1px;
-  background: var(--outlineColor);
-  transform: translateX(-50%);
-}
-
 .footer button {
   border: none;
   background: none;
@@ -337,11 +334,10 @@ div#favorites:empty {
   transition: 0.2s;
 }
 div#favorites:empty:-moz-drag-over {
-  margin-top: 5px;
+  margin-top: 8px;
   background: rgba(255, 255, 255, 0.07);
   border-radius: 18px;
   text-align: center;
-  margin-top: 10px;
   padding: 10px;
   border: 2px solid var(--outlineColor);
   border-style: dashed;
@@ -352,7 +348,7 @@ div#favorites:empty:-moz-drag-over::after {
   content: "Quickly access your most viewed websites by dragging them here";
 }
 
-button.favorite {
+div#favorites button {
   background: light-dark(rgba(90, 101, 153, 0.1), rgba(209, 209, 209, 0.0745098039)) !important;
   border-radius: 12px !important;
   height: 45px;
@@ -363,16 +359,16 @@ button.favorite {
   transition: background 0.1s, scale 0.2s;
   animation: favoritespawn 0.2s;
 }
-button.favorite:hover {
+div#favorites button:hover {
   background: light-dark(rgba(90, 101, 153, 0.15), rgba(192, 192, 192, 0.137254902)) !important;
 }
-button.favorite:active {
+div#favorites button:active {
   scale: 0.97;
 }
-button.favorite[aria-label=favopen] {
+div#favorites button.active {
   background: light-dark(white, rgba(199, 199, 199, 0.262745098)) !important;
 }
-button.favorite img {
+div#favorites button img {
   width: 17px;
   position: relative;
   top: 10%;
@@ -395,10 +391,10 @@ a {
     --outlineColor: #3232322f;
   }
   #sidebar-content ul li.active {
-    box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.211);
+    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.211);
   }
-  button.favorite[aria-label=favopen] {
-    box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.211);
+  div#favorites button.active {
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.211);
   }
   #action-buttons button i {
     opacity: 0.3;

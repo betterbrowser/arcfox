@@ -219,9 +219,6 @@ document.querySelector('button#b2').addEventListener("click", function () {
 
 function newTab() {
   browser.tabs.create({});
-  document.querySelectorAll('[aria-label="favopen"]')?.forEach((elemento) => {
-    elemento.ariaLabel = "";
-  })
 }
 
 // Sidebar Code
@@ -239,52 +236,49 @@ const init = (array) => {
 const renderItems = (data) => {
   tabList.innerHTML = '';
   data.forEach((tab) => {
-    const node = document.createElement('li');
-    node.draggable = true;
-    node.dataset.tabId = tab.id;
-
-    const titleNode = document.createElement('div');
-    titleNode.classList.add('tab-title');
-    titleNode.textContent = tab.title;
-
-    let iconNode;
-    if (tab.favIconUrl) {
-      iconNode = document.createElement('img');
-      iconNode.src = tab.favIconUrl;
-      iconNode.alt = tab.title;
-    } else {
-      iconNode = document.createElement('i');
-      iconNode.classList.add('fa', 'fa-solid', 'fa-globe');
-      iconNode.setAttribute('aria-hidden', 'true');
-    }
-
-    const closeButton = document.createElement('button');
-    closeButton.classList.add('close');
-    closeButton.title = 'Close Tab';
-    closeButton.innerHTML = '&times;';
-    closeButton.addEventListener('click', closeTab);
-
-    node.appendChild(iconNode);
-    node.appendChild(titleNode);
-    node.appendChild(closeButton);
-
-    node.addEventListener('drag', setDragging);
-    node.addEventListener('dragover', setDraggedOver);
-    node.addEventListener('drop', compare);
-    node.addEventListener('click', navigateToTab);
-    node.addEventListener('auxclick', (event) => {
-      if (event.button === 1) {
-        closeTab(event);
-      }
-    });
-
-    if (tab.id === activeTabId) {
-      node.classList.add('active');
-    }
-
     if (!openedFavorites.includes(tab.id)) {
+      const node = document.createElement('li');
+      node.draggable = true;
+      node.dataset.tabId = tab.id;
+
+      const titleNode = document.createElement('div');
+      titleNode.classList.add('tab-title');
+      titleNode.textContent = tab.title;
+
+      let iconNode;
+      if (tab.favIconUrl) {
+        iconNode = document.createElement('img');
+        iconNode.src = tab.favIconUrl;
+        iconNode.alt = tab.title;
+      } else {
+        iconNode = document.createElement('i');
+        iconNode.classList.add('fa', 'fa-solid', 'fa-globe');
+        iconNode.setAttribute('aria-hidden', 'true');
+      }
+
+      const closeButton = document.createElement('button');
+      closeButton.classList.add('close');
+      closeButton.innerHTML = '&times;';
+      closeButton.addEventListener('click', closeTab);
+
+      node.appendChild(iconNode);
+      node.appendChild(titleNode);
+      node.appendChild(closeButton);
+
+      node.addEventListener('drag', setDragging);
+      node.addEventListener('dragover', setDraggedOver);
+      node.addEventListener('drop', compare);
+      node.addEventListener('click', navigateToTab);
+      node.addEventListener('auxclick', (event) => {
+        if (event.button === 1) {
+          closeTab(event);
+        }
+      });
       tabList.appendChild(node);
     }
+
+    document.querySelector('.active')?.classList.remove('active');
+    document.querySelector(`[data-tab-id="${activeTabId}"]`)?.classList.add('active');
   });
 };
 
@@ -325,11 +319,7 @@ const navigateToTab = (e) => {
   browser.tabs.update(tabId, { active: true, highlighted: false });
   updateSearchBar();
 
-  tabList.querySelector('.active')?.classList.remove('active');
-  document.querySelector('[aria-label="favopen"]')?.setAttribute('aria-label', '');
-
   activeTabId = tabId;
-  tabList.querySelector(`[data-tab-id="${activeTabId}"]`)?.classList.add('active');
 
   e.currentTarget.classList.add('current-tab');
 };
@@ -363,10 +353,10 @@ function favoriteDrop() {
         if (!tabtoPin.url.startsWith('about:')) {
           favoritesg[i] = { url: tabtoPin.url, favicon: tabtoPin.favIconUrl, id: i }
           openedFavorites[i] = tabtoPin.id
-          renderItems(base);
           browser.storage.local.set({
             favorites: favoritesg
           });
+          initTabSidebarControl();
         }
       })
     }
@@ -383,26 +373,22 @@ function loadFavorites() {
   favorites.forEach(async (favorite) => {
     if (favorite !== undefined) {
       const element = document.createElement('button')
-      element.className = "favorite"
-      element.dataset.url = favorite.url;
       if (openedFavorites[favorite.id] && (await browser.tabs.get(openedFavorites[favorite.id]))?.active) {
-        element.ariaLabel = 'favopen';
+        element.dataset.tabId = openedFavorites[favorite.id];
+        element.classList.add('active')
       }
       element.onclick = async () => {
         if (!openedFavorites[favorite.id]) {
-          const tabCreated = await browser.tabs.create({ url: element.dataset.url });
+          const tabCreated = await browser.tabs.create({ url: favorite.url });
           openedFavorites[favorite.id] = tabCreated.id;
         } else {
-          tabList.querySelector('.active')?.classList.remove('active');
           browser.tabs.update(openedFavorites[favorite.id], { active: true });
         }
-        document.querySelectorAll('[aria-label="favopen"]')?.forEach((elemento) => {
-          elemento.ariaLabel = "";
-        })
-        element.ariaLabel = "favopen";
+        element.dataset.tabId = openedFavorites[favorite.id];
+        element.classList.add('active')
         updateSearchBar();
       }
-      element.onauxclick = async (event) => {
+      element.onauxclick = (event) => {
         if (event.button == 1 && openedFavorites[favorite.id]) {
           // Unload favorite
           browser.tabs.remove(openedFavorites[favorite.id])
@@ -410,7 +396,6 @@ function loadFavorites() {
           element.ariaLabel = ""
         } else if (event.button == 2) {
           // Remove favorite
-          initTabSidebarControl();
           delete openedFavorites[favorite.id];
           browser.storage.local.get('favorites', function (result) {
             var favoritesg = result.favorites;
@@ -421,6 +406,7 @@ function loadFavorites() {
               favorites: favoritesg
             });
           })
+          initTabSidebarControl();
         }
       }
 
@@ -461,17 +447,18 @@ function initTabSidebarControl() {
     init(tabs);
     activeTabId = tabs.find((tab) => tab.active).id;
     renderItems(base);
-  });
-
-  browser.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
-    const index = base.findIndex((t) => t.id === tabId);
-    if (index !== -1) {
-      base[index].title = tab.title;
-      base[index].favIconUrl = tab.favIconUrl;
-      renderItems(base);
-      updateSearchBar();
-    }
+    updateSearchBar();
   });
 }
+
+browser.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
+  const index = base.findIndex((t) => t.id === tabId);
+  if (index !== -1) {
+    base[index].title = tab.title;
+    base[index].favIconUrl = tab.favIconUrl;
+    renderItems(base);
+    updateSearchBar();
+  }
+});
 
 initTabSidebarControl();
