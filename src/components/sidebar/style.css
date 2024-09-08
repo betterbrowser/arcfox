@@ -9,26 +9,15 @@
 }
 
 :root {
+  color-scheme: light dark;
   --outlineColor: #d0d0d02f;
   --sidebarBackground: linear-gradient(#3b3f52, #3b3f52);
   --sidebarFooterBackground: #3b3f52;
   --themeColorLight: #d7dae8;
   --themeColorDark: rgba(91, 97, 126, 0.7);
-  --onBackgroundColor: white;
+  --onBackgroundColor: light-dark(black, white);
 }
 
-/* @media (prefers-color-scheme: light) {
-  :root {
-    --sidebarBackground: linear-gradient(
-      #dadce5,
-      #dadce5
-    );
-    --sidebarFooterBackground: #dadce5;
-    --themeColorLight: black;
-    --themeColorDark: #505a89;
-    --onBackgroundColor: black;
-  }
-} */
 body {
   margin: 0;
   padding: 0;
@@ -72,14 +61,14 @@ body {
 
 #sidebar-header button i {
   font-size: 15px;
-  color: var(--themeColorLight);
+  color: light-dark(var(--themeColorDark), var(--themeColorLight));
   opacity: 0.8;
   border-radius: 5px;
   margin-bottom: 2px;
   transition: 0.1s;
 }
 #sidebar-header button i:hover {
-  color: var(--onBackgroundColor);
+  color: light-dark(var(--themeColorDark), var(--onBackgroundColor));
 }
 
 #page-control {
@@ -113,7 +102,7 @@ body {
   width: 100%;
   border-radius: 14px;
   color: var(--onBackgroundColor) !important;
-  background: rgba(209, 209, 209, 0.0745098039) !important;
+  background: light-dark(rgba(90, 101, 153, 0.1), rgba(209, 209, 209, 0.0745098039)) !important;
   transition: scale 0.1s;
 }
 .address-bar:active {
@@ -165,13 +154,13 @@ body {
   transition: scale 0.2s;
 }
 #sidebar-content ul li:hover {
-  background: rgba(0, 0, 0, 0.1411764706);
+  background: light-dark(rgba(0, 0, 0, 0.0549019608), rgba(0, 0, 0, 0.1411764706));
 }
 #sidebar-content ul li.active {
-  background-color: rgba(255, 255, 255, 0.1215686275);
+  background: light-dark(white, rgba(255, 255, 255, 0.1215686275));
 }
 #sidebar-content ul li.active:hover {
-  background-color: rgba(255, 255, 255, 0.1725490196);
+  background: light-dark(white, rgba(255, 255, 255, 0.1725490196));
 }
 #sidebar-content ul li:active {
   scale: 0.97;
@@ -210,7 +199,7 @@ body {
 }
 #sidebar-content button#new-tab-button:hover {
   background-color: rgba(255, 255, 255, 0.1294117647);
-  color: white;
+  color: light-dark(black, white);
 }
 #sidebar-content button#new-tab-button:active {
   scale: 0.97;
@@ -231,7 +220,7 @@ body {
 #sidebar-content ul li:hover button {
   display: block;
   background: transparent;
-  color: #fff;
+  color: light-dark(black, white);
   margin-left: auto;
   border-radius: 7px;
   padding: 3px 8px;
@@ -360,12 +349,11 @@ div#favorites:empty:-moz-drag-over {
   transform: translateY(0px);
 }
 div#favorites:empty:-moz-drag-over::after {
-  color: white;
   content: "Quickly access your most viewed websites by dragging them here";
 }
 
 button.favorite {
-  background: rgba(209, 209, 209, 0.0745098039) !important;
+  background: light-dark(rgba(90, 101, 153, 0.1), rgba(209, 209, 209, 0.0745098039)) !important;
   border-radius: 12px !important;
   height: 45px;
   width: 100%;
@@ -376,13 +364,13 @@ button.favorite {
   animation: favoritespawn 0.2s;
 }
 button.favorite:hover {
-  background: rgba(192, 192, 192, 0.137254902) !important;
+  background: light-dark(rgba(90, 101, 153, 0.15), rgba(192, 192, 192, 0.137254902)) !important;
 }
 button.favorite:active {
   scale: 0.97;
 }
 button.favorite[aria-label=favopen] {
-  background: rgba(199, 199, 199, 0.262745098) !important;
+  background: light-dark(white, rgba(199, 199, 199, 0.262745098)) !important;
 }
 button.favorite img {
   width: 17px;
@@ -395,6 +383,33 @@ a {
   color: var(--themeColorLight) !important;
 }
 
+@media (prefers-color-scheme: light) {
+  :root {
+    --sidebarBackground: linear-gradient(
+      #dadce5,
+      #dadce5
+    );
+    --sidebarFooterBackground: #dadce5;
+    --themeColorLight: black;
+    --themeColorDark: #505a89;
+    --outlineColor: #3232322f;
+  }
+  #sidebar-content ul li.active {
+    box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.211);
+  }
+  button.favorite[aria-label=favopen] {
+    box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.211);
+  }
+  #action-buttons button i {
+    opacity: 0.3;
+  }
+  #sidebar-content ul li.active:hover button:hover {
+    background: rgba(0, 0, 0, 0.2);
+  }
+  button#new-tab-button:hover {
+    background: rgba(0, 0, 0, 0.07) !important;
+  }
+}
 @keyframes divspawn {
   from {
     opacity: 0;

@@ -12,26 +12,14 @@ $sidebarColor1: #3b3f52;
 $sidebarColor2: #3b3f52;
 
 :root {
+  color-scheme: light dark;
   --outlineColor: #d0d0d02f;
   --sidebarBackground: linear-gradient(#{$sidebarColor1}, #{$sidebarColor2});
   --sidebarFooterBackground: #{$sidebarColor2};
   --themeColorLight: #{saturate(lighten($sidebarColor1, 60%), 10%)};
   --themeColorDark: #{rgba(lighten($sidebarColor1, 15%), 0.7)};
-  --onBackgroundColor: white;
+  --onBackgroundColor: light-dark(black, white);
 }
-
-/* @media (prefers-color-scheme: light) {
-  :root {
-    --sidebarBackground: linear-gradient(
-      #{lighten($sidebarColor1, 60%)},
-      #{lighten($sidebarColor2, 60%)}
-    );
-    --sidebarFooterBackground: #{lighten($sidebarColor2, 60%)};
-    --themeColorLight: #{saturate(darken($sidebarColor1, 60%), 10%)};
-    --themeColorDark: #{saturate(lighten($sidebarColor1, 15%), 10%)};
-    --onBackgroundColor: black;
-  }
-} */
 
 body {
   margin: 0;
@@ -71,13 +59,13 @@ body {
 
 #sidebar-header button i {
   font-size: 15px;
-  color: var(--themeColorLight);
+  color: light-dark(var(--themeColorDark), var(--themeColorLight));
   opacity: 0.8;
   border-radius: 5px;
   margin-bottom: 2px;
   transition: 0.1s;
   &:hover {
-    color: var(--onBackgroundColor);
+    color: light-dark(var(--themeColorDark), var(--onBackgroundColor));
   }
 }
 
@@ -112,7 +100,10 @@ body {
   width: 100%;
   border-radius: 14px;
   color: var(--onBackgroundColor) !important;
-  background: #d1d1d113 !important;
+  background: light-dark(
+    #{rgba(saturate(lighten($sidebarColor1, 20%), 10%), 0.1)},
+    #d1d1d113
+  ) !important;
   transition: scale 0.1s;
   &:active {
     scale: 0.98;
@@ -164,12 +155,12 @@ body {
   color: var(--onBackgroundColor);
   transition: scale 0.2s;
   &:hover {
-    background: #00000024;
+    background: light-dark(#0000000e, #00000024);
   }
   &.active {
-    background-color: #ffffff1f;
+    background: light-dark(white, #ffffff1f);
     &:hover {
-      background-color: #ffffff2c;
+      background: light-dark(white, #ffffff2c);
     }
   }
   &:active {
@@ -211,7 +202,7 @@ body {
   transition: scale 0.2s;
   &:hover {
     background-color: #ffffff21;
-    color: white;
+    color: light-dark(black, white);
   }
   &:active {
     scale: 0.97;
@@ -236,7 +227,7 @@ body {
 #sidebar-content ul li:hover button {
   display: block;
   background: transparent;
-  color: #fff;
+  color: light-dark(black, white);
   margin-left: auto;
   border-radius: 7px;
   padding: 3px 8px;
@@ -364,14 +355,16 @@ div#favorites {
       height: auto;
       transform: translateY(0px);
       &::after {
-        color: white;
         content: "Quickly access your most viewed websites by dragging them here";
       }
     }
   }
 }
 button.favorite {
-  background: #d1d1d113 !important;
+  background: light-dark(
+    #{rgba(saturate(lighten($sidebarColor1, 20%), 10%), 0.1)},
+    #d1d1d113
+  ) !important;
   border-radius: 12px !important;
   height: 45px;
   width: 100%;
@@ -381,13 +374,16 @@ button.favorite {
   transition: background 0.1s, scale 0.2s;
   animation: favoritespawn 0.2s;
   &:hover {
-    background: #c0c0c023 !important;
+    background: light-dark(
+      #{rgba(saturate(lighten($sidebarColor1, 20%), 10%), 0.15)},
+      #c0c0c023
+    ) !important;
   }
   &:active {
     scale: 0.97;
   }
   &[aria-label="favopen"] {
-    background: #c7c7c743 !important;
+    background: light-dark(white, #c7c7c743) !important;
   }
   // Favicon
   & img {
@@ -400,6 +396,34 @@ button.favorite {
 
 a {
   color: var(--themeColorLight) !important;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --sidebarBackground: linear-gradient(
+      #{lighten($sidebarColor1, 60%)},
+      #{lighten($sidebarColor2, 60%)}
+    );
+    --sidebarFooterBackground: #{lighten($sidebarColor2, 60%)};
+    --themeColorLight: #{saturate(darken($sidebarColor1, 60%), 10%)};
+    --themeColorDark: #{saturate(lighten($sidebarColor1, 15%), 10%)};
+    --outlineColor: #3232322f;
+  }
+  #sidebar-content ul li.active {
+    box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.211);
+  }
+  button.favorite[aria-label="favopen"] {
+    box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.211);
+  }
+  #action-buttons button i {
+    opacity: 0.3;
+  }
+  #sidebar-content ul li.active:hover button:hover {
+    background: rgba(0, 0, 0, 0.2);
+  }
+  button#new-tab-button:hover {
+    background: rgba(0, 0, 0, 0.07) !important;
+  }
 }
 
 @keyframes divspawn {

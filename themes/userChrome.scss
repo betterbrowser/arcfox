@@ -106,7 +106,7 @@ toolbarbutton[open="true"] {
 
 #sidebar-box {
   width: 200px;
-  min-width: 200px !important;
+  min-width: 190px !important;
   max-width: 300px !important;
   min-height: unset !important;
   max-height: unset !important;
@@ -123,4 +123,17 @@ toolbarbutton[open="true"] {
 #main-window[BookmarksToolbarOverlapsBrowser] .newTabBrowserPanel,
 #main-window[BookmarksToolbarOverlapsBrowser] #sidebar-box {
   padding-top: 0 !important;
+}
+
+@media (prefers-color-scheme: light) {
+  .browserStack {
+    background: linear-gradient(
+      #{lighten($sidebarColor1, 60%)},
+      #{lighten($sidebarColor2, 60%)}
+    );
+  }
+  #nav-bar,
+  #urlbar-background {
+    background: #{lighten($sidebarColor1, 60%)} !important;
+  }
 }

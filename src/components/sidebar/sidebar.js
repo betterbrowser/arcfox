@@ -58,10 +58,24 @@ browser.tabs.onUpdated.addListener((changeInfo) => {
   }
 });
 
-// Update sidebar when a tab is created
-browser.tabs.onCreated.addListener(function () {
+// Update sidebar when tabs are created, activated, closed
+browser.tabs.onCreated.addListener(() => {
   initTabSidebarControl();
 });
+
+browser.tabs.onActivated.addListener(() => {
+  initTabSidebarControl();
+});
+
+browser.tabs.onRemoved.addListener((tabId) => {
+  const index = base.findIndex((tab) => tab.id === tabId);
+  if (index !== -1) {
+    base.splice(index, 1);
+    renderItems(base);
+  }
+  initTabSidebarControl();
+  updateSearchBar();
+})
 
 // Browser-control
 function handleBrowserControl(id) {
@@ -306,16 +320,6 @@ const closeTab = (e, middleclick = false) => {
   browser.tabs.remove(tabId);
 };
 
-browser.tabs.onRemoved.addListener((tabId) => {
-  const index = base.findIndex((tab) => tab.id === tabId);
-  if (index !== -1) {
-    base.splice(index, 1);
-    renderItems(base);
-  }
-  initTabSidebarControl();
-  updateSearchBar();
-})
-
 const navigateToTab = (e) => {
   const tabId = parseInt(e.currentTarget.dataset.tabId);
   browser.tabs.update(tabId, { active: true, highlighted: false });
@@ -374,6 +378,7 @@ favoriteDiv.addEventListener('dragover', favoriteDragOver);
 favoriteDiv.addEventListener('drop', favoriteDrop);
 
 function loadFavorites() {
+  favoriteDiv.innerHTML = "";
   // Render
   favorites.forEach(async (favorite) => {
     if (favorite !== undefined) {
@@ -406,13 +411,10 @@ function loadFavorites() {
         } else if (event.button == 2) {
           // Remove favorite
           initTabSidebarControl();
-          if (openedFavorites[favorite.id]) {
-            delete openedFavorites[favorite.id];
-          }
+          delete openedFavorites[favorite.id];
           browser.storage.local.get('favorites', function (result) {
             var favoritesg = result.favorites;
             delete favoritesg[favorite.id]
-            favoriteDiv.innerHTML = "";
             favorites = favoritesg
             loadFavorites();
             browser.storage.local.set({
@@ -429,8 +431,8 @@ function loadFavorites() {
 
       favoriteDiv.appendChild(element);
     }
-    updateSearchBar();
   });
+  updateSearchBar();
 }
 
 // Look for updates
@@ -440,7 +442,6 @@ browser.storage.onChanged.addListener(() => {
     if (JSON.stringify(favoritesg) !== JSON.stringify(favorites)) {
       favoritesg.forEach(fav => {
         if (fav?.url !== favorites[fav.id]?.url) {
-          favoriteDiv.innerHTML = "";
           favorites = favoritesg
           loadFavorites();
         }
