@@ -52,9 +52,17 @@ browser.storage.local.get('favorites', function (result) {
 });
 
 // Update sidebar when a tab changes
-browser.tabs.onUpdated.addListener((changeInfo) => {
+browser.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
   if (changeInfo.status === "complete") {
     initTabSidebarControl();
+  }
+  const index = base.findIndex((t) => t.id === tabId);
+  if (index !== -1) {
+    base[index].title = tab.title;
+    base[index].favIconUrl = tab.favIconUrl;
+    base[index].audible = tab.audible
+    renderItems(base);
+    updateSearchBar();
   }
 });
 
@@ -75,6 +83,17 @@ browser.tabs.onRemoved.addListener((tabId) => {
   }
   initTabSidebarControl();
   updateSearchBar();
+})
+
+// Sidebar clear button
+document.querySelector('#separator span').addEventListener('click', () => {
+  browser.tabs.query({ currentWindow: true }).then((tabs) => {
+    tabs.forEach((tab) => {
+      if (!tab.active && !tab.audible && !openedFavorites.includes(tab.id)) {
+        browser.tabs.remove(tab.id)
+      }
+    })
+  })
 })
 
 // Browser-control
@@ -229,13 +248,15 @@ const init = (array) => {
     id: tab.id,
     title: tab.title,
     favIconUrl: tab.favIconUrl,
+    audible: tab.audible
   }));
   renderItems(base);
 };
 
 const renderItems = (data) => {
   tabList.innerHTML = '';
-  data.forEach((tab) => {
+  let canClear = false
+  data.forEach((tab, idx) => {
     if (!openedFavorites.includes(tab.id)) {
       const node = document.createElement('li');
       node.draggable = true;
@@ -262,6 +283,14 @@ const renderItems = (data) => {
       closeButton.addEventListener('click', closeTab);
 
       node.appendChild(iconNode);
+
+      if (tab.audible) {
+        const soundIcon = document.createElement('i');
+        soundIcon.classList.add('fa', 'fa-light', 'fa-volume-high');
+        soundIcon.setAttribute('aria-hidden', 'true');
+        node.appendChild(soundIcon)
+      }
+
       node.appendChild(titleNode);
       node.appendChild(closeButton);
 
@@ -279,7 +308,20 @@ const renderItems = (data) => {
 
     document.querySelector('.active')?.classList.remove('active');
     document.querySelector(`[data-tab-id="${activeTabId}"]`)?.classList.add('active');
+
+    if (tab.id !== activeTabId && !tab.audible) {
+      canClear = true
+    } else {
+      if (idx + 1 !== data.length && !openedFavorites.includes(tab.id)) {
+        canClear = false
+      }
+    }
   });
+  if (canClear) {
+    document.querySelector('#separator span').style.display = 'block'
+  } else {
+    document.querySelector('#separator span').style.display = 'none'
+  }
 };
 
 const compare = () => {
@@ -450,15 +492,5 @@ function initTabSidebarControl() {
     updateSearchBar();
   });
 }
-
-browser.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
-  const index = base.findIndex((t) => t.id === tabId);
-  if (index !== -1) {
-    base[index].title = tab.title;
-    base[index].favIconUrl = tab.favIconUrl;
-    renderItems(base);
-    updateSearchBar();
-  }
-});
 
 initTabSidebarControl();

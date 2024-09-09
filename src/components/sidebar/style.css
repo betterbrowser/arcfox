@@ -11,8 +11,13 @@
 :root {
   color-scheme: light dark;
   --outlineColor: #d0d0d02f;
-  --sidebarBackground: linear-gradient(#3b3f52, #3b3f52);
-  --sidebarFooterBackground: #3b3f52;
+  --sidebarColor1: #3b3f52;
+  --sidebarColor2: #3b3f52;
+  --sidebarBackground: linear-gradient(
+    var(--sidebarColor1),
+    var(--sidebarColor2)
+  );
+  --sidebarFooterBackground: var(--sidebarColor2);
   --themeColorLight: #d7dae8;
   --themeColorDark: rgba(91, 97, 126, 0.7);
   --onBackgroundColor: light-dark(black, white);
@@ -109,7 +114,6 @@ body {
   padding: 12px;
   width: 100%;
   border-radius: 14px;
-  color: var(--onBackgroundColor) !important;
   background: light-dark(rgba(90, 101, 153, 0.1), rgba(209, 209, 209, 0.0745098039)) !important;
   transition: scale 0.1s;
 }
@@ -121,7 +125,6 @@ body {
   border: none;
   width: 100%;
   font-size: 15px;
-  color: var(--onBackgroundColor);
   text-decoration: none;
   background: none;
   outline: none;
@@ -138,6 +141,32 @@ body {
   border: 0;
   height: 1px;
   background: var(--outlineColor);
+}
+
+body #separator span {
+  opacity: 0;
+  position: absolute;
+  margin-top: -6px;
+  background: var(--sidebarColor1);
+  right: 0;
+  margin-right: -3px;
+  padding-left: 8px;
+  transition: 0.1s;
+  color: light-dark(rgba(0, 0, 0, 0.7), rgba(255, 255, 255, 0.7));
+}
+body #separator span i {
+  margin-right: 5px;
+  transition: 0.1s;
+}
+body:hover #separator span {
+  opacity: 1;
+  margin-right: 0;
+}
+body:hover #separator span:hover {
+  color: light-dark(black, white);
+}
+body:hover #separator span:active i {
+  transform: translateY(2px);
 }
 
 #sidebar-content ul {
@@ -158,8 +187,8 @@ body {
   padding: 0px 10px;
   width: 100%;
   border-radius: 12px;
-  color: var(--onBackgroundColor);
   transition: scale 0.2s;
+  gap: 10px;
 }
 #sidebar-content ul li:hover {
   background: light-dark(rgba(0, 0, 0, 0.0549019608), rgba(0, 0, 0, 0.1411764706));
@@ -174,9 +203,11 @@ body {
   scale: 0.97;
 }
 #sidebar-content ul li img {
-  margin-right: 10px;
   width: 16px;
   pointer-events: none;
+}
+#sidebar-content ul li i.fa-volume-high {
+  font-size: 10px;
 }
 
 .tab-title {
@@ -188,8 +219,7 @@ body {
 }
 
 .fa-globe {
-  margin-right: 10px;
-  font-size: 20px;
+  font-size: 16px;
 }
 
 #sidebar-content button#new-tab-button {
@@ -212,6 +242,10 @@ body {
 #sidebar-content button#new-tab-button:active {
   scale: 0.97;
 }
+#sidebar-content button#new-tab-button i {
+  margin: 0 2px;
+  margin-right: 4px;
+}
 #sidebar-content button#new-tab-button span {
   opacity: 0;
   position: relative;
@@ -228,7 +262,6 @@ body {
 #sidebar-content ul li:hover button {
   display: block;
   background: transparent;
-  color: light-dark(black, white);
   margin-left: auto;
   border-radius: 7px;
   padding: 3px 8px;
@@ -381,11 +414,8 @@ a {
 
 @media (prefers-color-scheme: light) {
   :root {
-    --sidebarBackground: linear-gradient(
-      #dadce5,
-      #dadce5
-    );
-    --sidebarFooterBackground: #dadce5;
+    --sidebarColor1: #dadce5;
+    --sidebarColor2: #dadce5;
     --themeColorLight: black;
     --themeColorDark: #505a89;
     --outlineColor: #3232322f;

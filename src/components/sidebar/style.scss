@@ -14,8 +14,15 @@ $sidebarColor2: #3b3f52;
 :root {
   color-scheme: light dark;
   --outlineColor: #d0d0d02f;
-  --sidebarBackground: linear-gradient(#{$sidebarColor1}, #{$sidebarColor2});
-  --sidebarFooterBackground: #{$sidebarColor2};
+  --sidebarColor1: #{$sidebarColor1};
+  --sidebarColor2: #{$sidebarColor2};
+
+  --sidebarBackground: linear-gradient(
+    var(--sidebarColor1),
+    var(--sidebarColor2)
+  );
+
+  --sidebarFooterBackground: var(--sidebarColor2);
   --themeColorLight: #{saturate(lighten($sidebarColor1, 60%), 10%)};
   --themeColorDark: #{rgba(lighten($sidebarColor1, 15%), 0.7)};
   --onBackgroundColor: light-dark(black, white);
@@ -107,7 +114,6 @@ body {
   padding: 12px;
   width: 100%;
   border-radius: 14px;
-  color: var(--onBackgroundColor) !important;
   background: light-dark(
     #{rgba(saturate(lighten($sidebarColor1, 20%), 10%), 0.1)},
     #d1d1d113
@@ -122,7 +128,6 @@ body {
   border: none;
   width: 100%;
   font-size: 15px;
-  color: var(--onBackgroundColor);
   text-decoration: none;
   background: none;
   outline: none;
@@ -139,6 +144,34 @@ body {
   border: 0;
   height: 1px;
   background: var(--outlineColor);
+}
+
+body {
+  & #separator span {
+    opacity: 0;
+    position: absolute;
+    margin-top: -6px;
+    background: var(--sidebarColor1);
+    right: 0;
+    margin-right: -3px;
+    padding-left: 8px;
+    transition: 0.1s;
+    color: light-dark(rgba(0, 0, 0, 0.7), rgba(255, 255, 255, 0.7));
+  }
+  & #separator span i {
+    margin-right: 5px;
+    transition: 0.1s;
+  }
+  &:hover #separator span {
+    opacity: 1;
+    margin-right: 0;
+    &:hover {
+      color: light-dark(black, white);
+    }
+    &:active i {
+      transform: translateY(2px);
+    }
+  }
 }
 
 #sidebar-content ul {
@@ -160,8 +193,8 @@ body {
   padding: 0px 10px;
   width: 100%;
   border-radius: 12px;
-  color: var(--onBackgroundColor);
   transition: scale 0.2s;
+  gap: 10px;
   &:hover {
     background: light-dark(#0000000e, #00000024);
   }
@@ -176,9 +209,11 @@ body {
   }
   // Favicon
   & img {
-    margin-right: 10px;
     width: 16px;
     pointer-events: none;
+  }
+  & i.fa-volume-high {
+    font-size: 10px;
   }
 }
 
@@ -191,8 +226,7 @@ body {
 }
 
 .fa-globe {
-  margin-right: 10px;
-  font-size: 20px;
+  font-size: 16px;
 }
 
 // New Tab Button
@@ -215,6 +249,10 @@ body {
   &:active {
     scale: 0.97;
   }
+  & i {
+    margin: 0 2px;
+    margin-right: 4px;
+  }
 
   // Show command on hover
   & span {
@@ -235,7 +273,6 @@ body {
 #sidebar-content ul li:hover button {
   display: block;
   background: transparent;
-  color: light-dark(black, white);
   margin-left: auto;
   border-radius: 7px;
   padding: 3px 8px;
@@ -396,11 +433,9 @@ a {
 
 @media (prefers-color-scheme: light) {
   :root {
-    --sidebarBackground: linear-gradient(
-      #{lighten($sidebarColor1, 60%)},
-      #{lighten($sidebarColor2, 60%)}
-    );
-    --sidebarFooterBackground: #{lighten($sidebarColor2, 60%)};
+    --sidebarColor1: #{lighten($sidebarColor1, 60%)};
+    --sidebarColor2: #{lighten($sidebarColor2, 60%)};
+
     --themeColorLight: #{saturate(darken($sidebarColor1, 60%), 10%)};
     --themeColorDark: #{saturate(lighten($sidebarColor1, 15%), 10%)};
     --outlineColor: #3232322f;
