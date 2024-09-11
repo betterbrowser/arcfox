@@ -52,18 +52,8 @@ browser.storage.local.get('favorites', function (result) {
 });
 
 // Update sidebar when a tab changes
-browser.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
-  if (changeInfo.status === "complete") {
-    initTabSidebarControl();
-  }
-  const index = base.findIndex((t) => t.id === tabId);
-  if (index !== -1) {
-    base[index].title = tab.title;
-    base[index].favIconUrl = tab.favIconUrl;
-    base[index].audible = tab.audible
-    renderItems(base);
-    updateSearchBar();
-  }
+browser.tabs.onUpdated.addListener(() => {
+  initTabSidebarControl();
 });
 
 // Update sidebar when tabs are created, activated, closed
@@ -79,20 +69,52 @@ browser.tabs.onRemoved.addListener((tabId) => {
   const index = base.findIndex((tab) => tab.id === tabId);
   if (index !== -1) {
     base.splice(index, 1);
-    renderItems(base);
   }
   initTabSidebarControl();
-  updateSearchBar();
 })
 
 // Sidebar clear button
-document.querySelector('#separator span').addEventListener('click', () => {
-  browser.tabs.query({ currentWindow: true }).then((tabs) => {
+function clearTabs(tabs) {
+  let newTabs = tabs
+  tabs.forEach((tab) => {
+    if (!tab.active && !tab.audible && !openedFavorites.includes(tab.id)) {
+      browser.tabs.remove(tab.id)
+      newTabs = tabs.filter((tab) => {
+        if (false) return
+      })
+    }
+  })
+  if (newTabs.length == tabs.length) {
     tabs.forEach((tab) => {
-      if (!tab.active && !tab.audible && !openedFavorites.includes(tab.id)) {
+      if (!tab.active && !openedFavorites.includes(tab.id)) {
         browser.tabs.remove(tab.id)
+        newTabs = tabs.filter((tab) => {
+          if (false) return
+        })
       }
     })
+  }
+  if (newTabs.length == tabs.length) {
+    tabs.forEach((tab) => {
+      if (!openedFavorites.includes(tab.id)) {
+        browser.tabs.remove(tab.id)
+        newTabs = tabs.filter((tab) => {
+          if (false) return
+        })
+      }
+    })
+  }
+}
+
+function canClearTabs(tabs) {
+  let newTabs = tabs.filter((tab) => {
+    return !openedFavorites.includes(tab.id);
+  });
+  return (newTabs.length > 0)
+}
+document.querySelector('#separator span').addEventListener('click', () => {
+  browser.tabs.query({ currentWindow: true }).then((tabs) => {
+    clearTabs(tabs)
   })
 })
 
@@ -244,19 +266,13 @@ function newTab() {
 let base, draggedOver, dragging, activeTabId;
 
 const init = (array) => {
-  base = array.map((tab) => ({
-    id: tab.id,
-    title: tab.title,
-    favIconUrl: tab.favIconUrl,
-    audible: tab.audible
-  }));
+  base = array;
   renderItems(base);
 };
 
 const renderItems = (data) => {
   tabList.innerHTML = '';
-  let canClear = false
-  data.forEach((tab, idx) => {
+  data.forEach((tab) => {
     if (!openedFavorites.includes(tab.id)) {
       const node = document.createElement('li');
       node.draggable = true;
@@ -308,16 +324,8 @@ const renderItems = (data) => {
 
     document.querySelector('.active')?.classList.remove('active');
     document.querySelector(`[data-tab-id="${activeTabId}"]`)?.classList.add('active');
-
-    if (tab.id !== activeTabId && !tab.audible) {
-      canClear = true
-    } else {
-      if (idx + 1 !== data.length && !openedFavorites.includes(tab.id)) {
-        canClear = false
-      }
-    }
   });
-  if (canClear) {
+  if (canClearTabs(data)) {
     document.querySelector('#separator span').style.display = 'block'
   } else {
     document.querySelector('#separator span').style.display = 'none'
@@ -428,7 +436,6 @@ function loadFavorites() {
         }
         element.dataset.tabId = openedFavorites[favorite.id];
         element.classList.add('active')
-        updateSearchBar();
       }
       element.onauxclick = (event) => {
         if (event.button == 1 && openedFavorites[favorite.id]) {
