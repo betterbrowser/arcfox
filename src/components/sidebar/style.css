@@ -9,26 +9,20 @@
 }
 
 :root {
+  color-scheme: light dark;
   --outlineColor: #d0d0d02f;
-  --sidebarBackground: linear-gradient(#3b3f52, #3b3f52);
-  --sidebarFooterBackground: #3b3f52;
+  --sidebarColor1: #3b3f52;
+  --sidebarColor2: #3b3f52;
+  --sidebarBackground: linear-gradient(
+    var(--sidebarColor1),
+    var(--sidebarColor2)
+  );
+  --sidebarFooterBackground: var(--sidebarColor2);
   --themeColorLight: #d7dae8;
   --themeColorDark: rgba(91, 97, 126, 0.7);
-  --onBackgroundColor: white;
+  --onBackgroundColor: light-dark(black, white);
 }
 
-/* @media (prefers-color-scheme: light) {
-  :root {
-    --sidebarBackground: linear-gradient(
-      #dadce5,
-      #dadce5
-    );
-    --sidebarFooterBackground: #dadce5;
-    --themeColorLight: black;
-    --themeColorDark: #505a89;
-    --onBackgroundColor: black;
-  }
-} */
 body {
   margin: 0;
   padding: 0;
@@ -72,14 +66,14 @@ body {
 
 #sidebar-header button i {
   font-size: 15px;
-  color: var(--themeColorLight);
+  color: light-dark(var(--themeColorDark), var(--themeColorLight));
   opacity: 0.8;
   border-radius: 5px;
   margin-bottom: 2px;
   transition: 0.1s;
 }
 #sidebar-header button i:hover {
-  color: var(--onBackgroundColor);
+  color: light-dark(var(--themeColorDark), var(--onBackgroundColor));
 }
 
 #page-control {
@@ -89,7 +83,14 @@ body {
   width: 100%;
   flex-direction: row;
   justify-content: flex-end;
-  gap: 7px;
+  gap: 12px;
+}
+#page-control button i {
+  font-size: 16px;
+  opacity: 0.8;
+}
+#page-control button i:hover {
+  opacity: 1;
 }
 
 #action-buttons {
@@ -99,6 +100,7 @@ body {
 }
 #action-buttons button i {
   opacity: 0.5;
+  font-size: 15px;
 }
 #action-buttons button i:hover {
   opacity: 0.9;
@@ -112,8 +114,7 @@ body {
   padding: 12px;
   width: 100%;
   border-radius: 14px;
-  color: var(--onBackgroundColor) !important;
-  background: rgba(209, 209, 209, 0.0745098039) !important;
+  background: light-dark(rgba(90, 101, 153, 0.1), rgba(209, 209, 209, 0.0745098039)) !important;
   transition: scale 0.1s;
 }
 .address-bar:active {
@@ -124,7 +125,6 @@ body {
   border: none;
   width: 100%;
   font-size: 15px;
-  color: var(--onBackgroundColor);
   text-decoration: none;
   background: none;
   outline: none;
@@ -143,6 +143,32 @@ body {
   background: var(--outlineColor);
 }
 
+body #separator span {
+  opacity: 0;
+  position: absolute;
+  margin-top: -6px;
+  background: var(--sidebarColor1);
+  right: 0;
+  margin-right: -3px;
+  padding-left: 8px;
+  transition: 0.1s;
+  color: light-dark(rgba(0, 0, 0, 0.7), rgba(255, 255, 255, 0.7));
+}
+body #separator span i {
+  margin-right: 5px;
+  transition: 0.1s;
+}
+body:hover #separator span {
+  opacity: 1;
+  margin-right: 0;
+}
+body:hover #separator span:hover {
+  color: light-dark(black, white);
+}
+body:hover #separator span:active i {
+  transform: translateY(2px);
+}
+
 #sidebar-content ul {
   display: flex;
   flex-direction: column;
@@ -157,29 +183,31 @@ body {
   display: flex;
   position: relative;
   align-items: center;
-  height: 40px;
-  padding: 10px;
+  height: 38px;
+  padding: 0px 10px;
   width: 100%;
   border-radius: 12px;
-  color: var(--onBackgroundColor);
   transition: scale 0.2s;
+  gap: 10px;
 }
 #sidebar-content ul li:hover {
-  background: rgba(0, 0, 0, 0.1411764706);
+  background: light-dark(rgba(0, 0, 0, 0.0549019608), rgba(0, 0, 0, 0.1411764706));
 }
 #sidebar-content ul li.active {
-  background-color: rgba(255, 255, 255, 0.1215686275);
+  background: light-dark(white, rgba(255, 255, 255, 0.1215686275));
 }
 #sidebar-content ul li.active:hover {
-  background-color: rgba(255, 255, 255, 0.1725490196);
+  background: light-dark(white, rgba(255, 255, 255, 0.1725490196));
 }
 #sidebar-content ul li:active {
   scale: 0.97;
 }
 #sidebar-content ul li img {
-  margin-right: 10px;
   width: 16px;
   pointer-events: none;
+}
+#sidebar-content ul li i.fa-volume-high {
+  font-size: 10px;
 }
 
 .tab-title {
@@ -191,8 +219,7 @@ body {
 }
 
 .fa-globe {
-  margin-right: 10px;
-  font-size: 20px;
+  font-size: 16px;
 }
 
 #sidebar-content button#new-tab-button {
@@ -210,10 +237,14 @@ body {
 }
 #sidebar-content button#new-tab-button:hover {
   background-color: rgba(255, 255, 255, 0.1294117647);
-  color: white;
+  color: light-dark(black, white);
 }
 #sidebar-content button#new-tab-button:active {
   scale: 0.97;
+}
+#sidebar-content button#new-tab-button i {
+  margin: 0 2px;
+  margin-right: 4px;
 }
 #sidebar-content button#new-tab-button span {
   opacity: 0;
@@ -231,7 +262,6 @@ body {
 #sidebar-content ul li:hover button {
   display: block;
   background: transparent;
-  color: #fff;
   margin-left: auto;
   border-radius: 7px;
   padding: 3px 8px;
@@ -271,17 +301,6 @@ div#space-info input {
   background: var(--sidebarFooterBackground);
   padding: 18px;
   z-index: 1;
-}
-
-.footer::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 50%;
-  width: 90%;
-  height: 1px;
-  background: var(--outlineColor);
-  transform: translateX(-50%);
 }
 
 .footer button {
@@ -348,11 +367,10 @@ div#favorites:empty {
   transition: 0.2s;
 }
 div#favorites:empty:-moz-drag-over {
-  margin-top: 5px;
+  margin-top: 8px;
   background: rgba(255, 255, 255, 0.07);
   border-radius: 18px;
   text-align: center;
-  margin-top: 10px;
   padding: 10px;
   border: 2px solid var(--outlineColor);
   border-style: dashed;
@@ -360,12 +378,11 @@ div#favorites:empty:-moz-drag-over {
   transform: translateY(0px);
 }
 div#favorites:empty:-moz-drag-over::after {
-  color: white;
   content: "Quickly access your most viewed websites by dragging them here";
 }
 
-button.favorite {
-  background: rgba(209, 209, 209, 0.0745098039) !important;
+div#favorites button {
+  background: light-dark(rgba(90, 101, 153, 0.1), rgba(209, 209, 209, 0.0745098039)) !important;
   border-radius: 12px !important;
   height: 45px;
   width: 100%;
@@ -375,17 +392,17 @@ button.favorite {
   transition: background 0.1s, scale 0.2s;
   animation: favoritespawn 0.2s;
 }
-button.favorite:hover {
-  background: rgba(192, 192, 192, 0.137254902) !important;
+div#favorites button:hover {
+  background: light-dark(rgba(90, 101, 153, 0.15), rgba(192, 192, 192, 0.137254902)) !important;
 }
-button.favorite:active {
+div#favorites button:active {
   scale: 0.97;
 }
-button.favorite[aria-label=favopen] {
-  background: rgba(199, 199, 199, 0.262745098) !important;
+div#favorites button.active {
+  background: light-dark(white, rgba(199, 199, 199, 0.262745098)) !important;
 }
-button.favorite img {
-  width: 20px;
+div#favorites button img {
+  width: 17px;
   position: relative;
   top: 10%;
   pointer-events: none;
@@ -395,6 +412,30 @@ a {
   color: var(--themeColorLight) !important;
 }
 
+@media (prefers-color-scheme: light) {
+  :root {
+    --sidebarColor1: #dadce5;
+    --sidebarColor2: #dadce5;
+    --themeColorLight: black;
+    --themeColorDark: #505a89;
+    --outlineColor: #3232322f;
+  }
+  #sidebar-content ul li.active {
+    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.211);
+  }
+  div#favorites button.active {
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.211);
+  }
+  #action-buttons button i {
+    opacity: 0.3;
+  }
+  #sidebar-content ul li.active:hover button:hover {
+    background: rgba(0, 0, 0, 0.2);
+  }
+  button#new-tab-button:hover {
+    background: rgba(0, 0, 0, 0.07) !important;
+  }
+}
 @keyframes divspawn {
   from {
     opacity: 0;
