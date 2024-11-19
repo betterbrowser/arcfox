@@ -17,9 +17,11 @@ browser {
     #{darken($sidebarColor1, 10%)},
     #{darken($sidebarColor2, 10%)}
   );
+  border-radius: 6px;
 }
 
 .browserStack {
+  padding: 10px;
   background: linear-gradient(#{$sidebarColor1}, #{$sidebarColor2});
 }
 
@@ -111,6 +113,7 @@ toolbarbutton[open="true"] {
   min-height: unset !important;
   max-height: unset !important;
   border-right: none !important;
+  background-color: $sidebarColor1 !important;
 }
 
 #sidebar-splitter {

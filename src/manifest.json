@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "ArcFox",
-  "version": "2.5.3",
+  "version": "2.5.4",
   "description": "Make firefox flow like arc.",
   "icons": {
     "48": "icon.png"

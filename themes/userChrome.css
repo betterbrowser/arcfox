@@ -5,9 +5,11 @@
 
 browser {
   background: linear-gradient(#262834, #262834);
+  border-radius: 6px;
 }
 
 .browserStack {
+  padding: 10px;
   background: linear-gradient(#3b3f52, #3b3f52);
 }
 
@@ -96,6 +98,7 @@ toolbarbutton[open=true] {
   min-height: unset !important;
   max-height: unset !important;
   border-right: none !important;
+  background-color: #3b3f52 !important;
 }
 
 #sidebar-splitter {
