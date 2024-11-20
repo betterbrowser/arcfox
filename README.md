@@ -2,7 +2,7 @@
   <a href="#">
   </a>
   <p align="center">
-   <img width="150" height="150" src="public/media/icon.png" alt="Logo">
+   <img width="150" height="150" src="public/media/icon.png" alt="ArcFox Icon">
   </p>
   <h1 align="center"><b>ArcFox</b></h1>
   <p align="center">
@@ -13,17 +13,17 @@
   </p>
 </p>
 
->Arcfox is a side-project under slow development.
+<img src="public/media/screenshot.png"/>
 
-Please refer to the [roadmap](https://github.com/orgs/betterbrowser/projects/2/views/3) to check the development or our [discord](https://discord.gg/jDASpgt68t) for helps and leaks :D
+> Arcfox is a side-project under slow development.
 
 # What is ArcFox?
 
-<img src="public/media/screenshot.png"/>
-
-ArcFox is a pack of firefox improvements that brings the appearance and some of the features of arc browser to firefox. Developed by a non-profit community of passionate browser enthusiats, arcfox is the replica never knew it would have.
+ArcFox is a pack of firefox improvements that brings the appearance and some of the features of arc browser to firefox. Developed by a non-profit community of passionate browser enthusiats to let people experience arc through their favorite browser.
 
 > I really recomend you to give a try on arc browser anyways.
+
+Please refer to the [roadmap](https://github.com/orgs/betterbrowser/projects/2/views/3) to check the development or our [discord](https://discord.gg/jDASpgt68t) for helps and leaks :D
 
 # Installation
 - Download the extension [here](https://addons.mozilla.org/firefox/addon/arcfox/)
