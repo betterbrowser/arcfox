@@ -13,7 +13,7 @@
   </p>
 </p>
 
-<img src="public/media/screenshot.png"/>
+<img src="public/media/screenshot.png" width="100%"/>
 
 > Arcfox is a side-project under slow development.
 
