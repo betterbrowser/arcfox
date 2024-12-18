@@ -26,18 +26,18 @@ ArcFox is a pack of firefox improvements that brings the appearance and some of 
 Please refer to the [roadmap](https://github.com/orgs/betterbrowser/projects/2/views/3) to check the development or our [discord](https://discord.gg/jDASpgt68t) for helps and leaks :D
 
 # Installation
-- Download the extension [here](https://addons.mozilla.org/firefox/addon/arcfox/)
-- Remember to check "allow this extension to open in private tabs"
-- Digit <a href="about:config">"about:config"</a> on the url bar and press enter.
-- Accept the terms and conditions.
-- Search for "toolkit.legacyUserProfileCustomizations.stylesheets" and set the value to "true".
-- Digit <a href="about:support">"about:support"</a> on the url bar and click on “Open Folder” at "Profile Folder".
-- Inside your Profile Folder, search for a folder called "chrome", if you don't find it, create one.
-- Inside your chrome folder, drop the "userChrome.css" file on <a href="https://github.com/betterbrowser/arcfox/releases">releases.</a>
+- Download the extension from [the Firefox Add-ons page](https://addons.mozilla.org/firefox/addon/arcfox/).
+- Remember to check **Run in Private Windows**.
+- Type <a href="about:config">"about:config"</a> in the url bar and press enter.
+- Click on **Accept the Risk and Continue**.
+- Search for `toolkit.legacyUserProfileCustomizations.stylesheets` and set the value to `true`.
+- Type <a href="about:support">"about:support"</a> in the url bar and click on **Open Directory** at **Profile Directory**.
+- Inside your Profile Directory, search for a folder called `chrome`. If you don't find it, create one.
+- Inside your `chrome` folder, drop <a href="https://github.com/betterbrowser/arcfox/releases/latest/download/userChrome.css">the `userChrome.css` file of the latest release</a>.
 - Re-open Firefox.
 
 # Removing ArcFox
-- Remove `(Firefox Profile)/chrome/userchrome.css`.
+- Remove `(Firefox Profile)/chrome/userChrome.css`.
 - Remove the 'ArcFox' extension from Firefox.
 - Re-open Firefox and it should be gone.
 - Be happy with your now boring and unproductive Firefox!
