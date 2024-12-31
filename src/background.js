@@ -9,6 +9,11 @@ function handleShortcut(command) {
     }
 }
 
+// Make the extension open when i click on the icon
+browser.browserAction.onClicked.addListener(function () {
+    browser.sidebarAction.open();
+});
+
 browser.commands.onCommand.addListener(handleShortcut);
 
 // Remove X-frame headers - required for Peek to work
