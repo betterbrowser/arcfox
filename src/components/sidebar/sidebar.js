@@ -3,6 +3,17 @@ let tabs = [];
 let activeTab = null;
 let favorites, openedFavorites = []
 
+// new show tabs function
+//function showTabs(tabs) {
+//  const tabList = document.getElementById("tab-list");
+//  tabList.innerHTML = "";
+//  tabs.forEach((tab) => {
+//    const tabItem = document.createElement("li");
+//    tabItem.textContent = tab.title;
+//    tabList.appendChild(tabItem);
+//  });
+//}
+
 const searchInput = document.getElementById("search-input");
 const tabList = document.getElementById("tab-list");
 const newTabButton = document.getElementById("new-tab-button");
@@ -14,7 +25,7 @@ newTabButton.addEventListener("click", () =>
   newTab()
 );
 
-// Put space name on browser storeage
+// Put space name on browser storage
 spaceName.addEventListener('change', () => {
   spaceName.blur()
   browser.storage.local.set({ 'spaceName': spaceName.value })
